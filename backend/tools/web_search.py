@@ -1,11 +1,6 @@
 """
 Web Search Tool - Agent-agnostic web search using Serper API
-
-This tool provides:
-- Web search via Serper API
-- Result storage in ChromaDB vector store
-- Semantic search over stored results
-- Query extraction from user messages
+WITH FIXED PATH RESOLUTION
 """
 import os
 import uuid
@@ -27,6 +22,13 @@ except ImportError:
     logging.warning("ChromaDB not available. Install with: pip install chromadb")
 
 logger = logging.getLogger(__name__)
+
+
+def get_project_root() -> Path:
+    """Get the project root directory (backend/)"""
+    # This file is in backend/tools/web_search.py
+    # Go up two levels to get to backend/
+    return Path(__file__).parent.parent
 
 
 class SerperService:
@@ -122,21 +124,38 @@ class SerperService:
 class VectorStoreService:
     """Service for managing conversation-specific vector stores for web search results"""
     
-    def __init__(self, storage_dir: str = "vector_stores"):
+    def __init__(self, storage_dir: Optional[str] = None):
         """
         Initialize vector store service
         
         Args:
-            storage_dir: Directory for persistent storage
+            storage_dir: Directory for persistent storage (relative to project root)
         """
         if not CHROMADB_AVAILABLE:
             logger.error("ChromaDB not available. Vector storage disabled.")
             self.client = None
             return
         
-        # Create vector store directory
-        self.vector_store_dir = Path(storage_dir)
-        self.vector_store_dir.mkdir(exist_ok=True)
+        # Resolve storage directory path
+        if storage_dir:
+            # If absolute path, use it
+            if os.path.isabs(storage_dir):
+                self.vector_store_dir = Path(storage_dir)
+            else:
+                # Relative to project root (backend/)
+                self.vector_store_dir = get_project_root() / storage_dir
+        else:
+            # Default: backend/vector_stores
+            self.vector_store_dir = get_project_root() / "vector_stores"
+        
+        # Create directory if it doesn't exist
+        try:
+            self.vector_store_dir.mkdir(parents=True, exist_ok=True)
+            logger.info(f"Vector store directory: {self.vector_store_dir.resolve()}")
+        except Exception as e:
+            logger.error(f"Failed to create vector store directory: {e}")
+            self.client = None
+            return
         
         try:
             # Initialize ChromaDB client
@@ -147,9 +166,10 @@ class VectorStoreService:
                     anonymized_telemetry=False
                 )
             )
-            logger.info(f"ChromaDB initialized at {self.vector_store_dir}")
+            logger.info(f"✅ ChromaDB initialized at {self.vector_store_dir}")
         except Exception as e:
             logger.error(f"Failed to initialize ChromaDB: {e}")
+            logger.error(f"   Attempted path: {self.vector_store_dir}")
             self.client = None
         
         # Track collections per conversation
@@ -439,15 +459,20 @@ class WebSearchTool:
     Orchestrates query extraction, web search, and vector storage
     """
     
-    def __init__(self, api_key: Optional[str] = None, storage_dir: str = "vector_stores"):
+    def __init__(self, api_key: Optional[str] = None, storage_dir: Optional[str] = None):
         """
         Initialize web search tool
         
         Args:
             api_key: Serper API key (optional, defaults to env)
-            storage_dir: Directory for vector store persistence
+            storage_dir: Directory for vector store (optional, defaults to backend/vector_stores)
         """
         self.serper = SerperService(api_key=api_key)
+        
+        # Get storage directory from env or use default
+        if storage_dir is None:
+            storage_dir = os.getenv("VECTOR_STORES_DIR", "vector_stores")
+        
         self.vector_store = VectorStoreService(storage_dir=storage_dir)
         self.query_extractor = QueryExtractor()
         
@@ -459,9 +484,11 @@ class WebSearchTool:
         if not self.is_configured():
             logger.warning("Web search not fully configured:")
             if not self.serper.is_configured():
-                logger.warning("  - Serper API key missing")
+                logger.warning("  - Serper API key missing (set SERPER_API_KEY)")
             if not self.vector_store.is_available():
-                logger.warning("  - Vector store not available")
+                logger.warning("  - Vector store not available (install chromadb)")
+        else:
+            logger.info("✅ Web search fully configured and ready")
     
     def is_configured(self) -> bool:
         """Check if tool is ready to use"""
@@ -648,5 +675,6 @@ class WebSearchTool:
         return {
             "serper_configured": self.serper.is_configured(),
             "vector_store_available": self.vector_store.is_available(),
+            "vector_store_path": str(self.vector_store.vector_store_dir) if self.vector_store.is_available() else None,
             "overall_ready": self.is_configured()
         }

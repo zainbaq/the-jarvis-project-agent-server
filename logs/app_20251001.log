@@ -491,3 +491,403 @@
 2025-10-01 00:20:27 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
 2025-10-01 00:20:27 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
 2025-10-01 00:20:27 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:26:45 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:26:45 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:26:45 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:26:45 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-10-01 00:26:46 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:26:46 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:26:46 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:26:46 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:26:46 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:26:46 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:26:46 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:26:46 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:26:46 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:26:46 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:26:46 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:26:46 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:77] - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:42] - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:124] - 🔄 Initializing agent registry...
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:173] - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:178] -    Found 6 agent configurations
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:134] - 📄 Loaded 6 agent configurations from file
+2025-10-01 00:26:46 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: gpt4_assistant (openai)
+2025-10-01 00:26:46 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:26:46 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: gpt35_turbo (openai)
+2025-10-01 00:26:46 - agents.endpoint_agent - INFO - [endpoint_agent.py:101] - ✅ Initialized EndpointAgent 'azure_gpt4' (endpoint: https://your-resource.openai.azure.com/openai/deployments/, model: gpt-4)
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: azure_gpt4 (endpoint)
+2025-10-01 00:26:46 - agents.endpoint_agent - INFO - [endpoint_agent.py:101] - ✅ Initialized EndpointAgent 'custom_llm' (endpoint: https://your-custom-endpoint.com/v1, model: custom-model)
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: custom_llm (endpoint)
+2025-10-01 00:26:46 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'code_assistant' with model gpt-4
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: code_assistant (openai)
+2025-10-01 00:26:46 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:271] - ✅ Created agent: developer_workflow (langgraph)
+2025-10-01 00:26:46 - agents.registry - INFO - [registry.py:154] - ✅ Initialized 6/6 agents
+2025-10-01 00:26:46 - app - INFO - [app.py:44] - ✅ Loaded 6 agents
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - Azure GPT-4 (azure_gpt4) - endpoint
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - Custom LLM Endpoint (custom_llm) - endpoint
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - Code Assistant (code_assistant) - openai
+2025-10-01 00:26:46 - app - INFO - [app.py:48] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-10-01 00:26:46 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:26:46 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:26:46 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: 7dfcbd78]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: 7dfcbd78] Status: 200 Duration: 0.002s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: 88b84167]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: 88b84167] Status: 200 Duration: 0.002s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: 2bd9b477]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: 2bd9b477] Status: 200 Duration: 0.003s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 3c86abb3]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 3c86abb3] Status: 307 Duration: 0.001s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 4e41b407]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 4e41b407] Status: 200 Duration: 0.001s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 27229d60]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 27229d60] Status: 307 Duration: 0.002s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 375044b9]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 375044b9] Status: 200 Duration: 0.052s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 5d024340]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 5d024340] Status: 307 Duration: 0.001s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 10f90caa]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 10f90caa] Status: 200 Duration: 0.001s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt4_assistant [ID: 6c8d6d25]
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt4_assistant [ID: 6c8d6d25] Status: 200 Duration: 0.001s
+2025-10-01 00:27:07 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/test [ID: 9d668f66]
+2025-10-01 00:27:08 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 39)
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/test [ID: 9d668f66] Status: 200 Duration: 0.944s
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/tools/status [ID: 5894a8d7]
+2025-10-01 00:27:08 - tools.web_search - INFO - [web_search.py:154] - Vector store directory: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-10-01 00:27:08 - chromadb.config - DEBUG - [config.py:359] - Starting component System
+2025-10-01 00:27:08 - chromadb.config - DEBUG - [config.py:359] - Starting component Posthog
+2025-10-01 00:27:08 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores')}
+2025-10-01 00:27:08 - tools.web_search - INFO - [web_search.py:169] - ✅ ChromaDB initialized at /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-10-01 00:27:08 - tools.web_search - INFO - [web_search.py:479] - WebSearchTool initialized
+2025-10-01 00:27:08 - tools.web_search - INFO - [web_search.py:491] - ✅ Web search fully configured and ready
+2025-10-01 00:27:08 - agent_manager - INFO - [agent_manager.py:62] - AgentManager initialized. Available tools: {'web_search': True}
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/tools/status [ID: 5894a8d7] Status: 200 Duration: 0.129s
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/tools/test [ID: 24b9bd07]
+2025-10-01 00:27:08 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 24b9bd07]: 404 - Agent tools not found
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/tools/test [ID: 24b9bd07] Status: 404 Duration: 0.000s
+2025-10-01 00:27:08 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 5d78f1d9]
+2025-10-01 00:27:08 - watchfiles.main - DEBUG - [main.py:306] - 3 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal')}
+2025-10-01 00:27:10 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 61)
+2025-10-01 00:27:10 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 5d78f1d9] Status: 200 Duration: 1.571s
+2025-10-01 00:27:10 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 04f5fec3]
+2025-10-01 00:27:10 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 46)
+2025-10-01 00:27:10 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 04f5fec3] Status: 200 Duration: 0.799s
+2025-10-01 00:27:10 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 511d49fe]
+2025-10-01 00:27:12 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 83)
+2025-10-01 00:27:13 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 511d49fe] Status: 200 Duration: 2.136s
+2025-10-01 00:27:13 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: bb1fe3ae]
+2025-10-01 00:27:13 - agent_manager - INFO - [agent_manager.py:181] - Executing web search for conversation search_test_1
+2025-10-01 00:27:13 - tools.web_search - INFO - [web_search.py:534] - Extracted queries: ['What are the latest developments in artificial intelligence in 2024', 'what latest developments artificial intelligence latest 2024', 'What are the latest guide tutorial']
+2025-10-01 00:27:13 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:14 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4407
+2025-10-01 00:27:14 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the latest developments in artificial int...'
+2025-10-01 00:27:14 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:15 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4214
+2025-10-01 00:27:15 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'what latest developments artificial intelligence l...'
+2025-10-01 00:27:15 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:16 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3295
+2025-10-01 00:27:16 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the latest guide tutorial...'
+2025-10-01 00:27:16 - tools.web_search - INFO - [web_search.py:213] - Created new collection: search_search_test_1
+2025-10-01 00:27:16 - watchfiles.main - DEBUG - [main.py:306] - 2 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal')}
+2025-10-01 00:27:17 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:17 - tools.web_search - INFO - [web_search.py:289] - Added 9 search results to vector store
+2025-10-01 00:27:17 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:17 - watchfiles.main - DEBUG - [main.py:306] - 7 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/06b3f084-c258-4aa6-849b-21f4362221fc/data_level0.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/06b3f084-c258-4aa6-849b-21f4362221fc/link_lists.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/06b3f084-c258-4aa6-849b-21f4362221fc/header.bin'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/06b3f084-c258-4aa6-849b-21f4362221fc/length.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/06b3f084-c258-4aa6-849b-21f4362221fc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal')}
+2025-10-01 00:27:21 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 561)
+2025-10-01 00:27:21 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: bb1fe3ae] Status: 200 Duration: 8.895s
+2025-10-01 00:27:21 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 2e92111a]
+2025-10-01 00:27:21 - agent_manager - INFO - [agent_manager.py:181] - Executing web search for conversation search_test_2
+2025-10-01 00:27:21 - tools.web_search - INFO - [web_search.py:534] - Extracted queries: ['What are the best practices for FastAPI development in 2024', 'what best practices fastapi development latest 2024', 'What are the best guide tutorial']
+2025-10-01 00:27:21 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:23 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3991
+2025-10-01 00:27:23 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the best practices for FastAPI developmen...'
+2025-10-01 00:27:23 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:24 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4605
+2025-10-01 00:27:24 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'what best practices fastapi development latest 202...'
+2025-10-01 00:27:24 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:25 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4071
+2025-10-01 00:27:25 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the best guide tutorial...'
+2025-10-01 00:27:25 - tools.web_search - INFO - [web_search.py:213] - Created new collection: search_search_test_2
+2025-10-01 00:27:25 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:25 - watchfiles.main - DEBUG - [main.py:306] - 2 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal')}
+2025-10-01 00:27:25 - tools.web_search - INFO - [web_search.py:289] - Added 9 search results to vector store
+2025-10-01 00:27:25 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:25 - watchfiles.main - DEBUG - [main.py:306] - 7 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/752802d5-c967-48b2-8853-726d04721b58/data_level0.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/752802d5-c967-48b2-8853-726d04721b58/header.bin'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/752802d5-c967-48b2-8853-726d04721b58/length.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/752802d5-c967-48b2-8853-726d04721b58'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/752802d5-c967-48b2-8853-726d04721b58/link_lists.bin')}
+2025-10-01 00:27:30 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 640)
+2025-10-01 00:27:30 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 2e92111a] Status: 200 Duration: 8.934s
+2025-10-01 00:27:30 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: b20ff685]
+2025-10-01 00:27:30 - agent_manager - INFO - [agent_manager.py:181] - Executing web search for conversation search_test_3
+2025-10-01 00:27:30 - tools.web_search - INFO - [web_search.py:534] - Extracted queries: ['How does vector database technology compare to traditional databases for AI applications', 'does vector database technology compare traditional latest 2024', 'How does vector database guide tutorial']
+2025-10-01 00:27:30 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:31 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4437
+2025-10-01 00:27:31 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'How does vector database technology compare to tra...'
+2025-10-01 00:27:31 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:32 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3774
+2025-10-01 00:27:32 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'does vector database technology compare traditiona...'
+2025-10-01 00:27:32 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:33 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3129
+2025-10-01 00:27:33 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'How does vector database guide tutorial...'
+2025-10-01 00:27:33 - tools.web_search - INFO - [web_search.py:213] - Created new collection: search_search_test_3
+2025-10-01 00:27:33 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:33 - watchfiles.main - DEBUG - [main.py:306] - 2 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal')}
+2025-10-01 00:27:34 - tools.web_search - INFO - [web_search.py:289] - Added 9 search results to vector store
+2025-10-01 00:27:34 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - DEBUG - [onnx_mini_lm_l6_v2.py:227] - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-10-01 00:27:34 - watchfiles.main - DEBUG - [main.py:306] - 7 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/34f1e46d-a4a8-4f1b-aeb8-090c40e71002/data_level0.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/34f1e46d-a4a8-4f1b-aeb8-090c40e71002/length.bin'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/34f1e46d-a4a8-4f1b-aeb8-090c40e71002/link_lists.bin'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/34f1e46d-a4a8-4f1b-aeb8-090c40e71002'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores/34f1e46d-a4a8-4f1b-aeb8-090c40e71002/header.bin')}
+2025-10-01 00:27:38 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 643)
+2025-10-01 00:27:38 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: b20ff685] Status: 200 Duration: 7.813s
+2025-10-01 00:27:38 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: af9c3368]
+2025-10-01 00:27:39 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt35_turbo' completed query (tokens: 154)
+2025-10-01 00:27:39 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: af9c3368] Status: 200 Duration: 0.994s
+2025-10-01 00:27:39 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: 6b535344]
+2025-10-01 00:27:50 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'code_assistant' completed query (tokens: 479)
+2025-10-01 00:27:50 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: 6b535344] Status: 200 Duration: 10.431s
+2025-10-01 00:27:50 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/azure_gpt4/chat [ID: 07bc41b9]
+2025-10-01 00:27:50 - agent_manager - INFO - [agent_manager.py:181] - Executing web search for conversation None
+2025-10-01 00:27:50 - tools.web_search - INFO - [web_search.py:534] - Extracted queries: ['What are the benefits of using Azure OpenAI Service', 'what benefits using azure openai service latest 2024', 'What are the benefits guide tutorial']
+2025-10-01 00:27:50 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:50 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4998
+2025-10-01 00:27:50 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the benefits of using Azure OpenAI Servic...'
+2025-10-01 00:27:51 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:52 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4010
+2025-10-01 00:27:52 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'what benefits using azure openai service latest 20...'
+2025-10-01 00:27:52 - urllib3.connectionpool - DEBUG - [connectionpool.py:1049] - Starting new HTTPS connection (1): google.serper.dev:443
+2025-10-01 00:27:52 - urllib3.connectionpool - DEBUG - [connectionpool.py:544] - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3420
+2025-10-01 00:27:52 - tools.web_search - INFO - [web_search.py:110] - Serper: Retrieved 3 results for query: 'What are the benefits guide tutorial...'
+2025-10-01 00:27:53 - tools.web_search - ERROR - [web_search.py:590] - Error in search_and_store: expected string or bytes-like object, got 'NoneType'
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 566, in search_and_store
+    vector_stored = self.vector_store.add_search_results(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 242, in add_search_results
+    collection = self._get_or_create_collection(conversation_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 196, in _get_or_create_collection
+    collection_name = self._get_collection_name(conversation_id)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 188, in _get_collection_name
+    clean_id = re.sub(r'[^a-zA-Z0-9_]', '_', conversation_id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/re/__init__.py", line 185, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'
+2025-10-01 00:27:53 - agents.endpoint_agent - DEBUG - [endpoint_agent.py:165] - Prepared 2 messages (0 history, estimated 28 tokens)
+2025-10-01 00:27:54 - agents.endpoint_agent - ERROR - [endpoint_agent.py:275] - ❌ Error querying EndpointAgent 'azure_gpt4': Connection error.
+2025-10-01 00:27:54 - agent_manager - ERROR - [agent_manager.py:367] - Error querying standard agent: Query failed: Connection error.
+Traceback (most recent call last):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_backends/anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1529, in request
+    response = await self._client.send(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agents/endpoint_agent.py", line 227, in query
+    completion = await self.client.chat.completions.create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1561, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agent_manager.py", line 353, in _query_standard_agent
+    result = await agent.query(
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agents/endpoint_agent.py", line 276, in query
+    raise RuntimeError(f"Query failed: {str(e)}")
+RuntimeError: Query failed: Connection error.
+2025-10-01 00:27:54 - routers.agents - ERROR - [agents.py:108] - Error in chat with agent azure_gpt4: Query failed: Connection error.
+Traceback (most recent call last):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_backends/anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1529, in request
+    response = await self._client.send(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agents/endpoint_agent.py", line 227, in query
+    completion = await self.client.chat.completions.create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/miniconda3/envs/the-jarvis-project-agent-server/lib/python3.11/site-packages/openai/_base_client.py", line 1561, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/routers/agents.py", line 88, in chat_with_agent
+    result = await agent_manager.process_query(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agent_manager.py", line 118, in process_query
+    response = await self._query_standard_agent(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agent_manager.py", line 353, in _query_standard_agent
+    result = await agent.query(
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/agents/endpoint_agent.py", line 276, in query
+    raise RuntimeError(f"Query failed: {str(e)}")
+RuntimeError: Query failed: Connection error.
+2025-10-01 00:27:54 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 07bc41b9]: 500 - Error processing chat: Query failed: Connection error.
+2025-10-01 00:27:54 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/azure_gpt4/chat [ID: 07bc41b9] Status: 500 Duration: 4.426s
+2025-10-01 00:27:54 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 758c45a1]
+2025-10-01 00:28:11 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 518)
+2025-10-01 00:28:11 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 758c45a1] Status: 200 Duration: 17.346s
+2025-10-01 00:28:11 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 899aa17c]
+2025-10-01 00:28:14 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 91)
+2025-10-01 00:28:14 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 899aa17c] Status: 200 Duration: 2.752s
+2025-10-01 00:28:14 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 5e221015]
+2025-10-01 00:28:14 - agents.langgraph_agent - INFO - [langgraph_agent.py:142] - 🔄 Executing LangGraph workflow 'developer_workflow' with task: Create a simple Python FastAPI application with a single endpoint that returns 'Hello World'...
+2025-10-01 00:29:19 - agents.langgraph_agent - INFO - [langgraph_agent.py:163] - ✅ Workflow 'developer_workflow' completed in 64.31s
+2025-10-01 00:29:19 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 5e221015] Status: 200 Duration: 64.323s
+2025-10-01 00:29:19 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: ed407835]
+2025-10-01 00:29:19 - agents.langgraph_agent - INFO - [langgraph_agent.py:142] - 🔄 Executing LangGraph workflow 'developer_workflow' with task: Create a REST API for a todo list application with FastAPI, including endpoints for create, read, up...
+2025-10-01 00:31:43 - agents.langgraph_agent - INFO - [langgraph_agent.py:163] - ✅ Workflow 'developer_workflow' completed in 144.75s
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: ed407835] Status: 200 Duration: 144.761s
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt4_assistant/conversations/test_conv_19 [ID: 577d554f]
+2025-10-01 00:31:43 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 577d554f]: 404 - Conversation test_conv_19 not found
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt4_assistant/conversations/test_conv_19 [ID: 577d554f] Status: 404 Duration: 0.001s
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/invalid_agent_id [ID: 1aee9a15]
+2025-10-01 00:31:43 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 1aee9a15]: 404 - Agent invalid_agent_id not found
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/invalid_agent_id [ID: 1aee9a15] Status: 404 Duration: 0.009s
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 4b5ffff6]
+2025-10-01 00:31:43 - middleware - WARNING - [middleware.py:105] - Validation error [ID: 4b5ffff6]: [{'type': 'missing', 'loc': ('body', 'message'), 'msg': 'Field required', 'input': {'invalid_field': 'test'}}]
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 4b5ffff6] Status: 422 Duration: 0.003s
+2025-10-01 00:31:43 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 1ee9bf13]
+2025-10-01 00:31:45 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 41)
+2025-10-01 00:31:45 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 1ee9bf13] Status: 200 Duration: 1.117s
+2025-10-01 00:33:37 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:33:37 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:33:37 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:33:37 - agents.registry - INFO - [registry.py:309] - 🧹 Cleaning up agent registry...
+2025-10-01 00:33:37 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-10-01 00:33:37 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-10-01 00:33:37 - agents.endpoint_agent - INFO - [endpoint_agent.py:284] - 🧹 Cleaned up EndpointAgent 'azure_gpt4'
+2025-10-01 00:33:37 - agents.endpoint_agent - INFO - [endpoint_agent.py:284] - 🧹 Cleaned up EndpointAgent 'custom_llm'
+2025-10-01 00:33:37 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'code_assistant'
+2025-10-01 00:33:37 - agents.langgraph_agent - INFO - [langgraph_agent.py:213] - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-10-01 00:33:37 - agents.registry - INFO - [registry.py:319] - ✅ Agent registry cleaned up
+2025-10-01 00:33:37 - app - INFO - [app.py:61] - ✅ Cleanup complete

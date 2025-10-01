@@ -1,5 +1,5 @@
 """
-Agent registry for managing all available agents - WITH ENDPOINT AGENT SUPPORT
+Agent registry for managing all available agents - WITH BETTER PATH RESOLUTION
 """
 import logging
 import json
@@ -11,7 +11,7 @@ from pathlib import Path
 from agents.base import BaseAgent
 from agents.openai_agent import OpenAIAgent
 from agents.langgraph_agent import LangGraphAgent
-from agents.endpoint_agent import EndpointAgent  # NEW
+from agents.endpoint_agent import EndpointAgent
 from models.responses import AgentInfo, AgentType
 
 logger = logging.getLogger(__name__)
@@ -34,9 +34,57 @@ class AgentRegistry:
         Args:
             config_path: Path to agents configuration file (JSON)
         """
-        self.config_path = config_path or "config/agents.json"
+        self.config_path = self._resolve_config_path(config_path or "config/agents.json")
         self.agents: Dict[str, BaseAgent] = {}
         self._initialized = False
+        
+        # Log the resolved path
+        logger.info(f"Agent config path: {self.config_path}")
+    
+    def _resolve_config_path(self, config_path: str) -> str:
+        """
+        Resolve config path, checking multiple possible locations
+        
+        Args:
+            config_path: Initial config path
+            
+        Returns:
+            Resolved absolute path to config file
+        """
+        # If absolute path provided, use it
+        if os.path.isabs(config_path):
+            return config_path
+        
+        # Get the directory where this file (registry.py) is located
+        current_file_dir = Path(__file__).parent
+        project_root = current_file_dir.parent  # Go up one level from agents/ to backend/
+        
+        # Try multiple possible locations
+        possible_paths = [
+            # 1. Relative to current working directory
+            Path(config_path),
+            # 2. Relative to project root (backend/)
+            project_root / config_path,
+            # 3. In case they're running from parent directory
+            Path.cwd() / "backend" / config_path,
+            # 4. Absolute path from project root
+            project_root / "config" / "agents.json",
+        ]
+        
+        for path in possible_paths:
+            if path.exists():
+                resolved = str(path.resolve())
+                logger.info(f"✅ Found config file at: {resolved}")
+                return resolved
+        
+        # If none found, return the first attempted path and log warning
+        logger.warning(f"⚠️  Config file not found. Tried locations:")
+        for i, path in enumerate(possible_paths, 1):
+            logger.warning(f"   {i}. {path.resolve()}")
+        logger.warning(f"Current working directory: {Path.cwd()}")
+        
+        # Return the most likely location (relative to project root)
+        return str((project_root / config_path).resolve())
     
     def _substitute_env_vars(self, value: any) -> any:
         """
@@ -79,8 +127,11 @@ class AgentRegistry:
         agent_configs = self._load_agent_configs()
         
         if not agent_configs:
-            logger.warning("⚠️  No agent configurations found, using defaults")
+            logger.warning("⚠️  No agent configurations found in config file")
+            logger.warning(f"⚠️  Using default configuration instead")
             agent_configs = self._get_default_configs()
+        else:
+            logger.info(f"📄 Loaded {len(agent_configs)} agent configurations from file")
         
         # Substitute environment variables in all configs
         agent_configs = self._substitute_env_vars(agent_configs)
@@ -110,24 +161,35 @@ class AgentRegistry:
         config_file = Path(self.config_path)
         
         if not config_file.exists():
-            logger.warning(f"Config file not found: {self.config_path}")
+            logger.warning(f"❌ Config file not found: {self.config_path}")
+            logger.warning(f"   Absolute path: {config_file.resolve()}")
+            logger.warning(f"   Current directory: {Path.cwd()}")
             return []
         
         try:
             with open(config_file, 'r') as f:
                 data = json.load(f)
-                
+            
+            logger.info(f"✅ Successfully loaded config file: {config_file}")
+            
             # Support both {"agents": [...]} and direct array format
             if isinstance(data, dict) and "agents" in data:
-                return data["agents"]
+                configs = data["agents"]
+                logger.info(f"   Found {len(configs)} agent configurations")
+                return configs
             elif isinstance(data, list):
+                logger.info(f"   Found {len(data)} agent configurations")
                 return data
             else:
-                logger.error(f"Invalid config format in {self.config_path}")
+                logger.error(f"❌ Invalid config format in {self.config_path}")
+                logger.error(f"   Expected {{'agents': [...]}} or [...], got {type(data)}")
                 return []
                 
+        except json.JSONDecodeError as e:
+            logger.error(f"❌ Invalid JSON in config file: {e}")
+            return []
         except Exception as e:
-            logger.error(f"Error loading agent configs: {e}", exc_info=True)
+            logger.error(f"❌ Error loading agent configs: {e}", exc_info=True)
             return []
     
     def _get_default_configs(self) -> List[Dict]:
@@ -148,8 +210,9 @@ class AgentRegistry:
                     "temperature": 0.7
                 }
             })
+            logger.info("✅ Created default OpenAI agent")
         else:
-            logger.warning("No OPENAI_API_KEY found in environment")
+            logger.warning("⚠️  No OPENAI_API_KEY found in environment")
         
         return defaults
     
