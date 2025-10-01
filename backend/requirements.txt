@@ -1,0 +1,33 @@
+# FastAPI and web server
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-multipart
+
+# OpenAI
+openai
+
+# LangGraph and LangChain
+langgraph
+langchain
+langchain-core
+langchain-openai
+
+# Utilities
+python-dotenv
+aiofiles
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+httpx
+
+# Optional: Anthropic for Claude support (future)
+# anthropic==0.18.0
+
+# Development tools
+black
+flake8
+mypy

@@ -1,0 +1,58 @@
+{
+    "agents": [
+      {
+        "agent_id": "gpt4_assistant",
+        "name": "GPT-4 Assistant",
+        "type": "openai",
+        "description": "General purpose GPT-4 conversational assistant",
+        "config": {
+          "api_key": "${OPENAI_API_KEY}",
+          "model": "gpt-4",
+          "temperature": 0.7,
+          "max_tokens": 2000,
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+        }
+      },
+      {
+        "agent_id": "gpt35_turbo",
+        "name": "GPT-3.5 Turbo",
+        "type": "openai",
+        "description": "Fast and efficient GPT-3.5 Turbo assistant",
+        "config": {
+          "api_key": "${OPENAI_API_KEY}",
+          "model": "gpt-3.5-turbo",
+          "temperature": 0.7,
+          "max_tokens": 1500,
+          "system_message": "You are a helpful and efficient AI assistant."
+        }
+      },
+      {
+        "agent_id": "code_assistant",
+        "name": "Code Assistant",
+        "type": "openai",
+        "description": "Specialized assistant for coding and technical questions",
+        "config": {
+          "api_key": "${OPENAI_API_KEY}",
+          "model": "gpt-4",
+          "temperature": 0.2,
+          "max_tokens": 3000,
+          "system_message": "You are an expert programming assistant. Provide clean, well-documented code with explanations. Focus on best practices and efficient solutions."
+        }
+      },
+      {
+        "agent_id": "developer_workflow",
+        "name": "Developer Workflow Agent",
+        "type": "langgraph",
+        "description": "LangGraph workflow for generating complete code projects with architecture, tests, and documentation",
+        "config": {
+          "workflow_module": "workflows.developer.tasks",
+          "workflow_function": "perform_task",
+          "provider": "openai",
+          "api_key": "${OPENAI_API_KEY}",
+          "model_name": "gpt-4",
+          "temperature": 0.0,
+          "recursion_limit": 100
+        }
+      }
+    ]
+  }
