@@ -1,0 +1,493 @@
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:11:13 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:11:13 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:11:13 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:11:13 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:11:13 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:11:13 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:11:13 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:11:13 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:11:13 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:11:13 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:11:13 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:11:13 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:11:13 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:11:13 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:11:14 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:11:14 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:11:14 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:11:14 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:11:14 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:11:14 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:11:14 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:11:14 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:11:14 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: 0e5c1ca5]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: 0e5c1ca5] Status: 200 Duration: 0.005s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: 93fe5073]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: 93fe5073] Status: 200 Duration: 0.002s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: 62b109c9]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: 62b109c9] Status: 200 Duration: 0.001s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 40c4f871]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 40c4f871] Status: 307 Duration: 0.001s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 59396e71]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 59396e71] Status: 200 Duration: 0.001s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 9f98439e]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 9f98439e] Status: 307 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: ce0a6542]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: ce0a6542] Status: 200 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 513b8bd4]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 513b8bd4] Status: 307 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: c72b4954]
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: c72b4954] Status: 200 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt4_assistant [ID: 762771ab]
+2025-10-01 00:11:31 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 762771ab]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt4_assistant [ID: 762771ab] Status: 404 Duration: 0.001s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/test [ID: c05aec6e]
+2025-10-01 00:11:31 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: c05aec6e]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/test [ID: c05aec6e] Status: 404 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/tools/status [ID: c9fe55f0]
+2025-10-01 00:11:31 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/vector_stores')}
+2025-10-01 00:11:31 - chromadb.config - DEBUG - [config.py:359] - Starting component System
+2025-10-01 00:11:31 - chromadb.config - DEBUG - [config.py:359] - Starting component Posthog
+2025-10-01 00:11:31 - tools.web_search - INFO - [web_search.py:150] - ChromaDB initialized at vector_stores
+2025-10-01 00:11:31 - tools.web_search - INFO - [web_search.py:454] - WebSearchTool initialized
+2025-10-01 00:11:31 - agent_manager - INFO - [agent_manager.py:62] - AgentManager initialized. Available tools: {'web_search': True}
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/tools/status [ID: c9fe55f0] Status: 200 Duration: 0.731s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/tools/test [ID: 3ee36ecd]
+2025-10-01 00:11:31 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 3ee36ecd]: 404 - Agent tools not found
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/tools/test [ID: 3ee36ecd] Status: 404 Duration: 0.000s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: f82d8bd0]
+2025-10-01 00:11:31 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: f82d8bd0]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: f82d8bd0] Status: 404 Duration: 0.001s
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 0f7e32fc]
+2025-10-01 00:11:31 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 0f7e32fc]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:31 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 0f7e32fc] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: f0bbee1d]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: f0bbee1d]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: f0bbee1d] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 629d1063]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 629d1063]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 629d1063] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 9f63e103]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 9f63e103]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 9f63e103] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - watchfiles.main - DEBUG - [main.py:306] - 3 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/vector_stores/chroma.sqlite3-journal'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/vector_stores/chroma.sqlite3')}
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: fca1f9bd]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: fca1f9bd]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: fca1f9bd] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: 316f565d]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 316f565d]: 404 - Agent gpt35_turbo not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: 316f565d] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: 7c7924ed]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 7c7924ed]: 404 - Agent code_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: 7c7924ed] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/azure_gpt4/chat [ID: 3615f10f]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 3615f10f]: 404 - Agent azure_gpt4 not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/azure_gpt4/chat [ID: 3615f10f] Status: 404 Duration: 0.002s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 015731ad]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 015731ad]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 015731ad] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 9077403c]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 9077403c]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 9077403c] Status: 404 Duration: 0.014s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 4aad1f99]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 4aad1f99]: 404 - Agent developer_workflow not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 4aad1f99] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 1f26ae5a]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 1f26ae5a]: 404 - Agent developer_workflow not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 1f26ae5a] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt4_assistant/conversations/test_conv_755 [ID: ca026760]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: ca026760]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt4_assistant/conversations/test_conv_755 [ID: ca026760] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/invalid_agent_id [ID: cd0bd8f7]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: cd0bd8f7]: 404 - Agent invalid_agent_id not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/invalid_agent_id [ID: cd0bd8f7] Status: 404 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: a9f4ad6b]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:105] - Validation error [ID: a9f4ad6b]: [{'type': 'missing', 'loc': ('body', 'message'), 'msg': 'Field required', 'input': {'invalid_field': 'test'}}]
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: a9f4ad6b] Status: 422 Duration: 0.001s
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: e4554c41]
+2025-10-01 00:11:32 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: e4554c41]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:11:32 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: e4554c41] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: 7d809dc0]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: 7d809dc0] Status: 200 Duration: 0.016s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: eecd30b2]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: eecd30b2] Status: 200 Duration: 0.002s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: 9daecae4]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: 9daecae4] Status: 200 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 1b3fda28]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 1b3fda28] Status: 307 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: bb09692d]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: bb09692d] Status: 200 Duration: 0.004s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: d18a45f1]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: d18a45f1] Status: 307 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: e5834d09]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: e5834d09] Status: 200 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 56f940c6]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 56f940c6] Status: 307 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: a02a42e2]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: a02a42e2] Status: 200 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt4_assistant [ID: 96ec9950]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 96ec9950]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt4_assistant [ID: 96ec9950] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/test [ID: e51afc10]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: e51afc10]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/test [ID: e51afc10] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/tools/status [ID: c1af5c57]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/tools/status [ID: c1af5c57] Status: 200 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/tools/test [ID: 9a53919c]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 9a53919c]: 404 - Agent tools not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/tools/test [ID: 9a53919c] Status: 404 Duration: 0.000s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 4acb7f3b]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 4acb7f3b]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 4acb7f3b] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 9c421629]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 9c421629]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 9c421629] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 4d3b93d1]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 4d3b93d1]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 4d3b93d1] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 5e828d90]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 5e828d90]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 5e828d90] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: addcdcef]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: addcdcef]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: addcdcef] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 27ca29cc]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 27ca29cc]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 27ca29cc] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: 921be18f]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 921be18f]: 404 - Agent gpt35_turbo not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: 921be18f] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: d5f3c61d]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: d5f3c61d]: 404 - Agent code_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: d5f3c61d] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/azure_gpt4/chat [ID: 547de114]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 547de114]: 404 - Agent azure_gpt4 not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/azure_gpt4/chat [ID: 547de114] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 319d181c]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 319d181c]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 319d181c] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: cea0612b]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: cea0612b]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: cea0612b] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 4c431a49]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 4c431a49]: 404 - Agent developer_workflow not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 4c431a49] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: cb271bd6]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: cb271bd6]: 404 - Agent developer_workflow not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: cb271bd6] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt4_assistant/conversations/test_conv_865 [ID: e86b6315]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: e86b6315]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt4_assistant/conversations/test_conv_865 [ID: e86b6315] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/invalid_agent_id [ID: c31b0711]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: c31b0711]: 404 - Agent invalid_agent_id not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/invalid_agent_id [ID: c31b0711] Status: 404 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 77dc2498]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:105] - Validation error [ID: 77dc2498]: [{'type': 'missing', 'loc': ('body', 'message'), 'msg': 'Field required', 'input': {'invalid_field': 'test'}}]
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 77dc2498] Status: 422 Duration: 0.001s
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 4a16b853]
+2025-10-01 00:13:47 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 4a16b853]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:13:47 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 4a16b853] Status: 404 Duration: 0.001s
+2025-10-01 00:14:04 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: 8965b8c7]
+2025-10-01 00:14:04 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: 8965b8c7] Status: 200 Duration: 0.001s
+2025-10-01 00:14:09 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: 43269f80]
+2025-10-01 00:14:09 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: 43269f80] Status: 200 Duration: 0.002s
+2025-10-01 00:14:13 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: 4cad3636]
+2025-10-01 00:14:13 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: 4cad3636] Status: 200 Duration: 0.002s
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: 5ea91bb5]
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: 5ea91bb5] Status: 200 Duration: 0.005s
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: 32b1d628]
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: 32b1d628] Status: 200 Duration: 0.001s
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: e8125fed]
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: e8125fed] Status: 200 Duration: 0.001s
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: bc292874]
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: bc292874] Status: 307 Duration: 0.000s
+2025-10-01 00:14:32 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: b28e483c]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: b28e483c] Status: 200 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: bd6ba0f3]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: bd6ba0f3] Status: 307 Duration: 0.000s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 165e1618]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 165e1618] Status: 200 Duration: 0.000s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 033d1957]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 033d1957] Status: 307 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 4775f35d]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 4775f35d] Status: 200 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt4_assistant [ID: 452dd949]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 452dd949]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt4_assistant [ID: 452dd949] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/test [ID: 1f4dbc81]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 1f4dbc81]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/test [ID: 1f4dbc81] Status: 404 Duration: 0.000s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/tools/status [ID: 7ad36173]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/tools/status [ID: 7ad36173] Status: 200 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/tools/test [ID: d1a719d2]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: d1a719d2]: 404 - Agent tools not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/tools/test [ID: d1a719d2] Status: 404 Duration: 0.004s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 3b507182]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 3b507182]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 3b507182] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 7e73c5dd]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 7e73c5dd]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 7e73c5dd] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 8bed2ff7]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 8bed2ff7]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 8bed2ff7] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: e8b93a08]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: e8b93a08]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: e8b93a08] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 3bcf6a73]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 3bcf6a73]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 3bcf6a73] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 51b55303]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 51b55303]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 51b55303] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: 7822059f]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 7822059f]: 404 - Agent gpt35_turbo not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: 7822059f] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: b4d71565]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: b4d71565]: 404 - Agent code_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: b4d71565] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/azure_gpt4/chat [ID: 40d133e9]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 40d133e9]: 404 - Agent azure_gpt4 not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/azure_gpt4/chat [ID: 40d133e9] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: f05c2390]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: f05c2390]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: f05c2390] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 147dff0f]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 147dff0f]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 147dff0f] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 94b4f722]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 94b4f722]: 404 - Agent developer_workflow not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 94b4f722] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: 750407dc]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 750407dc]: 404 - Agent developer_workflow not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: 750407dc] Status: 404 Duration: 0.002s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt4_assistant/conversations/test_conv_219 [ID: c74fab33]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: c74fab33]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt4_assistant/conversations/test_conv_219 [ID: c74fab33] Status: 404 Duration: 0.001s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/invalid_agent_id [ID: c4ab71d5]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: c4ab71d5]: 404 - Agent invalid_agent_id not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/invalid_agent_id [ID: c4ab71d5] Status: 404 Duration: 0.000s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 251c782e]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:105] - Validation error [ID: 251c782e]: [{'type': 'missing', 'loc': ('body', 'message'), 'msg': 'Field required', 'input': {'invalid_field': 'test'}}]
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 251c782e] Status: 422 Duration: 0.005s
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 9d812897]
+2025-10-01 00:14:33 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 9d812897]: 404 - Agent gpt4_assistant not found
+2025-10-01 00:14:33 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 9d812897] Status: 404 Duration: 0.001s
+2025-10-01 00:16:02 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json')}
+2025-10-01 00:16:09 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:16:09 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:16:09 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:16:09 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:16:09 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:16:09 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:16:09 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:16:11 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:16:11 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:16:11 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:16:11 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:16:11 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:16:11 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:16:11 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:16:11 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:16:11 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:16:11 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:16:11 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:16:11 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:16:11 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:16:11 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:16:11 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:16:11 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:16:11 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:16:11 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:16:11 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:16:11 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:16:11 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:16:11 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:16:12 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:17:44 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config.py')}
+2025-10-01 00:17:44 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:17:44 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:17:44 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:17:44 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:17:44 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:17:44 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:17:44 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:17:45 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:17:45 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:17:45 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:17:45 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:17:45 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:17:45 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:17:45 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:17:45 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:17:45 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:17:45 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:17:45 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:17:45 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:17:45 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:17:45 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:17:45 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:17:45 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:17:45 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:17:45 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:17:45 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:17:45 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:17:45 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:17:45 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:17:45 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:17:45 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:17:45 - watchfiles.main - DEBUG - [main.py:306] - 4 changes detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4345253520'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4345253520'), (<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc')}
+2025-10-01 00:17:59 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:17:59 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:17:59 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:17:59 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:17:59 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:17:59 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:17:59 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:18:02 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:02 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:02 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:02 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-10-01 00:18:02 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:02 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:02 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:03 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:03 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:03 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:03 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:18:03 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:18:03 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:18:03 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:18:03 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:18:03 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:18:03 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:18:03 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:18:03 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:18:03 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:18:03 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:18:03 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:18:03 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:18:03 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:18:03 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:18:03 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:18:03 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:18:03 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:18:16 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:18:16 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:18:16 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:18:16 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:18:16 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:18:16 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:18:16 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:18:50 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:50 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:50 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:50 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-10-01 00:18:51 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:51 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:51 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:51 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:18:51 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:18:51 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:18:51 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:18:51 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:18:51 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:18:51 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:18:51 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:18:51 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:18:51 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:18:51 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:18:51 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:18:51 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:18:51 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:18:51 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:18:51 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:18:51 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:18:51 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:18:51 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:18:51 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:18:51 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:19:22 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config.py')}
+2025-10-01 00:19:22 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:19:22 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:19:22 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:19:22 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:19:22 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:19:22 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:19:22 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:19:23 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:19:23 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:19:23 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:19:23 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:19:23 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:19:23 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:19:23 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:19:23 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:19:23 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:19:23 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:19:23 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:19:23 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:19:23 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:19:23 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:19:23 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:19:23 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:19:23 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:19:23 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:19:23 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:19:23 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:19:23 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:19:23 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:19:23 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:19:23 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:19:23 - watchfiles.main - DEBUG - [main.py:306] - 4 changes detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4376170128'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4376170128'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc')}
+2025-10-01 00:19:33 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config.py')}
+2025-10-01 00:19:33 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:19:33 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:19:33 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:19:33 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:19:33 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:19:33 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:19:33 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-10-01 00:19:33 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log')}
+2025-10-01 00:19:34 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:19:34 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:19:34 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:19:34 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-10-01 00:19:34 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20251001.log
+2025-10-01 00:19:34 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-10-01 00:19:34 - app - INFO - [app.py:32] - ============================================================
+2025-10-01 00:19:34 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-10-01 00:19:34 - app - INFO - [app.py:34] - ============================================================
+2025-10-01 00:19:34 - app - INFO - [app.py:35] - Environment: development
+2025-10-01 00:19:34 - app - INFO - [app.py:36] - Debug Mode: True
+2025-10-01 00:19:34 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-10-01 00:19:34 - agents.registry - INFO - [registry.py:76] - 🔄 Initializing agent registry...
+2025-10-01 00:19:34 - agents.registry - WARNING - [registry.py:113] - Config file not found: config/agents.json
+2025-10-01 00:19:34 - agents.registry - WARNING - [registry.py:82] - ⚠️  No agent configurations found, using defaults
+2025-10-01 00:19:34 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'openai_default' with model gpt-4
+2025-10-01 00:19:34 - agents.registry - INFO - [registry.py:208] - ✅ Created agent: openai_default (openai)
+2025-10-01 00:19:34 - agents.registry - INFO - [registry.py:103] - ✅ Initialized 1/1 agents
+2025-10-01 00:19:34 - app - INFO - [app.py:44] - ✅ Loaded 1 agents
+2025-10-01 00:19:34 - app - INFO - [app.py:48] -    - Default OpenAI Agent (openai_default) - openai
+2025-10-01 00:19:34 - app - INFO - [app.py:50] - ============================================================
+2025-10-01 00:19:34 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-10-01 00:19:34 - app - INFO - [app.py:52] - ============================================================
+2025-10-01 00:19:34 - watchfiles.main - DEBUG - [main.py:306] - 4 changes detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/logs/app_20251001.log'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4307865232'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/config.cpython-311.pyc.4307865232')}
+2025-10-01 00:20:27 - app - INFO - [app.py:57] - ============================================================
+2025-10-01 00:20:27 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-10-01 00:20:27 - app - INFO - [app.py:59] - ============================================================
+2025-10-01 00:20:27 - agents.registry - INFO - [registry.py:246] - 🧹 Cleaning up agent registry...
+2025-10-01 00:20:27 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'openai_default'
+2025-10-01 00:20:27 - agents.registry - INFO - [registry.py:256] - ✅ Agent registry cleaned up
+2025-10-01 00:20:27 - app - INFO - [app.py:61] - ✅ Cleanup complete

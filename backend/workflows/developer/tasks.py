@@ -353,7 +353,7 @@ def generate_project_with_progress(project_requirements: str, task_id=None, recu
 
 from progress_manager import update_progress
 
-def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0, max_tokens: int = None, task_id=None):
+def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0, max_tokens: int = None, task_id=None, recursion_limit: int = 100):
     """
     Perform a task with progress tracking.
     
@@ -394,7 +394,7 @@ def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0
     
     # Run the workflow
     try:
-        final_state = app.invoke(initial_state, config={"recursion_limit": 100})
+        final_state = app.invoke(initial_state, config={"recursion_limit": recursion_limit})
         
         if task_id:
             update_progress(task_id, 90, "Finalizing project")

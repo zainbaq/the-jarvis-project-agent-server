@@ -4,7 +4,7 @@
         "agent_id": "gpt4_assistant",
         "name": "GPT-4 Assistant",
         "type": "openai",
-        "description": "General purpose GPT-4 conversational assistant",
+        "description": "General purpose GPT-4 conversational assistant with web search",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-4",
@@ -24,6 +24,34 @@
           "temperature": 0.7,
           "max_tokens": 1500,
           "system_message": "You are a helpful and efficient AI assistant."
+        }
+      },
+      {
+        "agent_id": "azure_gpt4",
+        "name": "Azure GPT-4",
+        "type": "endpoint",
+        "description": "GPT-4 via Azure OpenAI Service",
+        "config": {
+          "api_key": "${AZURE_OPENAI_API_KEY}",
+          "base_url": "${AZURE_OPENAI_ENDPOINT}",
+          "model": "gpt-4",
+          "deployment_name": "${AZURE_OPENAI_DEPLOYMENT_NAME}",
+          "temperature": 0.7,
+          "max_tokens": 2000,
+          "system_message": "You are a helpful AI assistant powered by Azure OpenAI."
+        }
+      },
+      {
+        "agent_id": "custom_llm",
+        "name": "Custom LLM Endpoint",
+        "type": "endpoint",
+        "description": "Custom OpenAI-compatible LLM endpoint",
+        "config": {
+          "api_key": "${CUSTOM_API_KEY}",
+          "base_url": "${CUSTOM_ENDPOINT_URL}",
+          "model": "custom-model",
+          "temperature": 0.7,
+          "max_tokens": 2000
         }
       },
       {

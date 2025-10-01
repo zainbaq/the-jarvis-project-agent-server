@@ -46,17 +46,27 @@ class ChatResponse(BaseModel):
     conversation_id: str = Field(..., description="Conversation ID used")
     agent_id: str = Field(..., description="Agent that processed the request")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+    tools_used: List[Dict[str, Any]] = Field(default_factory=list, description="Tools used in this query")
+    web_search_enabled: bool = Field(False, description="Whether web search was enabled")
     
     class Config:
         json_schema_extra = {
             "example": {
-                "response": "Hello! I'd be happy to help you with Python.",
+                "response": "Based on recent search results, here are the latest AI developments...",
                 "conversation_id": "conv_12345",
                 "agent_id": "gpt4_assistant",
                 "metadata": {
                     "tokens_used": 150,
                     "model": "gpt-4"
-                }
+                },
+                "tools_used": [
+                    {
+                        "tool": "web_search",
+                        "success": True,
+                        "data": {"results_count": 9}
+                    }
+                ],
+                "web_search_enabled": True
             }
         }
 

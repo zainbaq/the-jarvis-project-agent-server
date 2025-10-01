@@ -1,5 +1,5 @@
 """
-Agent management and interaction endpoints
+Agent management and interaction endpoints - WITH AGENT MANAGER INTEGRATION
 """
 from fastapi import APIRouter, Request, HTTPException, Query
 from typing import List, Optional
@@ -10,6 +10,7 @@ from models.responses import (
     AgentInfo, ChatResponse, WorkflowExecuteResponse, ErrorResponse
 )
 from agents.base import WorkflowAgent
+from agent_manager import get_agent_manager
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -25,7 +26,7 @@ async def list_agents(
     List all available agents
     
     Optional filters:
-    - agent_type: Filter by type (openai, langgraph, etc.)
+    - agent_type: Filter by type (openai, endpoint, langgraph, etc.)
     - capability: Filter by capability (chat, workflow, etc.)
     """
     registry = request.app.state.agent_registry
@@ -60,7 +61,11 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
     """
     Send a chat message to an agent
     
-    The agent will maintain conversation context using the conversation_id
+    The agent manager will handle:
+    - Web search if enabled
+    - Prompt engineering with search results
+    - Tool orchestration
+    - Conversation context management
     """
     registry = request.app.state.agent_registry
     agent = registry.get_agent(agent_id)
@@ -69,9 +74,24 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
         raise HTTPException(status_code=404, detail=f"Agent {agent_id} not found")
     
     try:
-        result = await agent.query(
+        # Get agent manager
+        agent_manager = get_agent_manager()
+        
+        # Get conversation history (if agent supports it)
+        conversation_history = None
+        if hasattr(agent, 'conversations') and chat_request.conversation_id:
+            conversation_history = agent.conversations.get(
+                chat_request.conversation_id, []
+            )
+        
+        # Process query through agent manager
+        result = await agent_manager.process_query(
+            agent=agent,
             message=chat_request.message,
             conversation_id=chat_request.conversation_id,
+            enable_web_search=chat_request.enable_web_search,
+            uploaded_files=chat_request.uploaded_files,
+            conversation_history=conversation_history,
             parameters=chat_request.parameters
         )
         
@@ -79,11 +99,13 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
             response=result["response"],
             conversation_id=result["conversation_id"],
             agent_id=agent_id,
-            metadata=result.get("metadata", {})
+            metadata=result.get("metadata", {}),
+            tools_used=result.get("tools_used", []),
+            web_search_enabled=result.get("web_search_enabled", False)
         )
         
     except Exception as e:
-        logger.error(f"Error in chat with agent {agent_id}: {e}")
+        logger.error(f"Error in chat with agent {agent_id}: {e}", exc_info=True)
         raise HTTPException(
             status_code=500,
             detail=f"Error processing chat: {str(e)}"
@@ -149,13 +171,24 @@ async def delete_conversation(
         raise HTTPException(status_code=404, detail=f"Agent {agent_id} not found")
     
     try:
-        # For OpenAI agents, we can clear the conversation history
+        # For agents with conversation storage
         from agents.openai_agent import OpenAIAgent
+        from agents.endpoint_agent import EndpointAgent
         
-        if isinstance(agent, OpenAIAgent):
+        if isinstance(agent, (OpenAIAgent, EndpointAgent)):
             if conversation_id in agent.conversations:
                 del agent.conversations[conversation_id]
-                return {"status": "success", "message": f"Conversation {conversation_id} deleted"}
+                
+                # Also clear web search data
+                from agent_manager import get_agent_manager
+                agent_manager = get_agent_manager()
+                if agent_manager.web_search_tool.is_vector_store_available():
+                    agent_manager.web_search_tool.clear_conversation(conversation_id)
+                
+                return {
+                    "status": "success",
+                    "message": f"Conversation {conversation_id} deleted"
+                }
             else:
                 raise HTTPException(
                     status_code=404,
@@ -191,10 +224,11 @@ async def test_agent(agent_id: str, request: Request):
         raise HTTPException(status_code=404, detail=f"Agent {agent_id} not found")
     
     try:
-        # For OpenAI agents, use their test_connection method
+        # For agents with test_connection method
         from agents.openai_agent import OpenAIAgent
+        from agents.endpoint_agent import EndpointAgent
         
-        if isinstance(agent, OpenAIAgent):
+        if isinstance(agent, (OpenAIAgent, EndpointAgent)):
             result = await agent.test_connection()
             return result
         else:
@@ -218,4 +252,43 @@ async def test_agent(agent_id: str, request: Request):
             "message": "Test failed",
             "error": str(e),
             "agent_type": agent.get_type()
+        }
+
+
+@router.get("/tools/status")
+async def get_tools_status(request: Request):
+    """
+    Get status of available tools (web search, etc.)
+    """
+    from agent_manager import get_agent_manager
+    
+    agent_manager = get_agent_manager()
+    tools = agent_manager.get_available_tools()
+    
+    return {
+        "tools": tools,
+        "web_search_configured": tools.get("web_search", False)
+    }
+
+
+@router.post("/tools/test")
+async def test_tools(request: Request):
+    """
+    Test all available tools
+    """
+    from agent_manager import get_agent_manager
+    
+    try:
+        agent_manager = get_agent_manager()
+        results = await agent_manager.test_tools()
+        
+        return {
+            "success": True,
+            "results": results
+        }
+    except Exception as e:
+        logger.error(f"Error testing tools: {e}")
+        return {
+            "success": False,
+            "error": str(e)
         }

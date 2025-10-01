@@ -1,5 +1,5 @@
 """
-Agent registry for managing all available agents - FIXED VERSION
+Agent registry for managing all available agents - WITH ENDPOINT AGENT SUPPORT
 """
 import logging
 import json
@@ -11,6 +11,7 @@ from pathlib import Path
 from agents.base import BaseAgent
 from agents.openai_agent import OpenAIAgent
 from agents.langgraph_agent import LangGraphAgent
+from agents.endpoint_agent import EndpointAgent  # NEW
 from models.responses import AgentInfo, AgentType
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,10 @@ class AgentRegistry:
     """
     Central registry for managing all agents
     
-    Handles loading, initialization, and access to agents
+    Supports agent types:
+    - openai: Direct OpenAI API
+    - endpoint: OpenAI-compatible endpoints (Azure, custom)
+    - langgraph: LangGraph workflows
     """
     
     def __init__(self, config_path: Optional[str] = None):
@@ -171,8 +175,8 @@ class AgentRegistry:
             logger.error("Agent config missing agent_id or type")
             return None
         
-        # Validate that required fields are present
-        if agent_type == "openai" or agent_type == AgentType.OPENAI:
+        # Validate required fields based on agent type
+        if agent_type in ["openai", "endpoint"]:
             if not config.get("api_key"):
                 logger.error(f"Agent {agent_id}: Missing api_key")
                 return None
@@ -183,8 +187,13 @@ class AgentRegistry:
         try:
             if agent_type == "openai" or agent_type == AgentType.OPENAI:
                 agent = OpenAIAgent(agent_id, config)
+                
+            elif agent_type == "endpoint":
+                agent = EndpointAgent(agent_id, config)
+                
             elif agent_type == "langgraph" or agent_type == AgentType.LANGGRAPH:
                 agent = LangGraphAgent(agent_id, config)
+                
             else:
                 logger.error(f"Unknown agent type: {agent_type}")
                 return None
@@ -257,6 +266,7 @@ class AgentRegistry:
             "total_agents": len(self.agents),
             "agents_by_type": {
                 "openai": len(self.get_agents_by_type("openai")),
+                "endpoint": len(self.get_agents_by_type("endpoint")),
                 "langgraph": len(self.get_agents_by_type("langgraph")),
             },
             "config_path": self.config_path
