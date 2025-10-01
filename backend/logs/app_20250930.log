@@ -1,0 +1,280 @@
+2025-09-30 23:06:58 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:06:58 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:06:58 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:06:58 - __main__ - INFO - [app.py:103] - Starting server on 0.0.0.0:8000
+2025-09-30 23:06:58 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:06:58 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:06:58 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:06:58 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log')}
+2025-09-30 23:06:59 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:06:59 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:06:59 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:06:59 - app - INFO - [app.py:29] - ============================================================
+2025-09-30 23:06:59 - app - INFO - [app.py:30] - 🚀 Starting AI Agent Backend Server
+2025-09-30 23:06:59 - app - INFO - [app.py:31] - ============================================================
+2025-09-30 23:06:59 - app - INFO - [app.py:32] - Environment: development
+2025-09-30 23:06:59 - app - INFO - [app.py:33] - Debug Mode: True
+2025-09-30 23:06:59 - app - INFO - [app.py:34] - Host: 0.0.0.0:8000
+2025-09-30 23:06:59 - agents.registry - INFO - [registry.py:72] - 🔄 Initializing agent registry...
+2025-09-30 23:06:59 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:06:59 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:06:59 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:06:59 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:06:59 - agents.registry - ERROR - [registry.py:177] - Agent gpt4_assistant: Missing api_key
+2025-09-30 23:06:59 - agents.registry - ERROR - [registry.py:177] - Agent gpt35_turbo: Missing api_key
+2025-09-30 23:06:59 - agents.registry - ERROR - [registry.py:177] - Agent code_assistant: Missing api_key
+2025-09-30 23:06:59 - watchfiles.main - DEBUG - [main.py:306] - 22 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/__pycache__'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/__init__.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/graphs.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/states.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/states.cpython-311.pyc.4413909168'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/tasks.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/__pycache__/__init__.cpython-311.pyc.4414004848'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/states.cpython-311.pyc.4413909168'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/steps.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/tasks.cpython-311.pyc.4414004848'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/graphs.cpython-311.pyc.4413909168'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/__pycache__/__init__.cpython-311.pyc.4414004848'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/steps.cpython-311.pyc.4414005376'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/tasks.cpython-311.pyc.4414004848'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/__pycache__/__init__.cpython-311.pyc'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/graphs.cpython-311.pyc.4413909168'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/__init__.cpython-311.pyc.4413908976'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/steps.cpython-311.pyc.4414005376'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc.4413686128'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/workflows/developer/__pycache__/__init__.cpython-311.pyc.4413908976'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc.4413686128')}
+2025-09-30 23:06:59 - watchfiles.main - DEBUG - [main.py:306] - 7 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/__init__.cpython-311.pyc.4456827696'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/llm.cpython-311.pyc.4457138896'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/__init__.cpython-311.pyc'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/llm.cpython-311.pyc.4457138896'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/llm.cpython-311.pyc'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/__pycache__/__init__.cpython-311.pyc.4456827696')}
+2025-09-30 23:07:00 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-09-30 23:07:00 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: developer_workflow (langgraph)
+2025-09-30 23:07:00 - agents.registry - INFO - [registry.py:99] - ✅ Initialized 1/4 agents
+2025-09-30 23:07:00 - app - INFO - [app.py:41] - ✅ Loaded 1 agents
+2025-09-30 23:07:00 - app - INFO - [app.py:45] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-09-30 23:07:00 - app - INFO - [app.py:47] - ============================================================
+2025-09-30 23:07:00 - app - INFO - [app.py:48] - ✅ Server ready to accept requests
+2025-09-30 23:07:00 - app - INFO - [app.py:49] - ============================================================
+2025-09-30 23:07:00 - watchfiles.main - DEBUG - [main.py:306] - 3 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/progress_manager.cpython-311.pyc.4468175984'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/progress_manager.cpython-311.pyc.4468175984'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/progress_manager.cpython-311.pyc')}
+2025-09-30 23:07:19 - app - INFO - [app.py:54] - ============================================================
+2025-09-30 23:07:19 - app - INFO - [app.py:55] - 🛑 Shutting down AI Agent Backend Server
+2025-09-30 23:07:19 - app - INFO - [app.py:56] - ============================================================
+2025-09-30 23:07:19 - agents.registry - INFO - [registry.py:237] - 🧹 Cleaning up agent registry...
+2025-09-30 23:07:19 - agents.langgraph_agent - INFO - [langgraph_agent.py:213] - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-09-30 23:07:19 - agents.registry - INFO - [registry.py:247] - ✅ Agent registry cleaned up
+2025-09-30 23:07:19 - app - INFO - [app.py:58] - ✅ Cleanup complete
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:07:56 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:07:56 - __main__ - INFO - [app.py:103] - Starting server on 0.0.0.0:8000
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:07:56 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:07:56 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:07:56 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:07:56 - app - INFO - [app.py:29] - ============================================================
+2025-09-30 23:07:56 - app - INFO - [app.py:30] - 🚀 Starting AI Agent Backend Server
+2025-09-30 23:07:56 - app - INFO - [app.py:31] - ============================================================
+2025-09-30 23:07:56 - app - INFO - [app.py:32] - Environment: development
+2025-09-30 23:07:56 - app - INFO - [app.py:33] - Debug Mode: True
+2025-09-30 23:07:56 - app - INFO - [app.py:34] - Host: 0.0.0.0:8000
+2025-09-30 23:07:56 - agents.registry - INFO - [registry.py:72] - 🔄 Initializing agent registry...
+2025-09-30 23:07:56 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:07:56 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:07:56 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:07:56 - agents.registry - WARNING - [registry.py:54] - Environment variable OPENAI_API_KEY not found
+2025-09-30 23:07:56 - agents.registry - ERROR - [registry.py:177] - Agent gpt4_assistant: Missing api_key
+2025-09-30 23:07:56 - agents.registry - ERROR - [registry.py:177] - Agent gpt35_turbo: Missing api_key
+2025-09-30 23:07:56 - agents.registry - ERROR - [registry.py:177] - Agent code_assistant: Missing api_key
+2025-09-30 23:07:56 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log')}
+2025-09-30 23:07:56 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-09-30 23:07:56 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: developer_workflow (langgraph)
+2025-09-30 23:07:56 - agents.registry - INFO - [registry.py:99] - ✅ Initialized 1/4 agents
+2025-09-30 23:07:56 - app - INFO - [app.py:41] - ✅ Loaded 1 agents
+2025-09-30 23:07:56 - app - INFO - [app.py:45] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-09-30 23:07:56 - app - INFO - [app.py:47] - ============================================================
+2025-09-30 23:07:56 - app - INFO - [app.py:48] - ✅ Server ready to accept requests
+2025-09-30 23:07:56 - app - INFO - [app.py:49] - ============================================================
+2025-09-30 23:08:05 - app - INFO - [app.py:54] - ============================================================
+2025-09-30 23:08:05 - app - INFO - [app.py:55] - 🛑 Shutting down AI Agent Backend Server
+2025-09-30 23:08:05 - app - INFO - [app.py:56] - ============================================================
+2025-09-30 23:08:05 - agents.registry - INFO - [registry.py:237] - 🧹 Cleaning up agent registry...
+2025-09-30 23:08:05 - agents.langgraph_agent - INFO - [langgraph_agent.py:213] - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-09-30 23:08:05 - agents.registry - INFO - [registry.py:247] - ✅ Agent registry cleaned up
+2025-09-30 23:08:05 - app - INFO - [app.py:58] - ✅ Cleanup complete
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:08:34 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:08:34 - __main__ - INFO - [app.py:106] - Starting server on 0.0.0.0:8000
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:08:34 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:08:34 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:08:34 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:08:34 - app - INFO - [app.py:32] - ============================================================
+2025-09-30 23:08:34 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-09-30 23:08:34 - app - INFO - [app.py:34] - ============================================================
+2025-09-30 23:08:34 - app - INFO - [app.py:35] - Environment: development
+2025-09-30 23:08:34 - app - INFO - [app.py:36] - Debug Mode: True
+2025-09-30 23:08:34 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-09-30 23:08:34 - agents.registry - INFO - [registry.py:72] - 🔄 Initializing agent registry...
+2025-09-30 23:08:34 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4
+2025-09-30 23:08:34 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt4_assistant (openai)
+2025-09-30 23:08:34 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-09-30 23:08:34 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt35_turbo (openai)
+2025-09-30 23:08:35 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'code_assistant' with model gpt-4
+2025-09-30 23:08:35 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: code_assistant (openai)
+2025-09-30 23:08:35 - watchfiles.main - DEBUG - [main.py:306] - 4 changes detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc.4357767536'), (<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log'), (<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc'), (<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/__pycache__/app.cpython-311.pyc.4357767536')}
+2025-09-30 23:08:35 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-09-30 23:08:35 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: developer_workflow (langgraph)
+2025-09-30 23:08:35 - agents.registry - INFO - [registry.py:99] - ✅ Initialized 4/4 agents
+2025-09-30 23:08:35 - app - INFO - [app.py:44] - ✅ Loaded 4 agents
+2025-09-30 23:08:35 - app - INFO - [app.py:48] -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-09-30 23:08:35 - app - INFO - [app.py:48] -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-09-30 23:08:35 - app - INFO - [app.py:48] -    - Code Assistant (code_assistant) - openai
+2025-09-30 23:08:35 - app - INFO - [app.py:48] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-09-30 23:08:35 - app - INFO - [app.py:50] - ============================================================
+2025-09-30 23:08:35 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-09-30 23:08:35 - app - INFO - [app.py:52] - ============================================================
+2025-09-30 23:13:01 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/testing')}
+2025-09-30 23:13:06 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/testing/test_endpoints.py')}
+2025-09-30 23:13:06 - app - INFO - [app.py:57] - ============================================================
+2025-09-30 23:13:06 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-09-30 23:13:06 - app - INFO - [app.py:59] - ============================================================
+2025-09-30 23:13:06 - agents.registry - INFO - [registry.py:237] - 🧹 Cleaning up agent registry...
+2025-09-30 23:13:06 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-09-30 23:13:06 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-09-30 23:13:06 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'code_assistant'
+2025-09-30 23:13:06 - agents.langgraph_agent - INFO - [langgraph_agent.py:213] - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-09-30 23:13:06 - agents.registry - INFO - [registry.py:247] - ✅ Agent registry cleaned up
+2025-09-30 23:13:06 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-09-30 23:13:07 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log')}
+2025-09-30 23:13:07 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:13:07 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:13:07 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:13:07 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:13:07 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:13:07 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:13:07 - app - INFO - [app.py:32] - ============================================================
+2025-09-30 23:13:07 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-09-30 23:13:07 - app - INFO - [app.py:34] - ============================================================
+2025-09-30 23:13:07 - app - INFO - [app.py:35] - Environment: development
+2025-09-30 23:13:07 - app - INFO - [app.py:36] - Debug Mode: True
+2025-09-30 23:13:07 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:72] - 🔄 Initializing agent registry...
+2025-09-30 23:13:07 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt4_assistant (openai)
+2025-09-30 23:13:07 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt35_turbo (openai)
+2025-09-30 23:13:07 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'code_assistant' with model gpt-4
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: code_assistant (openai)
+2025-09-30 23:13:07 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log')}
+2025-09-30 23:13:07 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: developer_workflow (langgraph)
+2025-09-30 23:13:07 - agents.registry - INFO - [registry.py:99] - ✅ Initialized 4/4 agents
+2025-09-30 23:13:07 - app - INFO - [app.py:44] - ✅ Loaded 4 agents
+2025-09-30 23:13:07 - app - INFO - [app.py:48] -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-09-30 23:13:07 - app - INFO - [app.py:48] -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-09-30 23:13:07 - app - INFO - [app.py:48] -    - Code Assistant (code_assistant) - openai
+2025-09-30 23:13:07 - app - INFO - [app.py:48] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-09-30 23:13:07 - app - INFO - [app.py:50] - ============================================================
+2025-09-30 23:13:07 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-09-30 23:13:07 - app - INFO - [app.py:52] - ============================================================
+2025-09-30 23:13:08 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.added: 1>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/testing/test_endpoints.py')}
+2025-09-30 23:13:08 - app - INFO - [app.py:57] - ============================================================
+2025-09-30 23:13:08 - app - INFO - [app.py:58] - 🛑 Shutting down AI Agent Backend Server
+2025-09-30 23:13:08 - app - INFO - [app.py:59] - ============================================================
+2025-09-30 23:13:08 - agents.registry - INFO - [registry.py:237] - 🧹 Cleaning up agent registry...
+2025-09-30 23:13:08 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-09-30 23:13:08 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-09-30 23:13:08 - agents.openai_agent - INFO - [openai_agent.py:181] - 🧹 Cleaned up OpenAI agent 'code_assistant'
+2025-09-30 23:13:08 - agents.langgraph_agent - INFO - [langgraph_agent.py:213] - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-09-30 23:13:08 - agents.registry - INFO - [registry.py:247] - ✅ Agent registry cleaned up
+2025-09-30 23:13:08 - app - INFO - [app.py:61] - ✅ Cleanup complete
+2025-09-30 23:13:09 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:13:09 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:13:09 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:13:09 - logging_config - INFO - [logging_config.py:108] - Logging configured - Level: DEBUG
+2025-09-30 23:13:09 - logging_config - INFO - [logging_config.py:110] - Logs will be written to: logs/app_20250930.log
+2025-09-30 23:13:09 - middleware - INFO - [middleware.py:174] - ✅ Middleware configured
+2025-09-30 23:13:09 - app - INFO - [app.py:32] - ============================================================
+2025-09-30 23:13:09 - app - INFO - [app.py:33] - 🚀 Starting AI Agent Backend Server
+2025-09-30 23:13:09 - app - INFO - [app.py:34] - ============================================================
+2025-09-30 23:13:09 - app - INFO - [app.py:35] - Environment: development
+2025-09-30 23:13:09 - app - INFO - [app.py:36] - Debug Mode: True
+2025-09-30 23:13:09 - app - INFO - [app.py:37] - Host: 0.0.0.0:8000
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:72] - 🔄 Initializing agent registry...
+2025-09-30 23:13:09 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt4_assistant (openai)
+2025-09-30 23:13:09 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: gpt35_turbo (openai)
+2025-09-30 23:13:09 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.modified: 2>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/logs/app_20250930.log')}
+2025-09-30 23:13:09 - agents.openai_agent - INFO - [openai_agent.py:73] - ✅ Initialized OpenAI agent 'code_assistant' with model gpt-4
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: code_assistant (openai)
+2025-09-30 23:13:09 - agents.langgraph_agent - INFO - [langgraph_agent.py:78] - ✅ Initialized LangGraph agent 'developer_workflow' (workflows.developer.tasks.perform_task)
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:199] - ✅ Created agent: developer_workflow (langgraph)
+2025-09-30 23:13:09 - agents.registry - INFO - [registry.py:99] - ✅ Initialized 4/4 agents
+2025-09-30 23:13:09 - app - INFO - [app.py:44] - ✅ Loaded 4 agents
+2025-09-30 23:13:09 - app - INFO - [app.py:48] -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-09-30 23:13:09 - app - INFO - [app.py:48] -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-09-30 23:13:09 - app - INFO - [app.py:48] -    - Code Assistant (code_assistant) - openai
+2025-09-30 23:13:09 - app - INFO - [app.py:48] -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-09-30 23:13:09 - app - INFO - [app.py:50] - ============================================================
+2025-09-30 23:13:09 - app - INFO - [app.py:51] - ✅ Server ready to accept requests
+2025-09-30 23:13:09 - app - INFO - [app.py:52] - ============================================================
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET / [ID: cc3221ce]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET / [ID: cc3221ce] Status: 200 Duration: 0.004s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET /api/health [ID: a4ebd325]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/health [ID: a4ebd325] Status: 200 Duration: 0.001s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET /api/status [ID: 018aa0f1]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/status [ID: 018aa0f1] Status: 200 Duration: 0.000s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents [ID: 4cbac2b1]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents [ID: 4cbac2b1] Status: 307 Duration: 0.000s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/ [ID: 42706b08]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/ [ID: 42706b08] Status: 200 Duration: 0.001s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt4_assistant [ID: a2e5148c]
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt4_assistant [ID: a2e5148c] Status: 200 Duration: 0.000s
+2025-09-30 23:13:55 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/test [ID: 0d4f784c]
+2025-09-30 23:13:56 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 39)
+2025-09-30 23:13:56 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/test [ID: 0d4f784c] Status: 200 Duration: 1.372s
+2025-09-30 23:13:56 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 40fdad08]
+2025-09-30 23:13:57 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 45)
+2025-09-30 23:13:57 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 40fdad08] Status: 200 Duration: 1.068s
+2025-09-30 23:13:57 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 542468f3]
+2025-09-30 23:13:59 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 88)
+2025-09-30 23:13:59 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 542468f3] Status: 200 Duration: 2.117s
+2025-09-30 23:13:59 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: a5f9d2ce]
+2025-09-30 23:14:00 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt4_assistant' completed query (tokens: 38)
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: a5f9d2ce] Status: 200 Duration: 0.605s
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt4_assistant/conversations/test_delete_1759288439 [ID: 502077b1]
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt4_assistant/conversations/test_delete_1759288439 [ID: 502077b1] Status: 200 Duration: 0.001s
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/gpt35_turbo [ID: ec899c65]
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/gpt35_turbo [ID: ec899c65] Status: 200 Duration: 0.001s
+2025-09-30 23:14:00 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/test [ID: a87445a0]
+2025-09-30 23:14:01 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt35_turbo' completed query (tokens: 39)
+2025-09-30 23:14:01 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/test [ID: a87445a0] Status: 200 Duration: 1.008s
+2025-09-30 23:14:01 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: ea0b6925]
+2025-09-30 23:14:02 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt35_turbo' completed query (tokens: 37)
+2025-09-30 23:14:02 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: ea0b6925] Status: 200 Duration: 0.957s
+2025-09-30 23:14:02 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: 98e8d798]
+2025-09-30 23:14:02 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt35_turbo' completed query (tokens: 75)
+2025-09-30 23:14:02 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: 98e8d798] Status: 200 Duration: 0.669s
+2025-09-30 23:14:02 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt35_turbo/chat [ID: dc356077]
+2025-09-30 23:14:03 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'gpt35_turbo' completed query (tokens: 31)
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt35_turbo/chat [ID: dc356077] Status: 200 Duration: 0.404s
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/gpt35_turbo/conversations/test_delete_1759288442 [ID: 2c6b587c]
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/gpt35_turbo/conversations/test_delete_1759288442 [ID: 2c6b587c] Status: 200 Duration: 0.001s
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/code_assistant [ID: 0fe7f787]
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/code_assistant [ID: 0fe7f787] Status: 200 Duration: 0.001s
+2025-09-30 23:14:03 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/test [ID: ac819492]
+2025-09-30 23:14:04 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'code_assistant' completed query (tokens: 47)
+2025-09-30 23:14:04 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/test [ID: ac819492] Status: 200 Duration: 1.213s
+2025-09-30 23:14:04 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: 922415bb]
+2025-09-30 23:14:05 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'code_assistant' completed query (tokens: 53)
+2025-09-30 23:14:05 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: 922415bb] Status: 200 Duration: 1.221s
+2025-09-30 23:14:05 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: 841b714f]
+2025-09-30 23:14:06 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'code_assistant' completed query (tokens: 90)
+2025-09-30 23:14:06 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: 841b714f] Status: 200 Duration: 1.121s
+2025-09-30 23:14:06 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/code_assistant/chat [ID: d60bdfcd]
+2025-09-30 23:14:07 - agents.openai_agent - INFO - [openai_agent.py:147] - ✅ OpenAI agent 'code_assistant' completed query (tokens: 49)
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/code_assistant/chat [ID: d60bdfcd] Status: 200 Duration: 0.686s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: DELETE /api/agents/code_assistant/conversations/test_delete_1759288446 [ID: 7d821fbe]
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: DELETE /api/agents/code_assistant/conversations/test_delete_1759288446 [ID: 7d821fbe] Status: 200 Duration: 0.001s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/developer_workflow [ID: e93582e3]
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/developer_workflow [ID: e93582e3] Status: 200 Duration: 0.001s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/test [ID: 80ad4c97]
+2025-09-30 23:14:07 - agents.langgraph_agent - INFO - [langgraph_agent.py:142] - 🔄 Executing LangGraph workflow 'developer_workflow' with task: Hello! This is a connection test....
+2025-09-30 23:14:07 - agents.langgraph_agent - ERROR - [langgraph_agent.py:174] - ❌ Error executing workflow 'developer_workflow': perform_task() got an unexpected keyword argument 'recursion_limit'
+2025-09-30 23:14:07 - routers.agents - ERROR - [agents.py:215] - Error testing agent developer_workflow: Workflow execution failed: perform_task() got an unexpected keyword argument 'recursion_limit'
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/test [ID: 80ad4c97] Status: 200 Duration: 0.001s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/developer_workflow/workflow [ID: c56a6e32]
+2025-09-30 23:14:07 - agents.langgraph_agent - INFO - [langgraph_agent.py:142] - 🔄 Executing LangGraph workflow 'developer_workflow' with task: Create a simple Python function that adds two numbers...
+2025-09-30 23:14:07 - agents.langgraph_agent - ERROR - [langgraph_agent.py:174] - ❌ Error executing workflow 'developer_workflow': perform_task() got an unexpected keyword argument 'recursion_limit'
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/developer_workflow/workflow [ID: c56a6e32] Status: 200 Duration: 0.001s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: GET /api/agents/invalid_agent_id [ID: 555faccb]
+2025-09-30 23:14:07 - middleware - WARNING - [middleware.py:125] - HTTP exception [ID: 555faccb]: 404 - Agent invalid_agent_id not found
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: GET /api/agents/invalid_agent_id [ID: 555faccb] Status: 404 Duration: 0.001s
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:29] - Request started: POST /api/agents/gpt4_assistant/chat [ID: 38e0843c]
+2025-09-30 23:14:07 - middleware - WARNING - [middleware.py:105] - Validation error [ID: 38e0843c]: [{'type': 'missing', 'loc': ('body', 'message'), 'msg': 'Field required', 'input': {'invalid_field': 'test'}}]
+2025-09-30 23:14:07 - middleware - INFO - [middleware.py:42] - Request completed: POST /api/agents/gpt4_assistant/chat [ID: 38e0843c] Status: 422 Duration: 0.001s
+2025-09-30 23:15:18 - watchfiles.main - DEBUG - [main.py:306] - 1 change detected: {(<Change.deleted: 3>, '/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/.env')}

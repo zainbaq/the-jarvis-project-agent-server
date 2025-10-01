@@ -6,12 +6,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
+from dotenv import load_dotenv
 
 from routers import agents, health
 from agents.registry import AgentRegistry
 from config import settings
 from logging_config import setup_logging
 from middleware import setup_middleware
+
+load_dotenv()
 
 # Setup logging first
 setup_logging(

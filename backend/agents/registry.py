@@ -1,8 +1,10 @@
 """
-Agent registry for managing all available agents
+Agent registry for managing all available agents - FIXED VERSION
 """
 import logging
 import json
+import os
+import re
 from typing import Dict, List, Optional
 from pathlib import Path
 
@@ -32,6 +34,39 @@ class AgentRegistry:
         self.agents: Dict[str, BaseAgent] = {}
         self._initialized = False
     
+    def _substitute_env_vars(self, value: any) -> any:
+        """
+        Recursively substitute environment variables in configuration
+        
+        Supports ${VAR_NAME} syntax
+        """
+        if isinstance(value, str):
+            # Find all ${VAR_NAME} patterns
+            pattern = r'\$\{([^}]+)\}'
+            matches = re.finditer(pattern, value)
+            
+            result = value
+            for match in matches:
+                var_name = match.group(1)
+                env_value = os.getenv(var_name, "")
+                
+                if not env_value:
+                    logger.warning(f"Environment variable {var_name} not found")
+                
+                # Replace the ${VAR_NAME} with the actual value
+                result = result.replace(match.group(0), env_value)
+            
+            return result
+        
+        elif isinstance(value, dict):
+            return {k: self._substitute_env_vars(v) for k, v in value.items()}
+        
+        elif isinstance(value, list):
+            return [self._substitute_env_vars(item) for item in value]
+        
+        else:
+            return value
+    
     async def initialize(self):
         """Load and initialize all agents from configuration"""
         logger.info("🔄 Initializing agent registry...")
@@ -43,17 +78,28 @@ class AgentRegistry:
             logger.warning("⚠️  No agent configurations found, using defaults")
             agent_configs = self._get_default_configs()
         
+        # Substitute environment variables in all configs
+        agent_configs = self._substitute_env_vars(agent_configs)
+        
         # Initialize each agent
+        success_count = 0
         for agent_config in agent_configs:
             try:
                 agent = await self._create_agent(agent_config)
                 if agent:
                     self.agents[agent.agent_id] = agent
+                    success_count += 1
             except Exception as e:
-                logger.error(f"Failed to create agent {agent_config.get('agent_id', 'unknown')}: {e}")
+                logger.error(
+                    f"Failed to create agent {agent_config.get('agent_id', 'unknown')}: {e}",
+                    exc_info=True
+                )
         
         self._initialized = True
-        logger.info(f"✅ Initialized {len(self.agents)} agents")
+        logger.info(f"✅ Initialized {success_count}/{len(agent_configs)} agents")
+        
+        if success_count == 0 and len(agent_configs) > 0:
+            logger.error("❌ Failed to initialize any agents!")
     
     def _load_agent_configs(self) -> List[Dict]:
         """Load agent configurations from JSON file"""
@@ -77,13 +123,11 @@ class AgentRegistry:
                 return []
                 
         except Exception as e:
-            logger.error(f"Error loading agent configs: {e}")
+            logger.error(f"Error loading agent configs: {e}", exc_info=True)
             return []
     
     def _get_default_configs(self) -> List[Dict]:
         """Get default agent configurations"""
-        import os
-        
         defaults = []
         
         # Add default OpenAI agent if API key is available
@@ -100,6 +144,8 @@ class AgentRegistry:
                     "temperature": 0.7
                 }
             })
+        else:
+            logger.warning("No OPENAI_API_KEY found in environment")
         
         return defaults
     
@@ -125,26 +171,37 @@ class AgentRegistry:
             logger.error("Agent config missing agent_id or type")
             return None
         
+        # Validate that required fields are present
+        if agent_type == "openai" or agent_type == AgentType.OPENAI:
+            if not config.get("api_key"):
+                logger.error(f"Agent {agent_id}: Missing api_key")
+                return None
+        
         # Create agent based on type
         agent = None
         
-        if agent_type == "openai" or agent_type == AgentType.OPENAI:
-            agent = OpenAIAgent(agent_id, config)
-        elif agent_type == "langgraph" or agent_type == AgentType.LANGGRAPH:
-            agent = LangGraphAgent(agent_id, config)
-        else:
-            logger.error(f"Unknown agent type: {agent_type}")
+        try:
+            if agent_type == "openai" or agent_type == AgentType.OPENAI:
+                agent = OpenAIAgent(agent_id, config)
+            elif agent_type == "langgraph" or agent_type == AgentType.LANGGRAPH:
+                agent = LangGraphAgent(agent_id, config)
+            else:
+                logger.error(f"Unknown agent type: {agent_type}")
+                return None
+            
+            # Initialize the agent
+            success = await agent.initialize()
+            
+            if not success:
+                logger.error(f"Failed to initialize agent: {agent_id}")
+                return None
+            
+            logger.info(f"✅ Created agent: {agent_id} ({agent_type})")
+            return agent
+            
+        except Exception as e:
+            logger.error(f"Error creating agent {agent_id}: {e}", exc_info=True)
             return None
-        
-        # Initialize the agent
-        success = await agent.initialize()
-        
-        if not success:
-            logger.error(f"Failed to initialize agent: {agent_id}")
-            return None
-        
-        logger.info(f"✅ Created agent: {agent_id} ({agent_type})")
-        return agent
     
     def get_agent(self, agent_id: str) -> Optional[BaseAgent]:
         """Get an agent by ID"""
