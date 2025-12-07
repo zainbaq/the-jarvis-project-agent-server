@@ -73,12 +73,27 @@
         "type": "langgraph",
         "description": "LangGraph workflow for generating complete code projects with architecture, tests, and documentation",
         "config": {
-          "workflow_module": "workflows.developer.tasks",
+          "workflow_module": "backend.workflows.developer.tasks",
           "workflow_function": "perform_task",
           "provider": "openai",
           "api_key": "${OPENAI_API_KEY}",
           "model_name": "gpt-4",
           "temperature": 0.0,
+          "recursion_limit": 100
+        }
+      },
+      {
+        "agent_id": "web_search_workflow",
+        "name": "Web Search Workflow Agent",
+        "type": "langgraph",
+        "description": "LangGraph workflow for performing comprehensive web research and generating detailed reports",
+        "config": {
+          "workflow_module": "backend.workflows.web_search.tasks",
+          "workflow_function": "perform_task",
+          "provider": "openai",
+          "api_key": "${OPENAI_API_KEY}",
+          "model_name": "gpt-4",
+          "temperature": 0.2,
           "recursion_limit": 100
         }
       }

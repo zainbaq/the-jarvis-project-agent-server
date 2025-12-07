@@ -22,7 +22,9 @@ def generate_project(project_requirements: str, recursion_limit: int = 100):
         code_reviews={},
         test_results={},
         documentation={},
-        _iterations=0  # Add iteration counter to track and prevent infinite loops
+        _iterations=0,  # Add iteration counter to track and prevent infinite loops
+        create_documentation=True,
+        completed_files=[]
     )
     
     print("Building graph...")
@@ -217,7 +219,9 @@ def generate_project_with_progress(project_requirements: str, task_id=None, recu
         code_reviews={},
         test_results={},
         documentation={},
-        _iterations=0  # Add iteration counter to track and prevent infinite loops
+        _iterations=0,  # Add iteration counter to track and prevent infinite loops
+        create_documentation=True,
+        completed_files=[]
     )
     
     print("Building graph...")
@@ -356,14 +360,33 @@ from progress_manager import update_progress
 def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0, max_tokens: int = None, task_id=None, recursion_limit: int = 100):
     """
     Perform a task with progress tracking.
-    
+
     Args:
         task: The project requirements
+        provider: LLM provider (openai, anthropic, etc.)
+        api_key: API key for the provider
+        temperature: Temperature for LLM generation
+        max_tokens: Maximum tokens for LLM generation
         task_id: Optional task ID for progress reporting
-        
+        recursion_limit: Maximum recursion limit for workflow
+
     Returns:
         Dictionary with the task results
     """
+    # Validate and get API key
+    if api_key is None:
+        import os
+        api_key = os.getenv('OPENAI_API_KEY')
+
+    if not api_key:
+        error_msg = "No API key provided and OPENAI_API_KEY not in environment"
+        if task_id:
+            update_progress(task_id, 0, f"Error: {error_msg}")
+        return {
+            "error": error_msg,
+            "status": "error"
+        }
+
     # Configure model for this task
     steps.set_llm(provider, api_key, temperature=temperature, max_tokens=max_tokens)
 
@@ -382,7 +405,9 @@ def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0
         code_reviews={},
         test_results={},
         documentation={},
-        _iterations=0
+        _iterations=0,
+        create_documentation=True,
+        completed_files=[]
     )
     
     # Build and compile the graph
@@ -402,14 +427,16 @@ def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0
     except Exception as e:
         if task_id:
             update_progress(task_id, 0, f"Error: {str(e)}")
-        
+
         import traceback
         traceback.print_exc()
-        
-        try:
-            final_state = app.get_state()
-        except:
-            return {"error": str(e)}
+
+        # Return error information (app.get_state() doesn't exist on compiled graphs)
+        return {
+            "error": str(e),
+            "status": "error",
+            "project_requirements": task
+        }
     
     # Prepare the result
     result = {

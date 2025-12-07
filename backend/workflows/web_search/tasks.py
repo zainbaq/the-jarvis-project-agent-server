@@ -193,14 +193,29 @@ from progress_manager import update_progress
 def perform_task(task, provider="openai", api_key=None, temperature: float = 0.7, max_tokens: int = None, task_id=None):
     """
     Perform the research task with progress tracking.
-    
+
     Args:
         task (str): The research topic/question
+        provider (str): LLM provider (openai, anthropic, etc.)
+        api_key (str): API key for the provider
+        temperature (float): Temperature for LLM generation
+        max_tokens (int): Maximum tokens for LLM generation
         task_id (str, optional): Optional task ID for progress reporting
-        
+
     Returns:
         str: The research output as markdown text
     """
+    # Validate and get API key
+    if api_key is None:
+        import os
+        api_key = os.getenv('OPENAI_API_KEY')
+
+    if not api_key:
+        error_msg = "No API key provided and OPENAI_API_KEY not in environment"
+        if task_id:
+            update_progress(task_id, 0, f"Error: {error_msg}")
+        return {"error": error_msg, "status": "error"}
+
     if task_id:
         update_progress(task_id, 10, "Starting research process")
 

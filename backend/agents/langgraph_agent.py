@@ -7,7 +7,7 @@ import time
 from typing import Dict, Any, Optional, Callable
 from pathlib import Path
 
-from agents.base import WorkflowAgent, AgentCapability
+from backend.agents.base import WorkflowAgent, AgentCapability
 
 logger = logging.getLogger(__name__)
 
@@ -146,8 +146,16 @@ class LangGraphAgent(WorkflowAgent):
         try:
             # Execute the workflow
             # The perform_task function signature is: perform_task(task, provider, api_key, ...)
-            result = self.workflow_function(task, **params)
-            
+            # Check if function is async or sync and handle appropriately
+            import asyncio
+            import inspect
+
+            if inspect.iscoroutinefunction(self.workflow_function):
+                result = await self.workflow_function(task, **params)
+            else:
+                # Run synchronous workflow in thread pool to avoid blocking
+                result = await asyncio.to_thread(self.workflow_function, task, **params)
+
             execution_time = time.time() - start_time
             
             # Check for errors in result

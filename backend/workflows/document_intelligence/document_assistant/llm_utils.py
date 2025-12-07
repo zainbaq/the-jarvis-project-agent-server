@@ -1,7 +1,7 @@
 from typing import Dict, List, Any, Optional
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from tools.llm import get_llm
+from backend.tools.llm import get_llm
 from .models import TaskRequirement, ExecutionPlan, PlanStep, DocumentInfo
 
 def create_llm(provider: str = "openai", api_key: str = None, model_name: str = "gpt-4o", temperature: float = 0.2, max_tokens: int = None):

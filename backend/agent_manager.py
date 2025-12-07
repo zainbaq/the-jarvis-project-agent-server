@@ -11,8 +11,8 @@ import logging
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 
-from agents.base import BaseAgent, WorkflowAgent
-from tools.web_search import WebSearchTool
+from backend.agents.base import BaseAgent, WorkflowAgent
+from backend.tools.web_search import WebSearchTool
 
 logger = logging.getLogger(__name__)
 
@@ -381,11 +381,20 @@ Tools used in this query:
         """
         # For workflow agents, we pass tool results as metadata
         workflow_params = parameters.copy() if parameters else {}
-        
+
         # Add tool results to parameters
         if tool_results:
             workflow_params["tool_results"] = [tr.to_dict() for tr in tool_results]
-        
+
+        # Get workflow-specific config from agent and add to parameters
+        agent_config = agent.config
+        workflow_params.setdefault('provider', agent_config.get('provider', 'openai'))
+        workflow_params.setdefault('api_key', agent_config.get('api_key'))
+        workflow_params.setdefault('model_name', agent_config.get('model_name'))
+        workflow_params.setdefault('temperature', agent_config.get('temperature', 0.0))
+        workflow_params.setdefault('max_tokens', agent_config.get('max_tokens'))
+        workflow_params.setdefault('recursion_limit', agent_config.get('recursion_limit', 100))
+
         try:
             # Execute workflow
             result = await agent.execute_workflow(

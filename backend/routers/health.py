@@ -2,7 +2,7 @@
 Health check and status endpoints
 """
 from fastapi import APIRouter, Request
-from models.responses import HealthResponse
+from backend.models.responses import HealthResponse
 import time
 
 router = APIRouter()

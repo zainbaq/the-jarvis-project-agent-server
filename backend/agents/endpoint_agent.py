@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional, List
 from openai import AsyncOpenAI
 import asyncio
 
-from agents.base import BaseAgent, AgentCapability
+from backend.agents.base import BaseAgent, AgentCapability
 
 logger = logging.getLogger(__name__)
 

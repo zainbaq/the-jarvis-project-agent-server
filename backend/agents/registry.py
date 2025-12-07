@@ -8,11 +8,11 @@ import re
 from typing import Dict, List, Optional
 from pathlib import Path
 
-from agents.base import BaseAgent
-from agents.openai_agent import OpenAIAgent
-from agents.langgraph_agent import LangGraphAgent
-from agents.endpoint_agent import EndpointAgent
-from models.responses import AgentInfo, AgentType
+from backend.agents.base import BaseAgent
+from backend.agents.openai_agent import OpenAIAgent
+from backend.agents.langgraph_agent import LangGraphAgent
+from backend.agents.endpoint_agent import EndpointAgent
+from backend.models.responses import AgentInfo, AgentType
 
 logger = logging.getLogger(__name__)
 
@@ -292,7 +292,7 @@ class AgentRegistry:
     
     def get_agents_by_capability(self, capability: str) -> List[BaseAgent]:
         """Get all agents with a specific capability"""
-        from agents.base import AgentCapability
+        from backend.agents.base import AgentCapability
         
         try:
             cap = AgentCapability(capability)

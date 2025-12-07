@@ -3,7 +3,7 @@ Base agent interface - all agents must implement this
 """
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional, List
-from models.responses import AgentInfo
+from backend.models.responses import AgentInfo
 from enum import Enum
 
 

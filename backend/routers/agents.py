@@ -5,12 +5,12 @@ from fastapi import APIRouter, Request, HTTPException, Query
 from typing import List, Optional
 import logging
 
-from models.requests import ChatRequest, WorkflowExecuteRequest
-from models.responses import (
+from backend.models.requests import ChatRequest, WorkflowExecuteRequest
+from backend.models.responses import (
     AgentInfo, ChatResponse, WorkflowExecuteResponse, ErrorResponse
 )
-from agents.base import WorkflowAgent
-from agent_manager import get_agent_manager
+from backend.agents.base import WorkflowAgent
+from backend.agent_manager import get_agent_manager
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -172,15 +172,15 @@ async def delete_conversation(
     
     try:
         # For agents with conversation storage
-        from agents.openai_agent import OpenAIAgent
-        from agents.endpoint_agent import EndpointAgent
+        from backend.agents.openai_agent import OpenAIAgent
+        from backend.agents.endpoint_agent import EndpointAgent
         
         if isinstance(agent, (OpenAIAgent, EndpointAgent)):
             if conversation_id in agent.conversations:
                 del agent.conversations[conversation_id]
                 
                 # Also clear web search data
-                from agent_manager import get_agent_manager
+                from backend.agent_manager import get_agent_manager
                 agent_manager = get_agent_manager()
                 if agent_manager.web_search_tool.is_vector_store_available():
                     agent_manager.web_search_tool.clear_conversation(conversation_id)
@@ -225,8 +225,8 @@ async def test_agent(agent_id: str, request: Request):
     
     try:
         # For agents with test_connection method
-        from agents.openai_agent import OpenAIAgent
-        from agents.endpoint_agent import EndpointAgent
+        from backend.agents.openai_agent import OpenAIAgent
+        from backend.agents.endpoint_agent import EndpointAgent
         
         if isinstance(agent, (OpenAIAgent, EndpointAgent)):
             result = await agent.test_connection()
@@ -260,7 +260,7 @@ async def get_tools_status(request: Request):
     """
     Get status of available tools (web search, etc.)
     """
-    from agent_manager import get_agent_manager
+    from backend.agent_manager import get_agent_manager
     
     agent_manager = get_agent_manager()
     tools = agent_manager.get_available_tools()
@@ -276,7 +276,7 @@ async def test_tools(request: Request):
     """
     Test all available tools
     """
-    from agent_manager import get_agent_manager
+    from backend.agent_manager import get_agent_manager
     
     try:
         agent_manager = get_agent_manager()

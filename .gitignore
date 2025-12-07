@@ -1,4 +1,8 @@
 backend/.env
 vector_stores/
 backend/vector_stores/
+CLAUDE.md
+
+backend/tests/
+logs/
 

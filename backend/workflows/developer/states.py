@@ -13,3 +13,4 @@ class CodeGenState(TypedDict):
     documentation: Dict[str, str]  # Store documentation
     _iterations: int  # Add iteration counter to prevent infinite loops
     create_documentation: bool
+    completed_files: List[str]  # Track files that have been fully processed (generated, reviewed, improved, tested)

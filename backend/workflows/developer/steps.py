@@ -5,7 +5,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from .states import CodeGenState
 from dotenv import load_dotenv
-from tools.llm import get_llm
+from backend.tools.llm import get_llm
 
 load_dotenv()
 
@@ -263,19 +263,19 @@ def select_next_file(state: CodeGenState) -> CodeGenState:
         else:
             components = architecture
         
-        # Get codebase
-        codebase = state.get("codebase", {})
-        
-        # Find files that haven't been generated yet
+        # Get completed files list (files that have been generated, reviewed, improved, and tested)
+        completed_files = state.get("completed_files", [])
+
+        # Find files that haven't been completed yet
         remaining_files = []
         for component in components:
             if isinstance(component, dict) and "name" in component:
                 name = component["name"]
-                if name not in codebase:
+                if name not in completed_files:
                     remaining_files.append(component)
-        
+
         if not remaining_files:
-            print("All files generated, moving to documentation")
+            print("All files completed (generated, reviewed, improved, tested), moving to documentation")
             return {**state, "current_file": None, "_iterations": iterations + 1}  # Explicit None
         
         # Select the next file
@@ -567,20 +567,32 @@ def generate_tests(state: CodeGenState) -> CodeGenState:
         
         # Mark this file as having tests
         test_results = {**state.get("test_results", {}), current_file: True}
-        
+
+        # Mark this file as completed (generated, reviewed, improved, tested)
+        completed_files = state.get("completed_files", [])
+        if current_file not in completed_files:
+            completed_files = completed_files + [current_file]
+
         return {
             **state,
             "codebase": updated_codebase,
             "test_results": test_results,
-            "current_file": None  # Reset current file to avoid loops
+            "completed_files": completed_files
+            # Keep current_file set so it can be used by other nodes if needed
         }
     except Exception as e:
         error_msg = f"Error generating tests for {current_file}: {str(e)}"
         print(error_msg)
+
+        # Mark as completed even on error to avoid infinite retry loop
+        completed_files = state.get("completed_files", [])
+        if current_file not in completed_files:
+            completed_files = completed_files + [current_file]
+
         return {
-            **state, 
+            **state,
             "error": error_msg,
-            "current_file": None  # Reset current file even on error
+            "completed_files": completed_files
         }
 
 # Node for generating documentation
@@ -596,12 +608,28 @@ def generate_documentation(state: CodeGenState) -> CodeGenState:
             # Skip test files and existing documentation
             if filename.startswith("test_") or filename.endswith(".md"):
                 continue
-            
-            components = state["architecture"]['components']
+
+            # Check if we should create documentation for this file
+            # Handle both list and dict architecture formats
+            should_document = state.get("create_documentation", True)
+            architecture = state.get("architecture", [])
+
+            if isinstance(architecture, dict):
+                components = architecture.get('components', [])
+            elif isinstance(architecture, list):
+                components = architecture
+            else:
+                components = []
+
+            # Check component-specific documentation flag
             for component in components:
-                if component['name'] == filename:
-                    if component['create_documentation'] == False:
-                        continue
+                if isinstance(component, dict) and component.get('name') == filename:
+                    if component.get('create_documentation', True) == False:
+                        should_document = False
+                        break
+
+            if not should_document:
+                continue
                 
             doc_prompt = ChatPromptTemplate.from_messages([
                 ("system", "You are a technical documentation expert."),

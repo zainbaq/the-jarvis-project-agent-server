@@ -8,11 +8,11 @@ from contextlib import asynccontextmanager
 import logging
 from dotenv import load_dotenv
 
-from routers import agents, health
-from agents.registry import AgentRegistry
-from config import settings
-from logging_config import setup_logging
-from middleware import setup_middleware
+from backend.routers import agents, health
+from backend.agents.registry import AgentRegistry
+from backend.config import settings
+from backend.logging_config import setup_logging
+from backend.middleware import setup_middleware
 
 load_dotenv()
 
