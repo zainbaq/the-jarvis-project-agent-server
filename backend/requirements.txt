@@ -13,10 +13,15 @@ langgraph
 langchain
 langchain-core
 langchain-openai
+langchain-community
+langchain-anthropic
 
 # Utilities
 python-dotenv
 aiofiles
+beautifulsoup4
+tqdm
+requests
 
 # Testing
 pytest
@@ -31,3 +36,7 @@ anthropic
 black
 flake8
 mypy
+
+
+# Vector DB
+chromadb

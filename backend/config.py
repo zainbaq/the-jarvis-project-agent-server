@@ -16,7 +16,12 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     
     # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8080"]
+    CORS_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:8080",
+        "http://localhost:5173",  # Vite dev server
+        "http://localhost:4173",  # Vite preview server
+    ]
     
     # OpenAI Configuration
     OPENAI_API_KEY: str = ""

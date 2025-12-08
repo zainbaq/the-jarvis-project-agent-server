@@ -99,7 +99,7 @@ def get_description():
 
 # Add this to your workflows/web_search/tasks.py file
 
-from progress_manager import update_progress
+from backend.progress_manager import update_progress
 import time
 
 # Wrap the perform_deep_research function to include progress reporting
@@ -188,7 +188,7 @@ def perform_deep_research_with_progress(input_text, task_id=None, provider="open
 
 # Modify the perform_task function in workflows/web_search/tasks.py
 
-from progress_manager import update_progress
+from backend.progress_manager import update_progress
 
 def perform_task(task, provider="openai", api_key=None, temperature: float = 0.7, max_tokens: int = None, task_id=None):
     """

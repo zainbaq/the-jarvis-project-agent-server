@@ -767,15 +767,17 @@ def route_from_select_next_file(state):
     else:
         components = architecture
     
-    # Check remaining files
+    # Check remaining files (files that haven't been completed yet)
+    completed_files = state.get("completed_files", [])
     remaining_files = False
     for component in components:
         if isinstance(component, dict) and "name" in component:
             name = component["name"]
-            if name not in codebase:
+            # Check if file has been completed (generated, reviewed, improved, tested)
+            if name not in completed_files:
                 remaining_files = True
                 break
-    
+
     if remaining_files:
         return "generate_file"
     else:

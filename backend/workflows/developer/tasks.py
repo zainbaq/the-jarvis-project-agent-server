@@ -203,7 +203,7 @@ def get_description():
 
 # Add this to your workflows/developer/tasks.py file
 
-from progress_manager import update_progress
+from backend.progress_manager import update_progress
 
 # Add a progress-tracked version of generate_project
 def generate_project_with_progress(project_requirements: str, task_id=None, recursion_limit: int = 100):
@@ -355,7 +355,7 @@ def generate_project_with_progress(project_requirements: str, task_id=None, recu
 
 # Modify the perform_task function in workflows/developer/tasks.py
 
-from progress_manager import update_progress
+from backend.progress_manager import update_progress
 
 def perform_task(task, provider="openai", api_key=None, temperature: float = 0.0, max_tokens: int = None, task_id=None, recursion_limit: int = 100):
     """
