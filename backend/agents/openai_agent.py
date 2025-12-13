@@ -115,7 +115,7 @@ class OpenAIAgent(BaseAgent):
 
         # Prepare messages
         messages = self._prepare_messages(message, conversation_history, system_message)
-        
+
         try:
             # Make API call
             completion = await self.client.chat.completions.create(

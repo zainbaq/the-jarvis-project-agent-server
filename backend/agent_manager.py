@@ -73,7 +73,7 @@ class AgentManager:
         self,
         agent: BaseAgent,
         message: str,
-        conversation_id: str,
+        conversation_id: Optional[str] = None,
         enable_web_search: bool = False,
         uploaded_files: Optional[List[Dict]] = None,
         conversation_history: Optional[List[Dict]] = None,
@@ -81,21 +81,28 @@ class AgentManager:
     ) -> Dict[str, Any]:
         """
         Main entry point: process user query with tools and agent
-        
+
         Args:
             agent: The agent to use for generating response
             message: User's message
-            conversation_id: Unique conversation identifier
+            conversation_id: Unique conversation identifier (will be generated if None)
             enable_web_search: Whether to use web search
             uploaded_files: List of uploaded file metadata
             conversation_history: Previous conversation messages
             parameters: Additional parameters for agent
-            
+
         Returns:
             Dict with response, metadata, and tool results
         """
+        # Generate conversation ID if not provided
+        if not conversation_id:
+            import uuid
+            conversation_id = f"conv_{uuid.uuid4().hex[:12]}"
+            logger.info(f"Generated new conversation ID: {conversation_id}")
+
         # Step 1: Execute tools if needed
         tool_results = await self._execute_tools(
+            agent=agent,
             message=message,
             conversation_id=conversation_id,
             enable_web_search=enable_web_search,
@@ -132,6 +139,7 @@ class AgentManager:
     
     async def _execute_tools(
         self,
+        agent: BaseAgent,
         message: str,
         conversation_id: str,
         enable_web_search: bool = False,
@@ -139,14 +147,22 @@ class AgentManager:
     ) -> List[ToolResult]:
         """
         Execute all requested tools
-        
+
+        Args:
+            agent: The agent that will process the query
+            message: User message
+            conversation_id: Conversation identifier
+            enable_web_search: Whether to enable web search
+            uploaded_files: Optional file attachments
+
         Returns:
             List of tool results
         """
         tool_results = []
-        
-        # Web Search Tool
+
+        # Web Search Tool - Use Serper for all agents
         if enable_web_search and self.tools_available.get("web_search"):
+            logger.info(f"Using Serper web search for {agent.get_type()} agent")
             web_search_result = await self._execute_web_search(
                 message=message,
                 conversation_id=conversation_id
@@ -331,8 +347,16 @@ Tools used in this query:
     ) -> Dict[str, Any]:
         """
         Query a standard (non-workflow) agent with prompt engineering
-        
+
         Standard agents include: OpenAI, Endpoint, Custom agents
+
+        Args:
+            agent: The agent to query
+            message: User message
+            conversation_id: Conversation identifier
+            conversation_history: Previous messages
+            tool_results: Results from tool execution
+            parameters: Additional parameters
         """
         # Build enhanced prompt
         prompt_data = self._build_enhanced_prompt(
@@ -340,11 +364,11 @@ Tools used in this query:
             tool_results=tool_results,
             conversation_history=conversation_history
         )
-        
+
         # Prepare parameters with system instructions
         agent_params = parameters.copy() if parameters else {}
-        
-        # Add system message if agent supports it
+
+        # Add system message if agent supports it (for Serper results)
         if prompt_data["has_tool_context"]:
             agent_params["system_message"] = prompt_data["system_instructions"]
         

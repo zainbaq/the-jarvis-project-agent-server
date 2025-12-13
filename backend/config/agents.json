@@ -1,5 +1,17 @@
 {
     "agents": [
+        {
+        "agent_id": "gpt5_assistant",
+        "name": "GPT-4o Primary",
+        "type": "openai",
+        "description": "General purpose GPT-4o conversational assistant with web search",
+        "config": {
+          "api_key": "${OPENAI_API_KEY}",
+          "model": "gpt-4o",
+          "temperature": 0.7,
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+        }
+      },
       {
         "agent_id": "gpt4_assistant",
         "name": "GPT-4 Assistant",
@@ -7,9 +19,8 @@
         "description": "General purpose GPT-4 conversational assistant with web search",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
-          "model": "gpt-4",
+          "model": "gpt-4o",
           "temperature": 0.7,
-          "max_tokens": 2000,
           "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
         }
       },

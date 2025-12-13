@@ -1,0 +1,172 @@
+INFO:     Will watch for changes in these directories: ['/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [65713] using WatchFiles
+2025-12-13 13:25:35 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 13:25:35 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 13:25:35 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [65716]
+INFO:     Waiting for application startup.
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 13:25:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-4o
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 13:25:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 13:25:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 13:25:35 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 13:25:35 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 13:25:35 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m -    - GPT-4o Primary (gpt5_assistant) - openai
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 13:25:35 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+2025-12-13 13:25:54 - backend.middleware - [32mINFO[0m - Request started: POST /api/agents/gpt5_assistant/chat [ID: 02ca5e05]
+2025-12-13 13:25:54 - backend.tools.web_search - [32mINFO[0m - Vector store directory: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-12-13 13:25:54 - chromadb.config - [36mDEBUG[0m - Starting component System
+2025-12-13 13:25:54 - chromadb.config - [36mDEBUG[0m - Starting component Posthog
+2025-12-13 13:25:54 - backend.tools.web_search - [32mINFO[0m - ✅ ChromaDB initialized at /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-12-13 13:25:54 - backend.tools.web_search - [32mINFO[0m - WebSearchTool initialized
+2025-12-13 13:25:54 - backend.tools.web_search - [32mINFO[0m - ✅ Web search fully configured and ready
+2025-12-13 13:25:54 - backend.agent_manager - [32mINFO[0m - AgentManager initialized. Available tools: {'web_search': True}
+2025-12-13 13:25:54 - backend.agent_manager - [32mINFO[0m - Using Serper web search for openai agent
+2025-12-13 13:25:54 - backend.agent_manager - [32mINFO[0m - Executing web search for conversation None
+2025-12-13 13:25:54 - backend.tools.web_search - [32mINFO[0m - Extracted queries: ['What is the weather like today', 'what weather like today latest 2024', 'What is the weather guide tutorial']
+2025-12-13 13:25:54 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:25:55 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 2215
+2025-12-13 13:25:55 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'What is the weather like today...'
+2025-12-13 13:25:55 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:25:55 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 1846
+2025-12-13 13:25:55 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'what weather like today latest 2024...'
+2025-12-13 13:25:56 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:25:57 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3416
+2025-12-13 13:25:57 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'What is the weather guide tutorial...'
+2025-12-13 13:25:57 - backend.tools.web_search - [31mERROR[0m - Error in search_and_store: expected string or bytes-like object, got 'NoneType'
+Traceback (most recent call last):
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 566, in search_and_store
+    vector_stored = self.vector_store.add_search_results(
+        conversation_id=conversation_id,
+        search_results=all_results,
+        search_queries=successful_queries
+    )
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 242, in add_search_results
+    collection = self._get_or_create_collection(conversation_id)
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 196, in _get_or_create_collection
+    collection_name = self._get_collection_name(conversation_id)
+  File "/Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/tools/web_search.py", line 188, in _get_collection_name
+    clean_id = re.sub(r'[^a-zA-Z0-9_]', '_', conversation_id)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/re/__init__.py", line 208, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'
+2025-12-13 13:25:58 - backend.agents.openai_agent - [32mINFO[0m - ✅ OpenAI agent 'gpt5_assistant' completed query (tokens: 63)
+2025-12-13 13:25:58 - backend.middleware - [32mINFO[0m - Request completed: POST /api/agents/gpt5_assistant/chat [ID: 02ca5e05] Status: 200 Duration: 4.725s
+INFO:     127.0.0.1:57695 - "POST /api/agents/gpt5_assistant/chat HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 13:28:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:28:13 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 13:28:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:28:13 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 13:28:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 13:28:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 13:28:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 13:28:13 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 13:28:13 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 13:28:13 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 13:28:13 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [65716]
+2025-12-13 13:28:15 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 13:28:15 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 13:28:15 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [65877]
+INFO:     Waiting for application startup.
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 13:28:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-4o
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 13:28:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 13:28:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 13:28:15 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 13:28:15 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 13:28:15 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m -    - GPT-4o Primary (gpt5_assistant) - openai
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 13:28:15 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+2025-12-13 13:28:58 - backend.middleware - [32mINFO[0m - Request started: POST /api/agents/gpt5_assistant/chat [ID: 38036405]
+2025-12-13 13:28:58 - backend.tools.web_search - [32mINFO[0m - Vector store directory: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-12-13 13:28:58 - chromadb.config - [36mDEBUG[0m - Starting component System
+2025-12-13 13:28:58 - chromadb.config - [36mDEBUG[0m - Starting component Posthog
+2025-12-13 13:28:58 - backend.tools.web_search - [32mINFO[0m - ✅ ChromaDB initialized at /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/vector_stores
+2025-12-13 13:28:58 - backend.tools.web_search - [32mINFO[0m - WebSearchTool initialized
+2025-12-13 13:28:58 - backend.tools.web_search - [32mINFO[0m - ✅ Web search fully configured and ready
+2025-12-13 13:28:58 - backend.agent_manager - [32mINFO[0m - AgentManager initialized. Available tools: {'web_search': True}
+2025-12-13 13:28:58 - backend.agent_manager - [32mINFO[0m - Generated new conversation ID: conv_406f53ae4d1b
+2025-12-13 13:28:58 - backend.agent_manager - [32mINFO[0m - Using Serper web search for openai agent
+2025-12-13 13:28:58 - backend.agent_manager - [32mINFO[0m - Executing web search for conversation conv_406f53ae4d1b
+2025-12-13 13:28:58 - backend.tools.web_search - [32mINFO[0m - Extracted queries: ['What is the latest news about artificial intelligence', 'what latest news about artificial intelligence latest 2024', 'What is the latest guide tutorial']
+2025-12-13 13:28:58 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:28:59 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 4512
+2025-12-13 13:28:59 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'What is the latest news about artificial intellige...'
+2025-12-13 13:28:59 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:29:00 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3476
+2025-12-13 13:29:00 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'what latest news about artificial intelligence lat...'
+2025-12-13 13:29:00 - urllib3.connectionpool - [36mDEBUG[0m - Starting new HTTPS connection (1): google.serper.dev:443
+2025-12-13 13:29:01 - urllib3.connectionpool - [36mDEBUG[0m - https://google.serper.dev:443 "POST /search HTTP/1.1" 200 3563
+2025-12-13 13:29:01 - backend.tools.web_search - [32mINFO[0m - Serper: Retrieved 3 results for query: 'What is the latest guide tutorial...'
+2025-12-13 13:29:01 - backend.tools.web_search - [32mINFO[0m - Created new collection: search_conv_406f53ae4d1b
+2025-12-13 13:29:01 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - [36mDEBUG[0m - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-12-13 13:29:01 - backend.tools.web_search - [32mINFO[0m - Added 9 search results to vector store
+2025-12-13 13:29:01 - chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 - [36mDEBUG[0m - WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+2025-12-13 13:29:04 - backend.agents.openai_agent - [32mINFO[0m - ✅ OpenAI agent 'gpt5_assistant' completed query (tokens: 899)
+2025-12-13 13:29:04 - backend.middleware - [32mINFO[0m - Request completed: POST /api/agents/gpt5_assistant/chat [ID: 38036405] Status: 200 Duration: 6.507s
+INFO:     127.0.0.1:58164 - "POST /api/agents/gpt5_assistant/chat HTTP/1.1" 200 OK
