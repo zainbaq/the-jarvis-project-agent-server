@@ -41,3 +41,15 @@ code {
 .bg-gradient-radial {
   background-image: radial-gradient(var(--tw-gradient-stops));
 }
+
+/* Grid Pattern Background */
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Animation Delays */
+.animation-delay-1s {
+  animation-delay: 1s;
+}

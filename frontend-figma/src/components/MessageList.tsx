@@ -1,7 +1,7 @@
 import React from 'react';
 import { Message } from '../types';
 import { Bot, User, Clock, Zap, Search, CheckCircle2, XCircle } from 'lucide-react';
-import { colors, components, spacing, typography, borderRadius } from '../styles/theme';
+import { colors, components, spacing, typography, borderRadius, iconSizes } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 import { MessageContent } from './MessageContent';
 import { TypingIndicator } from './TypingIndicator';
@@ -21,20 +21,21 @@ export function MessageList({ messages, loading }: MessageListProps) {
   };
 
   return (
-    <div className="w-full flex justify-center px-8 py-12">
+    <div className={cn('w-full flex justify-center', spacing.chatMessageList)}>
       <div className="w-full max-w-3xl space-y-10">
         {messages.map((message) => (
           <div
             key={message.id}
             className={cn(
-              'flex gap-4',
+              'flex',
+              spacing.inlineStandard,
               message.role === 'user' ? 'justify-end' : 'justify-start'
             )}
           >
             {/* Avatar - Only show for assistant */}
             {message.role === 'assistant' && (
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-500/30 flex items-center justify-center shadow-md">
-                <Bot className="w-6 h-6 text-purple-200" />
+              <div className={components.message.avatar.assistant}>
+                <Bot className={cn(iconSizes.lg, 'text-purple-200')} />
               </div>
             )}
 
@@ -42,18 +43,18 @@ export function MessageList({ messages, loading }: MessageListProps) {
             <div className={cn(
               'flex flex-col flex-1',
               message.role === 'user' ? 'items-end' : 'items-start',
-              'gap-3'
+              spacing.inline
             )}>
               {/* Message Bubble */}
               <div className={cn(
                 'rounded-xl text-base leading-relaxed transition-all duration-200',
                 message.role === 'user'
-                  ? 'bg-gradient-to-br from-purple-600 to-purple-700 text-white px-6 py-4 shadow-lg shadow-purple-900/50'
-                  : 'bg-purple-900/30 border border-purple-500/30 text-white px-6 py-4 backdrop-blur-sm'
+                  ? components.message.user
+                  : components.message.assistant
               )}>
-                <MessageContent 
-                  content={message.content} 
-                  isUser={message.role === 'user'} 
+                <MessageContent
+                  content={message.content}
+                  isUser={message.role === 'user'}
                 />
               </div>
 
@@ -85,17 +86,17 @@ export function MessageList({ messages, loading }: MessageListProps) {
               )}
 
               {/* Metadata */}
-              <div className="flex items-center gap-4 text-sm text-gray-400">
+              <div className={cn('flex items-center text-sm text-gray-400', spacing.inlineStandard)}>
                 {/* Timestamp */}
                 <div className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-gray-500" />
+                  <Clock className={cn(iconSizes.sm, 'text-gray-500')} />
                   <span>{formatTimestamp(message.timestamp)}</span>
                 </div>
 
                 {/* Execution Time */}
                 {message.metadata?.execution_time && (
                   <div className="flex items-center gap-1.5">
-                    <Zap className="w-4 h-4 text-purple-400" />
+                    <Zap className={cn(iconSizes.sm, 'text-purple-400')} />
                     <span>{message.metadata.execution_time.toFixed(2)}s</span>
                   </div>
                 )}
@@ -114,8 +115,8 @@ export function MessageList({ messages, loading }: MessageListProps) {
 
             {/* Avatar - Only show for user */}
             {message.role === 'user' && (
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-900/50">
-                <User className="w-6 h-6 text-white" />
+              <div className={components.message.avatar.user}>
+                <User className={cn(iconSizes.lg, 'text-white')} />
               </div>
             )}
           </div>

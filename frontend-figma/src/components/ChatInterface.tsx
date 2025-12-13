@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Agent, Message } from '../types';
 import { MessageList } from './MessageList';
-import { ChatInput } from './ChatInput';
 import { WorkflowPanel } from './WorkflowPanel';
-import { Menu, Trash2, Zap, Bot } from 'lucide-react';
+import { Menu, Trash2, Zap, Bot, Loader, Send } from 'lucide-react';
 import { apiClient } from '../api/client';
+import { colors, components, spacing, typography, borderRadius, iconSizes, shadows } from '../styles/theme';
+import { cn } from './ui/utils';
 
 interface ChatInterfaceProps {
   agent: Agent | null;
@@ -93,18 +94,18 @@ export function ChatInterface({ agent, onToggleSidebar }: ChatInterfaceProps) {
 
   if (!agent) {
     return (
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className={cn('flex-1 flex items-center justify-center', spacing.chatEmptyState)}>
         <div className="text-center max-w-md">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 flex items-center justify-center border border-white/10">
-            <Bot className="w-12 h-12 text-indigo-400" />
+          <div className={cn('w-24 h-24 mx-auto mb-6', borderRadius.lg, 'bg-gradient-to-br from-indigo-500/20 to-purple-600/20 flex items-center justify-center border', colors.border.input)}>
+            <Bot className={cn(iconSizes['4xl'], 'text-indigo-400')} />
           </div>
-          <h2 className="text-2xl text-white mb-4">Welcome to Jarvis AI</h2>
-          <p className="text-gray-400 mb-8 leading-relaxed">
+          <h2 className={cn(typography.heading.xl, colors.text.primary, 'mb-4')}>Welcome to The Jarvis Project</h2>
+          <p className={cn(colors.text.secondary, 'mb-8 leading-relaxed')}>
             Select an agent from the sidebar to start chatting or execute workflows
           </p>
           <button
             onClick={onToggleSidebar}
-            className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg flex items-center justify-center gap-2 mx-auto"
+            className={cn(spacing.buttonPadding.lg, 'bg-gradient-to-r from-indigo-500 to-purple-600', colors.text.primary, borderRadius.md, 'hover:from-indigo-600 hover:to-purple-700 transition-all', shadows.lg, 'flex items-center justify-center gap-2 mx-auto')}
           >
             Open Sidebar
           </button>
@@ -116,58 +117,67 @@ export function ChatInterface({ agent, onToggleSidebar }: ChatInterfaceProps) {
   return (
     <div className="flex-1 flex flex-col">
       {/* Header */}
-      <div className="glass-strong border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+      <div className={cn('glass-strong border-b', colors.border.default)}>
+        <div className={cn('max-w-6xl mx-auto', spacing.containerMain, spacing.containerMainVertical)}>
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className={cn('flex items-center', spacing.inlineStandard)}>
               <button
                 onClick={onToggleSidebar}
-                className="p-2 hover:bg-white/10 rounded-lg transition-all lg:hidden"
+                className={cn(components.buttonVariants.settingsIcon, 'lg:hidden')}
               >
-                <Menu className="w-5 h-5 text-gray-300" />
+                <Menu className={cn(iconSizes.md, colors.text.secondary)} />
               </button>
               <div>
-                <h2 className="text-lg text-white mb-1">{agent.name}</h2>
-                <p className="text-xs text-gray-400">{agent.description}</p>
+                <h2 className={cn(typography.heading.lg, colors.text.primary, 'mb-1')}>{agent.name}</h2>
+                <p className={cn(typography.body.small, colors.text.secondary)}>{agent.description}</p>
               </div>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className={cn('flex items-center', spacing.inlineCompact)}>
               {agent.capabilities.includes('workflow') && (
                 <button
                   onClick={() => setShowWorkflow(!showWorkflow)}
-                  className={`px-4 py-2 rounded-lg text-sm transition-all flex items-center gap-2 ${
+                  className={cn(
+                    spacing.buttonPadding.md,
+                    borderRadius.sm,
+                    typography.body.base,
+                    'transition-all flex items-center',
+                    spacing.inlineCompact,
                     showWorkflow
                       ? 'bg-purple-500/30 text-purple-300 border border-purple-500/50'
-                      : 'bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10'
-                  }`}
+                      : cn('bg-white/5', colors.text.secondary, 'border', colors.border.default, 'hover:bg-white/10')
+                  )}
                 >
-                  <Zap className="w-4 h-4" />
+                  <Zap className={iconSizes.sm} />
                   <span className="hidden sm:inline">Workflow</span>
                 </button>
               )}
-              
+
               {agent.capabilities.includes('web_search') && (
                 <button
                   onClick={() => setEnableWebSearch(!enableWebSearch)}
-                  className={`px-4 py-2 rounded-lg text-sm transition-all ${
+                  className={cn(
+                    spacing.buttonPadding.md,
+                    borderRadius.sm,
+                    typography.body.base,
+                    'transition-all',
                     enableWebSearch
                       ? 'bg-blue-500/30 text-blue-300 border border-blue-500/50'
-                      : 'bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10'
-                  }`}
+                      : cn('bg-white/5', colors.text.secondary, 'border', colors.border.default, 'hover:bg-white/10')
+                  )}
                 >
                   <span className="hidden sm:inline">Web Search</span>
                   <span className="sm:hidden">Search</span>
                 </button>
               )}
-              
+
               {conversationId && (
                 <button
                   onClick={handleClearHistory}
-                  className="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all"
+                  className={cn(spacing.buttonPadding.icon, 'hover:bg-red-500/20 text-red-400', borderRadius.sm, 'transition-all')}
                   title="Clear history"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className={iconSizes.sm} />
                 </button>
               )}
             </div>
@@ -183,20 +193,17 @@ export function ChatInterface({ agent, onToggleSidebar }: ChatInterfaceProps) {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto">
             {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-full p-8">
+              <div className={cn('flex items-center justify-center h-full', spacing.chatEmptyState)}>
                 <div className="text-center max-w-2xl">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 flex items-center justify-center border border-white/10">
-                    <Bot className="w-10 h-10 text-indigo-400" />
-                  </div>
-                  <h3 className="text-2xl text-white mb-4">Start a conversation</h3>
-                  <p className="text-gray-400 mb-8 leading-relaxed">
+                  <h3 className={cn(typography.heading.xl, colors.text.primary, 'mb-4')}>Start a conversation</h3>
+                  <p className={cn(colors.text.secondary, 'mb-8 leading-relaxed')}>
                     {agent.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
+                  <div className={cn('flex flex-wrap justify-center', spacing.inlineCompact)}>
                     {agent.capabilities.map((cap) => (
                       <span
                         key={cap}
-                        className="px-4 py-2 bg-indigo-500/20 text-indigo-300 rounded-full text-sm border border-indigo-500/30"
+                        className={cn(components.tag, 'font-medium')}
                       >
                         {cap}
                       </span>
@@ -205,19 +212,53 @@ export function ChatInterface({ agent, onToggleSidebar }: ChatInterfaceProps) {
                 </div>
               </div>
             ) : (
-              <MessageList messages={messages} />
+              <MessageList messages={messages} loading={loading} />
             )}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
-          <ChatInput
-            onSend={handleSendMessage}
-            loading={loading}
-            enableWebSearch={enableWebSearch}
-            onToggleWebSearch={() => setEnableWebSearch(!enableWebSearch)}
-            agentCapabilities={agent.capabilities}
-          />
+          <div className={cn('border-t', colors.border.default)}>
+            <div className={cn('flex justify-center', spacing.chatInputArea)}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const input = e.currentTarget.querySelector('textarea');
+                  if (input?.value.trim()) {
+                    handleSendMessage(input.value);
+                    input.value = '';
+                  }
+                }}
+                className="w-full max-w-3xl"
+              >
+                <div className={cn('flex items-end backdrop-blur-lg bg-purple-900/40 border border-purple-500/30', borderRadius.md, spacing.inline, spacing.inputContainer, shadows['2xl'])}>
+                  <textarea
+                    placeholder="Type your message..."
+                    rows={1}
+                    disabled={loading}
+                    className={cn(components.textarea, 'flex-1 h-12 max-h-[200px] text-base placeholder-gray-400 focus:placeholder-gray-500')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        e.currentTarget.form?.requestSubmit();
+                      }
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={components.buttonVariants.sendButton}
+                  >
+                    {loading ? (
+                      <Loader className={cn(iconSizes.lg, 'animate-spin', colors.text.primary)} />
+                    ) : (
+                      <Send className={cn(iconSizes.lg, colors.text.primary)} />
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </>
       )}
     </div>

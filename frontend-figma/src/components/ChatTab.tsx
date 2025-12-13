@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Agent, Message, AgentTestResult } from '../types';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
-import { Bot, Trash2, ChevronDown, Plus, X, TestTube2, Loader } from 'lucide-react';
 import { apiClient } from '../api/client';
-import { colors, components, spacing, typography, borderRadius } from '../styles/theme';
+import { colors, components, spacing, typography } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 
 interface ChatTabProps {
@@ -159,13 +158,14 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto">
         {!selectedAgent || messages.length === 0 ? (
-          <div className={cn('flex items-center justify-center h-full', spacing.chatEmptyState)}>
+          <div
+            className={cn(
+              'flex items-center justify-center h-full',
+              spacing.chatEmptyState,
+              'pb-32' // 👈 ADD THIS
+            )}
+          >
             <div className="text-center max-w-3xl">
-              {/* Bot Icon */}
-              <div className={cn('w-28 h-28 mx-auto mb-8', borderRadius.lg, 'bg-purple-600/20 flex items-center justify-center shadow-lg')}>
-                <Bot className={cn('w-14 h-14', colors.text.accent)} />
-              </div>
-
               {/* Title */}
               <h3 className={cn('text-3xl font-semibold', colors.text.primary, 'mb-6')}>Start a conversation</h3>
 
@@ -174,7 +174,7 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
                 {selectedAgent ? selectedAgent.description : 'Select an agent from the dropdown below to begin chatting'}
               </p>
               
-              {/* Capability Tags */}
+              {/* Capability Tags
               {selectedAgent && (
                 <div className="flex flex-wrap gap-3 justify-center">
                   {selectedAgent.capabilities.map((cap) => (
@@ -186,7 +186,7 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
                     </span>
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         ) : (

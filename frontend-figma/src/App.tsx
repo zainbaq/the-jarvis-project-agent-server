@@ -119,20 +119,11 @@ function App() {
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 animate-gradient" />
 
       {/* Grid Pattern Overlay */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)`,
-          backgroundSize: "50px 50px",
-        }}
-      />
+      <div className="absolute inset-0 opacity-20 bg-grid-pattern" />
 
       {/* Glow Effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
-      <div
-        className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl animate-pulse"
-        style={{ animationDelay: "1s" }}
-      />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl animate-pulse animation-delay-1s" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
@@ -153,9 +144,10 @@ function App() {
         ) : (
           <>
             {activeTab === "chat" && (
-              <ChatTab 
+              <ChatTab
                 agents={agents}
                 onAddEndpoint={() => setShowAddEndpoint(true)}
+                onAgentChange={setSelectedAgent}
               />
             )}
             {activeTab === "workflows" && (

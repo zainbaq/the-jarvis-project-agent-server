@@ -27,6 +27,47 @@
         }
       },
       {
+        "agent_id": "azure_gpt4",
+        "name": "Azure GPT-4",
+        "type": "endpoint",
+        "description": "GPT-4 via Azure OpenAI Service",
+        "config": {
+          "api_key": "${AZURE_OPENAI_API_KEY}",
+          "base_url": "${AZURE_OPENAI_ENDPOINT}",
+          "model": "gpt-4",
+          "deployment_name": "${AZURE_OPENAI_DEPLOYMENT_NAME}",
+          "temperature": 0.7,
+          "max_tokens": 2000,
+          "system_message": "You are a helpful AI assistant powered by Azure OpenAI."
+        }
+      },
+      {
+        "agent_id": "custom_llm",
+        "name": "Custom LLM Endpoint",
+        "type": "endpoint",
+        "description": "Custom OpenAI-compatible LLM endpoint",
+        "config": {
+          "api_key": "${CUSTOM_API_KEY}",
+          "base_url": "${CUSTOM_ENDPOINT_URL}",
+          "model": "custom-model",
+          "temperature": 0.7,
+          "max_tokens": 2000
+        }
+      },
+      {
+        "agent_id": "code_assistant",
+        "name": "Code Assistant",
+        "type": "openai",
+        "description": "Specialized assistant for coding and technical questions",
+        "config": {
+          "api_key": "${OPENAI_API_KEY}",
+          "model": "gpt-4",
+          "temperature": 0.2,
+          "max_tokens": 3000,
+          "system_message": "You are an expert programming assistant. Provide clean, well-documented code with explanations. Focus on best practices and efficient solutions."
+        }
+      },
+      {
         "agent_id": "developer_workflow",
         "name": "Developer Workflow Agent",
         "type": "langgraph",
