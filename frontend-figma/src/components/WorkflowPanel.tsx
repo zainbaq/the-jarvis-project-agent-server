@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Agent, WorkflowResponse } from '../types';
 import { apiClient } from '../api/client';
 import { Play, Loader, CheckCircle, XCircle, FileCode, ChevronRight, ChevronDown } from 'lucide-react';
-import { spacing } from '../styles/theme';
+import { spacing, components } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 
 interface WorkflowPanelProps {
@@ -130,13 +130,14 @@ export function WorkflowPanel({ agent }: WorkflowPanelProps) {
             {result && (
               <div className="space-y-6">
                 {/* Status */}
-                <div className={`p-4 rounded-xl border ${
-                  result.status === 'completed' 
-                    ? 'border-green-500/30 bg-green-500/10' 
+                <div className={cn(
+                  'p-4 rounded-xl border',
+                  result.status === 'completed'
+                    ? components.workflowStatus.completed
                     : result.status === 'failed'
-                    ? 'border-red-500/30 bg-red-500/10'
-                    : 'border-blue-500/30 bg-blue-500/10'
-                }`}>
+                    ? components.workflowStatus.failed
+                    : components.workflowStatus.running
+                )}>
                   <div className="flex items-center gap-3">
                     {result.status === 'completed' ? (
                       <CheckCircle className="w-5 h-5 text-green-400" />
@@ -145,10 +146,7 @@ export function WorkflowPanel({ agent }: WorkflowPanelProps) {
                     ) : (
                       <Loader className="w-5 h-5 text-blue-400 animate-spin" />
                     )}
-                    <span className={`text-sm ${
-                      result.status === 'completed' ? 'text-green-300' :
-                      result.status === 'failed' ? 'text-red-300' : 'text-blue-300'
-                    }`}>
+                    <span className="text-sm">
                       Status: {result.status}
                     </span>
                     {result.execution_time && (

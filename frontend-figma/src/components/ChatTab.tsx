@@ -1,18 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Agent, Message, AgentTestResult } from '../types';
+import { useState, useRef, useEffect } from 'react';
+import { Agent, Message } from '../types';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 import { apiClient } from '../api/client';
-import { colors, components, spacing, typography } from '../styles/theme';
+import { colors, spacing } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 
 interface ChatTabProps {
   agents: Agent[];
   onAddEndpoint: () => void;
   onAgentChange?: (agent: Agent | null) => void;
+  onDeleteEndpoint: (agent: Agent) => void;
 }
 
-export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) {
+export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint }: ChatTabProps) {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
 
   // Notify parent when agent changes
@@ -24,10 +25,6 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [enableWebSearch, setEnableWebSearch] = useState(false);
   const [showAgentDropdown, setShowAgentDropdown] = useState(false);
-  const [showCustomEndpoint, setShowCustomEndpoint] = useState(false);
-  const [customEndpoint, setCustomEndpoint] = useState({ name: '', url: '', apiKey: '' });
-  const [testingAgent, setTestingAgent] = useState(false);
-  const [testResult, setTestResult] = useState<AgentTestResult | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -113,46 +110,6 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
     }
   };
 
-  const handleClearHistory = async () => {
-    if (conversationId && selectedAgent) {
-      try {
-        await apiClient.deleteConversation(selectedAgent.agent_id, conversationId);
-      } catch (error) {
-        console.error('Failed to delete conversation:', error);
-      }
-    }
-    setMessages([]);
-    setConversationId(null);
-  };
-
-  const handleTestAgent = async () => {
-    if (!selectedAgent) return;
-
-    setTestingAgent(true);
-    setTestResult(null);
-
-    try {
-      const result = await apiClient.testAgent(selectedAgent.agent_id);
-      setTestResult(result);
-    } catch (error) {
-      setTestResult({
-        success: false,
-        message: 'Test failed',
-        error: error instanceof Error ? error.message : 'Unknown error',
-        agent_type: selectedAgent.type
-      });
-    } finally {
-      setTestingAgent(false);
-    }
-  };
-
-  const handleAddCustomEndpoint = () => {
-    // In a real implementation, this would create a custom agent
-    console.log('Add custom endpoint:', customEndpoint);
-    setShowCustomEndpoint(false);
-    setCustomEndpoint({ name: '', url: '', apiKey: '' });
-  };
-
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Messages */}
@@ -205,6 +162,7 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange }: ChatTabProps) 
         agents={chatAgents}
         onAgentChange={setSelectedAgent}
         onAddEndpoint={onAddEndpoint}
+        onDeleteEndpoint={onDeleteEndpoint}
       />
     </div>
   );

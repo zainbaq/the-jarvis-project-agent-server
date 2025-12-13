@@ -4,6 +4,7 @@ import { ChatTab } from "./components/ChatTab";
 import { WorkflowsTab } from "./components/WorkflowsTab";
 import { SettingsModal } from "./components/SettingsModal";
 import { AddEndpointModal, EndpointConfig } from "./components/AddEndpointModal";
+import { DeleteConfirmModal } from "./components/DeleteConfirmModal";
 import { Agent } from "./types";
 import { apiClient } from "./api/client";
 
@@ -16,6 +17,8 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showAddEndpoint, setShowAddEndpoint] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [agentToDelete, setAgentToDelete] = useState<Agent | null>(null);
 
   // Enable demo mode by default on first load
   useEffect(() => {
@@ -113,6 +116,32 @@ function App() {
     }
   };
 
+  const handleDeleteEndpoint = (agent: Agent) => {
+    setAgentToDelete(agent);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDeleteEndpoint = () => {
+    if (!agentToDelete) return;
+
+    // Remove from localStorage
+    const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
+    const filtered = customEndpoints.filter((ep: Agent) => ep.agent_id !== agentToDelete.agent_id);
+    localStorage.setItem('jarvis_custom_endpoints', JSON.stringify(filtered));
+
+    // Remove from state
+    setAgents(agents.filter(a => a.agent_id !== agentToDelete.agent_id));
+
+    // Clear selection if deleted agent was selected
+    if (selectedAgent?.agent_id === agentToDelete.agent_id) {
+      setSelectedAgent(null);
+    }
+
+    // Close modal
+    setShowDeleteConfirm(false);
+    setAgentToDelete(null);
+  };
+
   return (
     <div className="flex flex-col h-screen relative overflow-hidden">
       {/* Animated Background */}
@@ -148,6 +177,7 @@ function App() {
                 agents={agents}
                 onAddEndpoint={() => setShowAddEndpoint(true)}
                 onAgentChange={setSelectedAgent}
+                onDeleteEndpoint={handleDeleteEndpoint}
               />
             )}
             {activeTab === "workflows" && (
@@ -166,6 +196,16 @@ function App() {
         isOpen={showAddEndpoint}
         onClose={() => setShowAddEndpoint(false)}
         onAdd={handleAddEndpoint}
+      />
+      <DeleteConfirmModal
+        isOpen={showDeleteConfirm}
+        onClose={() => {
+          setShowDeleteConfirm(false);
+          setAgentToDelete(null);
+        }}
+        onConfirm={confirmDeleteEndpoint}
+        itemName={agentToDelete?.name || ''}
+        itemType="endpoint"
       />
     </div>
   );

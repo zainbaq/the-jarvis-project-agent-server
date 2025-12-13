@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AlertCircle, CheckCircle, Loader, RefreshCw, PlayCircle, X, TestTube2 } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { DetailedStatus, Agent, AgentTestResult } from '../types';
-import { statusBadge, components, spacing, iconSizes, shadows } from '../styles/theme';
+import { statusBadge, components, spacing, iconSizes } from '../styles/theme';
+import { cn } from '@/components/ui/utils';
+import { TestResultCard } from './TestResultCard';
 
 interface ConnectionStatusProps {
   selectedAgent?: Agent | null;
@@ -68,31 +70,31 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
       <div className="relative">
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className={`${spacing.buttonPadding.sm} rounded-lg text-xs flex items-center gap-2 transition-all ${
-            isDemoMode
-              ? statusBadge.demo
-              : statusBadge.connected
-          }`}
+          className={cn(
+            spacing.buttonPadding.sm,
+            'rounded-lg text-xs flex items-center gap-2 transition-all',
+            isDemoMode ? statusBadge.demo : statusBadge.connected
+          )}
         >
-          <span className={`w-2 h-2 rounded-full ${isDemoMode ? 'bg-yellow-400' : 'bg-green-400'} animate-pulse`} />
+          <span className={cn('w-2 h-2 rounded-full animate-pulse', isDemoMode ? 'bg-yellow-400' : 'bg-green-400')} />
           <span>{isDemoMode ? 'Demo' : 'Connected'}</span>
         </button>
         
         {showDetails && (
-          <div className={`absolute top-full right-0 mt-2 w-80 backdrop-blur-xl bg-[#1a0f2e]/95 border border-purple-500/30 rounded-xl z-50 ${spacing.panelDropdown} ${shadows['2xl']}`}>
+          <div className={cn('absolute top-full right-0 mt-2 w-96 bg-[#1a0f2e] border border-purple-500/30 rounded-md shadow-2xl z-50 overflow-hidden p-6')}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 {isDemoMode ? (
-                  <PlayCircle className={`${iconSizes.md} text-yellow-400`} />
+                  <PlayCircle className={cn(iconSizes.md, 'text-yellow-400')} />
                 ) : (
-                  <CheckCircle className={`${iconSizes.md} text-green-400`} />
+                  <CheckCircle className={cn(iconSizes.md, 'text-green-400')} />
                 )}
-                <span className={`text-base font-medium ${isDemoMode ? 'text-yellow-300' : 'text-green-300'}`}>
+                <span className={cn('text-base font-medium', isDemoMode ? 'text-yellow-300' : 'text-green-300')}>
                   {isDemoMode ? 'Demo Mode' : 'Backend Connected'}
                 </span>
               </div>
               <button onClick={() => setShowDetails(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-all">
-                <X className={`${iconSizes.sm} text-gray-400`} />
+                <X className={cn(iconSizes.sm, 'text-gray-400')} />
               </button>
             </div>
 
@@ -112,7 +114,7 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
                 </div>
                 <div className="flex justify-between">
                   <span>Registry:</span>
-                  <span className={`font-medium ${details.registry.initialized ? 'text-green-400' : 'text-yellow-400'}`}>
+                  <span className={cn('font-medium', details.registry.initialized ? 'text-green-400' : 'text-yellow-400')}>
                     {details.registry.initialized ? 'Initialized' : 'Loading'}
                   </span>
                 </div>
@@ -128,7 +130,7 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
                 >
                   {testingAgent ? (
                     <>
-                      <Loader className={`${iconSizes.sm} animate-spin`} />
+                      <Loader className={cn(iconSizes.sm, 'animate-spin')} />
                       <span>Testing {selectedAgent.name}...</span>
                     </>
                   ) : (
@@ -139,21 +141,7 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
                   )}
                 </button>
 
-                {testResult && (
-                  <div className={`p-4 rounded-lg border text-sm ${
-                    testResult.success
-                      ? 'border-green-500/30 bg-green-500/10 text-green-300'
-                      : 'border-red-500/30 bg-red-500/10 text-red-300'
-                  }`}>
-                    <p className="font-medium mb-1">{testResult.message}</p>
-                    {testResult.response_preview && (
-                      <p className="text-xs text-gray-300 italic mt-2">"{testResult.response_preview}"</p>
-                    )}
-                    {testResult.error && (
-                      <p className="text-xs text-red-400 mt-2">{testResult.error}</p>
-                    )}
-                  </div>
-                )}
+                {testResult && <TestResultCard testResult={testResult} />}
               </div>
             )}
 
@@ -173,16 +161,16 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
       <div className="relative">
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className={`${spacing.buttonPadding.sm} rounded-lg text-xs flex items-center gap-2 transition-all ${statusBadge.disconnected}`}
+          className={cn(spacing.buttonPadding.sm, 'rounded-lg text-xs flex items-center gap-2 transition-all', statusBadge.disconnected)}
         >
           <span className="w-2 h-2 rounded-full bg-orange-400" />
           <span>Disconnected</span>
         </button>
 
         {showDetails && (
-          <div className={`absolute top-full right-0 mt-2 w-96 glass-strong border border-red-500/30 rounded-xl z-50 ${spacing.panelDropdown} ${shadows['2xl']}`}>
+          <div className={cn('absolute top-full right-0 mt-2 w-96 bg-[#1a0f2e] border border-red-500/30 rounded-md shadow-2xl z-50 overflow-hidden p-6')}>
             <div className="flex items-start gap-3 mb-4">
-              <AlertCircle className={`${iconSizes.md} text-red-400 flex-shrink-0 mt-0.5`} />
+              <AlertCircle className={cn(iconSizes.md, 'text-red-400 flex-shrink-0 mt-0.5')} />
               <div className="flex-1">
                 <h3 className="text-sm text-red-300 mb-2">Cannot connect to backend</h3>
                 <p className="text-xs text-red-400/70">{error}</p>

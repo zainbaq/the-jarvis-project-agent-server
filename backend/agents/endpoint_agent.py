@@ -88,6 +88,7 @@ class EndpointAgent(BaseAgent):
         # Capabilities
         self.add_capability(AgentCapability.CHAT)
         self.add_capability(AgentCapability.STREAMING)
+        self.add_capability(AgentCapability.WEB_SEARCH)
     
     async def initialize(self) -> bool:
         """Initialize the OpenAI client"""

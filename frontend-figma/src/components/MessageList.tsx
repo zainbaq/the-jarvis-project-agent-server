@@ -47,7 +47,7 @@ export function MessageList({ messages, loading }: MessageListProps) {
             )}>
               {/* Message Bubble */}
               <div className={cn(
-                'rounded-xl text-base leading-relaxed transition-all duration-200',
+                'text-base leading-relaxed transition-all duration-200',
                 message.role === 'user'
                   ? components.message.user
                   : components.message.assistant

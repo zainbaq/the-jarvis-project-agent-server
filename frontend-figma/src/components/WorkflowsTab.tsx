@@ -77,11 +77,12 @@ export function WorkflowsTab({ agents }: WorkflowsTabProps) {
                             setSelectedAgent(agent);
                             setShowAgentDropdown(false);
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
+                          className={cn(
+                            'w-full text-left px-4 py-3 rounded-lg transition-all',
                             selectedAgent?.agent_id === agent.agent_id
                               ? 'bg-purple-600/30 border border-purple-500/50'
                               : 'hover:bg-purple-900/30'
-                          }`}
+                          )}
                         >
                           <div className="flex items-start gap-3">
                             <Workflow className="w-4 h-4 text-purple-400 mt-1" />

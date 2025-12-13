@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Globe, Loader, ChevronDown, Bot, Plus } from "lucide-react";
+import { Send, Globe, Loader, ChevronDown, Bot, Plus, Trash2 } from "lucide-react";
 import { Agent } from "../types";
 import { colors, components, spacing, typography, borderRadius, iconSizes, shadows } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
@@ -13,6 +13,7 @@ interface ChatInputProps {
   agents: Agent[];
   onAgentChange: (agent: Agent) => void;
   onAddEndpoint: () => void;
+  onDeleteEndpoint: (agent: Agent) => void;
 }
 
 export function ChatInput({
@@ -24,6 +25,7 @@ export function ChatInput({
   agents,
   onAgentChange,
   onAddEndpoint,
+  onDeleteEndpoint,
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
   const [showAgentDropdown, setShowAgentDropdown] = useState(false);
@@ -69,29 +71,11 @@ export function ChatInput({
 
   return (
     <div className={cn('border-t', colors.border.default)}>
-      <div className={cn('flex justify-center', spacing.chatInputArea, 'mt-8')}>
+      <div className={cn('flex justify-center', spacing.chatInputArea, 'mt-8 mb-8')}>
         <form onSubmit={handleSubmit} className={cn('w-full', 'max-w-3xl')}>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col">
             {/* Top Row: Web Search and Agent Selector */}
             <div className={cn('flex items-center', spacing.inlineStandard)}>
-              {/* Web Search Toggle */}
-              {supportsWebSearch && (
-                <button
-                  type="button"
-                  onClick={onToggleWebSearch}
-                  className={cn(
-                    components.buttonVariants.webSearchBase,
-                    enableWebSearch
-                      ? components.buttonVariants.webSearchActive
-                      : components.buttonVariants.webSearchInactive
-                  )}
-                  title="Web Search"
-                >
-                  <Globe className={iconSizes.sm} />
-                  <span>Web Search</span>
-                </button>
-              )}
-
               {/* Agent Selector */}
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -107,24 +91,45 @@ export function ChatInput({
                 {showAgentDropdown && (
                   <div className={components.dropdown.container}>
                     <div className="max-h-128 overflow-y-auto">
-                      {agents.map((agent) => (
-                        <button
-                          key={agent.agent_id}
-                          type="button"
-                          onClick={() => {
-                            onAgentChange(agent);
-                            setShowAgentDropdown(false);
-                          }}
-                          className={
-                            selectedAgent?.agent_id === agent.agent_id
-                              ? components.dropdown.itemActive
-                              : cn(components.dropdown.item, colors.text.secondary)
-                          }
-                        >
-                          <div className={typography.body.base}>{agent.name}</div>
-                          <div className={cn(typography.body.small, colors.text.muted)}>{agent.type}</div>
-                        </button>
-                      ))}
+                      {agents.map((agent) => {
+                        const isCustomEndpoint = agent.agent_id.startsWith('endpoint_');
+                        const isActive = selectedAgent?.agent_id === agent.agent_id;
+
+                        return (
+                          <div key={agent.agent_id} className="flex items-center group">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                onAgentChange(agent);
+                                setShowAgentDropdown(false);
+                              }}
+                              className={cn(
+                                isActive
+                                  ? components.dropdown.itemActive
+                                  : cn(components.dropdown.item, colors.text.secondary),
+                                'flex-1 text-left'
+                              )}
+                            >
+                              <div className={typography.body.base}>{agent.name}</div>
+                              <div className={cn(typography.body.small, colors.text.muted)}>{agent.type}</div>
+                            </button>
+                            {isCustomEndpoint && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onDeleteEndpoint(agent);
+                                  setShowAgentDropdown(false);
+                                }}
+                                className="p-2 hover:bg-red-500/20 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                                title="Delete endpoint"
+                              >
+                                <Trash2 className="w-4 h-4 text-red-400" />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                       <button
                         type="button"
                         onClick={() => {
@@ -146,10 +151,26 @@ export function ChatInput({
                   </div>
                 )}
               </div>
+              {/* Web Search Toggle */}
+              {supportsWebSearch && (
+                <button
+                  type="button"
+                  onClick={onToggleWebSearch}
+                  className={cn(
+                    components.buttonVariants.webSearchBase,
+                    enableWebSearch
+                      ? components.buttonVariants.webSearchActive
+                      : components.buttonVariants.webSearchInactive
+                  )}
+                  title="Web Search"
+                >
+                  <Globe className={iconSizes.sm} />
+                  {/* <span>Web Search</span> */}
+                </button>
+              )}
             </div>
-
             {/* Bottom Row: Text Input and Send Button */}
-            <div className={cn('flex items-end backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inline, spacing.inputContainer, 'mt-4', shadows['2xl'])}>
+            <div className={cn('flex items-end hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inline, spacing.inputContainer, 'mt-4')}>
               {/* Message Input */}
               <div className="flex-1 relative">
                 <textarea

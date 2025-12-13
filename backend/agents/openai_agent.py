@@ -60,6 +60,7 @@ class OpenAIAgent(BaseAgent):
         # Capabilities
         self.add_capability(AgentCapability.CHAT)
         self.add_capability(AgentCapability.STREAMING)
+        self.add_capability(AgentCapability.WEB_SEARCH)
     
     async def initialize(self) -> bool:
         """Initialize the OpenAI client"""
@@ -105,14 +106,15 @@ class OpenAIAgent(BaseAgent):
             self.conversations[conversation_id] = []
         
         conversation_history = self.conversations[conversation_id]
-        
-        # Prepare messages
-        messages = self._prepare_messages(message, conversation_history)
-        
+
         # Override parameters if provided
         temperature = parameters.get("temperature", self.temperature) if parameters else self.temperature
         max_tokens = parameters.get("max_tokens", self.max_tokens) if parameters else self.max_tokens
         top_p = parameters.get("top_p", self.top_p) if parameters else self.top_p
+        system_message = parameters.get("system_message") if parameters else None
+
+        # Prepare messages
+        messages = self._prepare_messages(message, conversation_history, system_message)
         
         try:
             # Make API call
@@ -159,10 +161,11 @@ class OpenAIAgent(BaseAgent):
             logger.error(f"❌ Error querying OpenAI agent '{self.agent_id}': {e}")
             raise RuntimeError(f"Query failed: {str(e)}")
     
-    def _prepare_messages(self, current_message: str, 
-                         conversation_history: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    def _prepare_messages(self, current_message: str,
+                         conversation_history: List[Dict[str, str]],
+                         system_message: Optional[str] = None) -> List[Dict[str, str]]:
         """Prepare messages for API call with conversation context"""
-        messages = [{"role": "system", "content": self.system_message}]
+        messages = [{"role": "system", "content": system_message or self.system_message}]
         
         # Add conversation history (limited)
         history_to_include = conversation_history[-(self.max_history_messages * 2):]
