@@ -44,7 +44,7 @@ class OpenAIAgent(BaseAgent):
         # Optional config
         self.base_url = config.get("base_url", "https://api.openai.com/v1")
         self.temperature = config.get("temperature", 0.7)
-        self.max_tokens = config.get("max_tokens", 2000)
+        # self.max_tokens = config.get("max_tokens", 2000)
         self.timeout = config.get("timeout", 30)
         self.top_p = config.get("top_p", 1.0)
         self.system_message = config.get("system_message", 
@@ -109,7 +109,7 @@ class OpenAIAgent(BaseAgent):
 
         # Override parameters if provided
         temperature = parameters.get("temperature", self.temperature) if parameters else self.temperature
-        max_tokens = parameters.get("max_tokens", self.max_tokens) if parameters else self.max_tokens
+        # max_tokens = parameters.get("max_tokens", self.max_tokens) if parameters else self.max_tokens
         top_p = parameters.get("top_p", self.top_p) if parameters else self.top_p
         system_message = parameters.get("system_message") if parameters else None
 
@@ -122,7 +122,7 @@ class OpenAIAgent(BaseAgent):
                 model=self.model,
                 messages=messages,
                 temperature=temperature,
-                max_tokens=max_tokens,
+                # max_tokens=max_tokens,
                 top_p=top_p
             )
             
@@ -193,7 +193,7 @@ class OpenAIAgent(BaseAgent):
             **super()._get_public_config(),
             "model": self.model,
             "temperature": self.temperature,
-            "max_tokens": self.max_tokens,
+            # "max_tokens": self.max_tokens,
             "max_history_messages": self.max_history_messages
         }
     
