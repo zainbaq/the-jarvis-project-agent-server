@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from 'react';
+import { AlertCircle, CheckCircle, Loader, RefreshCw, PlayCircle, X, TestTube2 } from 'lucide-react';
+import { apiClient } from '../api/client';
+import { DetailedStatus, Agent, AgentTestResult } from '../types';
+
+interface ConnectionStatusProps {
+  selectedAgent?: Agent | null;
+}
+
+export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
+  const [status, setStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+  const [error, setError] = useState<string | null>(null);
+  const [details, setDetails] = useState<DetailedStatus | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [testingAgent, setTestingAgent] = useState(false);
+  const [testResult, setTestResult] = useState<AgentTestResult | null>(null);
+
+  const checkConnection = async () => {
+    setStatus('checking');
+    setError(null);
+    setDetails(null);
+
+    try {
+      const statusDetails = await apiClient.getStatus();
+      setStatus('connected');
+      setDetails(statusDetails);
+    } catch (err) {
+      setStatus('disconnected');
+      setError(err instanceof Error ? err.message : 'Connection failed');
+    }
+  };
+
+  const enableDemoMode = () => {
+    localStorage.setItem('jarvis_demo_mode', 'true');
+    window.location.reload();
+  };
+
+  const handleTestAgent = async () => {
+    if (!selectedAgent) return;
+
+    setTestingAgent(true);
+    setTestResult(null);
+
+    try {
+      const result = await apiClient.testAgent(selectedAgent.agent_id);
+      setTestResult(result);
+    } catch (err) {
+      setTestResult({
+        success: false,
+        message: 'Test failed',
+        error: err instanceof Error ? err.message : 'Unknown error',
+        agent_type: selectedAgent.type
+      });
+    } finally {
+      setTestingAgent(false);
+    }
+  };
+
+  useEffect(() => {
+    checkConnection();
+  }, []);
+
+  // Compact status indicator for top nav
+  if (status === 'connected') {
+    const isDemoMode = details?.status === 'demo';
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className={`px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 transition-all ${
+            isDemoMode 
+              ? 'bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 hover:bg-yellow-500/30' 
+              : 'bg-green-500/20 border border-green-500/30 text-green-300 hover:bg-green-500/30'
+          }`}
+        >
+          <span className={`w-2 h-2 rounded-full ${isDemoMode ? 'bg-yellow-400' : 'bg-green-400'} animate-pulse`} />
+          <span>{isDemoMode ? 'Demo' : 'Connected'}</span>
+        </button>
+        
+        {showDetails && (
+          <div className="absolute top-full right-0 mt-2 w-80 backdrop-blur-xl bg-[#1a0f2e]/95 border border-purple-500/30 rounded-xl shadow-2xl z-50 p-5">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                {isDemoMode ? (
+                  <PlayCircle className="w-5 h-5 text-yellow-400" />
+                ) : (
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                )}
+                <span className={`text-base font-medium ${isDemoMode ? 'text-yellow-300' : 'text-green-300'}`}>
+                  {isDemoMode ? 'Demo Mode' : 'Backend Connected'}
+                </span>
+              </div>
+              <button onClick={() => setShowDetails(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-all">
+                <X className="w-4 h-4 text-gray-400" />
+              </button>
+            </div>
+
+            {details && (
+              <div className="text-sm text-gray-400 space-y-2 mb-4 pb-4 border-b border-white/10">
+                <div className="flex justify-between">
+                  <span>Version:</span>
+                  <span className="text-white font-medium">{details.version}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Agents:</span>
+                  <span className="text-white font-medium">{details.agents.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Uptime:</span>
+                  <span className="text-white font-medium">{Math.floor(details.uptime / 60)}m</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Registry:</span>
+                  <span className={`font-medium ${details.registry.initialized ? 'text-green-400' : 'text-yellow-400'}`}>
+                    {details.registry.initialized ? 'Initialized' : 'Loading'}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {selectedAgent && (
+              <div className="space-y-3">
+                <button
+                  onClick={handleTestAgent}
+                  disabled={testingAgent}
+                  className="w-full px-4 py-3 bg-purple-600/30 hover:bg-purple-600/40 active:bg-purple-600/50 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 border border-purple-500/20 text-sm font-medium"
+                >
+                  {testingAgent ? (
+                    <>
+                      <Loader className="w-4 h-4 animate-spin" />
+                      <span>Testing {selectedAgent.name}...</span>
+                    </>
+                  ) : (
+                    <>
+                      <TestTube2 className="w-4 h-4" />
+                      <span>Test Agent Connection</span>
+                    </>
+                  )}
+                </button>
+
+                {testResult && (
+                  <div className={`p-4 rounded-lg border text-sm ${
+                    testResult.success
+                      ? 'border-green-500/30 bg-green-500/10 text-green-300'
+                      : 'border-red-500/30 bg-red-500/10 text-red-300'
+                  }`}>
+                    <p className="font-medium mb-1">{testResult.message}</p>
+                    {testResult.response_preview && (
+                      <p className="text-xs text-gray-300 italic mt-2">"{testResult.response_preview}"</p>
+                    )}
+                    {testResult.error && (
+                      <p className="text-xs text-red-400 mt-2">{testResult.error}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {isDemoMode && (
+              <p className="text-yellow-300/80 text-xs mt-4 pt-4 border-t border-white/10">
+                Using mock data. Configure backend to connect to real API.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (status === 'disconnected') {
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 bg-orange-500/10 text-orange-400 hover:bg-orange-500/20 transition-all"
+        >
+          <span className="w-2 h-2 rounded-full bg-orange-400" />
+          <span>Disconnected</span>
+        </button>
+        
+        {showDetails && (
+          <div className="absolute top-full right-0 mt-2 w-96 glass-strong border border-red-500/30 rounded-xl shadow-2xl z-50 p-5">
+            <div className="flex items-start gap-3 mb-4">
+              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="text-sm text-red-300 mb-2">Cannot connect to backend</h3>
+                <p className="text-xs text-red-400/70">{error}</p>
+              </div>
+              <button onClick={() => setShowDetails(false)} className="p-1 hover:bg-white/10 rounded">
+                <X className="w-4 h-4 text-gray-400" />
+              </button>
+            </div>
+            
+            <div className="space-y-4 text-xs">
+              <div>
+                <p className="text-gray-200 mb-2"><strong>✅ Quick Solution: Demo Mode</strong></p>
+                <button
+                  onClick={enableDemoMode}
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+                >
+                  <PlayCircle className="w-4 h-4" />
+                  Try Demo Mode
+                </button>
+              </div>
+
+              <div className="border-t border-white/10 pt-4">
+                <p className="text-gray-200 mb-2"><strong>🔧 Connect to Real Backend:</strong></p>
+                <ol className="list-decimal list-inside space-y-1 text-gray-400">
+                  <li>Install ngrok</li>
+                  <li>Run: <code className="bg-white/10 px-1 py-0.5 rounded">ngrok http 8000</code></li>
+                  <li>Copy HTTPS URL to Backend Settings</li>
+                </ol>
+              </div>
+
+              <button
+                onClick={() => { checkConnection(); setShowDetails(false); }}
+                className="w-full px-4 py-2 border border-red-500/30 text-red-300 rounded-lg hover:bg-red-500/10 transition-all flex items-center justify-center gap-2"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Retry Connection
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 text-blue-300">
+      <Loader className="w-3 h-3 animate-spin" />
+      <span>Connecting...</span>
+    </div>
+  );
+}
