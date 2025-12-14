@@ -10,9 +10,7 @@ import {
 } from "../types";
 import {
   uploadFile,
-  deleteFile,
   validateFile,
-  formatFileSize,
 } from "../api/files";
 
 interface FileUploadProps {
@@ -132,17 +130,6 @@ export function FileUpload({
     }
   };
 
-  const handleDeleteFile = async (fileId: string) => {
-    try {
-      await deleteFile(conversationId, fileId);
-      onFilesChange(uploadedFiles.filter((f) => f.file_id !== fileId));
-      setError(null);
-    } catch (err) {
-      console.error("File deletion failed:", err);
-      setError(err instanceof Error ? err.message : "Failed to delete file");
-    }
-  };
-
   const handlePaperclipClick = () => {
     fileInputRef.current?.click();
   };
@@ -153,7 +140,7 @@ export function FileUpload({
       <button
         onClick={handlePaperclipClick}
         disabled={disabled}
-        className="paperclip-button"
+        className={`paperclip-button ${uploadedFiles.length > 0 ? 'has-files' : ''}`}
         title="Attach files"
         type="button"
       >
@@ -203,45 +190,6 @@ export function FileUpload({
               {progress.status === "error" && progress.error && (
                 <div className="upload-error">{progress.error}</div>
               )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Uploaded Files List */}
-      {uploadedFiles.length > 0 && (
-        <div className="uploaded-files-list">
-          {uploadedFiles.map((file) => (
-            <div key={file.file_id} className="uploaded-file-item">
-              <div className="file-info">
-                <span className="file-icon">📎</span>
-                <span className="file-name">{file.filename}</span>
-                <span className="file-size">
-                  {formatFileSize(file.file_size)}
-                </span>
-              </div>
-              <button
-                onClick={() => handleDeleteFile(file.file_id)}
-                className="delete-file-button"
-                title="Remove file"
-                disabled={disabled}
-                type="button"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
             </div>
           ))}
         </div>

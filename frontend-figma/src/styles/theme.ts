@@ -125,11 +125,11 @@ export const components = {
   buttonVariants: {
     // Web search toggle
     webSearchBase: 'flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95',
-    webSearchActive: 'bg-purple-600/40 text-purple-200 shadow-md',
-    webSearchInactive: 'bg-purple-900/20 text-gray-400 hover:bg-purple-900/40 hover:text-purple-200',
+    webSearchActive: 'bg-purple-600/40 text-purple-200 shadow-md border border-purple-500/30',
+    webSearchInactive: 'text-gray-400 hover:text-purple-200',
 
     // Agent selector
-    agentSelector: 'flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-purple-900/40 text-white text-sm font-medium transition-all duration-200 active:scale-95',
+    agentSelector: 'flex items-center gap-2 px-4 py-3 rounded-lg text-white text-sm font-medium transition-all duration-200 active:scale-95 hover:text-purple-200',
 
     // Tab button
     tabBase: 'px-6 py-3 text-base font-medium rounded-lg transition-all duration-200 flex items-center gap-2.5',

@@ -80,7 +80,7 @@ export function ChatInput({
         <form onSubmit={handleSubmit} className={cn('w-full', 'max-w-3xl')}>
           <div className="flex flex-col">
             {/* Top Row: Web Search and Agent Selector */}
-            <div className={cn('flex items-center', spacing.inlineStandard)}>
+            <div className={cn('flex items-center gap-2')}>
               {/* Agent Selector */}
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -182,33 +182,77 @@ export function ChatInput({
               />
             </div>
             {/* Bottom Row: Text Input and Send Button */}
-            <div className={cn('flex items-end hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inline, spacing.inputContainer, 'mt-4')}>
-              {/* Message Input */}
-              <div className="flex-1 relative">
-                <textarea
-                  ref={textareaRef}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Type your message..."
-                  rows={1}
-                  disabled={loading}
-                  className={cn(components.textarea, 'h-12 max-h-[200px] text-base placeholder-gray-400 focus:placeholder-gray-500')}
-                />
-              </div>
+            <div className={cn('flex flex-col hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inputContainer, 'mt-4')}>
+              {/* Uploaded Files Display */}
+              {uploadedFiles.length > 0 && (
+                <div className="uploaded-files-inline">
+                  {uploadedFiles.map((file) => (
+                    <div key={file.file_id} className="uploaded-file-item-inline">
+                      <div className="file-info-inline">
+                        <span className="file-icon">📎</span>
+                        <span className="file-name-inline">{file.filename}</span>
+                        <span className="file-size-inline">
+                          {(file.file_size / 1024).toFixed(1)} KB
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setUploadedFiles(uploadedFiles.filter((f) => f.file_id !== file.file_id));
+                        }}
+                        className="delete-file-button-inline"
+                        title="Remove file"
+                        disabled={loading}
+                        type="button"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-              {/* Send Button */}
-              <button
-                type="submit"
-                disabled={!message.trim() || loading}
-                className={components.buttonVariants.sendButton}
-              >
-                {loading ? (
-                  <Loader className={cn(iconSizes.lg, 'animate-spin', colors.text.primary)} />
-                ) : (
-                  <Send className={cn(iconSizes.lg, colors.text.primary)} />
-                )}
-              </button>
+              {/* Input Row: Textarea and Send Button */}
+              <div className={cn('flex items-end', spacing.inline)}>
+                {/* Message Input */}
+                <div className="flex-1 relative">
+                  <textarea
+                    ref={textareaRef}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Type your message..."
+                    rows={1}
+                    disabled={loading}
+                    className={cn(components.textarea, 'h-12 max-h-[200px] text-base placeholder-gray-400 focus:placeholder-gray-500')}
+                  />
+                </div>
+
+                {/* Send Button */}
+                <button
+                  type="submit"
+                  disabled={!message.trim() || loading}
+                  className={components.buttonVariants.sendButton}
+                >
+                  {loading ? (
+                    <Loader className={cn(iconSizes.lg, 'animate-spin', colors.text.primary)} />
+                  ) : (
+                    <Send className={cn(iconSizes.lg, colors.text.primary)} />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
