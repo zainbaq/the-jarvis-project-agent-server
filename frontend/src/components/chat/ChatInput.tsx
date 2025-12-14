@@ -1,9 +1,12 @@
 // Chat Input - message input field with send button
 
 import { useState, type KeyboardEvent } from 'react';
+import { UploadedFile } from '../../types/files';
+import { FileUpload } from './FileUpload';
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string, files: UploadedFile[]) => void;
+  conversationId: string;
   disabled?: boolean;
   enableWebSearch?: boolean;
   onToggleWebSearch?: () => void;
@@ -11,16 +14,19 @@ interface ChatInputProps {
 
 export function ChatInput({
   onSend,
+  conversationId,
   disabled = false,
   enableWebSearch = false,
   onToggleWebSearch,
 }: ChatInputProps) {
   const [message, setMessage] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 
   const handleSend = () => {
     if (message.trim() && !disabled) {
-      onSend(message);
+      onSend(message, uploadedFiles);
       setMessage('');
+      setUploadedFiles([]);
     }
   };
 
@@ -34,9 +40,9 @@ export function ChatInput({
 
   return (
     <div className="border-t border-gray-200 bg-white p-4">
-      {/* Web search toggle */}
-      {onToggleWebSearch && (
-        <div className="mb-2">
+      {/* Options row: Web search toggle + File upload */}
+      <div className="mb-2 flex items-center gap-4">
+        {onToggleWebSearch && (
           <label className="flex items-center text-sm text-gray-600 cursor-pointer">
             <input
               type="checkbox"
@@ -46,8 +52,15 @@ export function ChatInput({
             />
             Enable web search
           </label>
-        </div>
-      )}
+        )}
+
+        <FileUpload
+          conversationId={conversationId}
+          uploadedFiles={uploadedFiles}
+          onFilesChange={setUploadedFiles}
+          disabled={disabled}
+        />
+      </div>
 
       {/* Input area */}
       <div className="flex gap-2">

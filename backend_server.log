@@ -464,3 +464,1600 @@ INFO:     Waiting for application startup.
 2025-12-13 13:53:21 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
 2025-12-13 13:53:21 - backend.app - [32mINFO[0m - ============================================================
 INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:17:10 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:10 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:17:10 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:10 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:17:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:17:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:17:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:17:10 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:17:10 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:17:10 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:17:10 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [67018]
+2025-12-13 18:17:12 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:17:12 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:17:12 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71805]
+INFO:     Waiting for application startup.
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:17:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:17:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:17:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:17:12 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:17:12 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:17:12 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:17:12 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:17:29 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:29 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:17:29 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:29 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:17:29 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:17:29 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:17:29 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:17:29 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:17:29 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:17:29 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:17:29 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71805]
+2025-12-13 18:17:31 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:17:31 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:17:31 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71822]
+INFO:     Waiting for application startup.
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:17:31 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:17:31 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:17:31 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:17:31 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:17:31 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:17:31 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:17:31 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:17:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:44 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:17:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:44 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:17:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:17:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:17:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:17:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:17:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:17:44 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:17:44 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71822]
+2025-12-13 18:17:45 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:17:45 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:17:45 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71832]
+INFO:     Waiting for application startup.
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:17:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:17:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:17:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:17:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:17:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:17:45 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:17:45 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:18:10 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:10 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:18:10 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:10 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:18:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:18:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:18:10 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:18:10 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:18:10 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:18:10 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:18:10 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71832]
+2025-12-13 18:18:11 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:18:11 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:18:11 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71841]
+INFO:     Waiting for application startup.
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:18:11 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:18:11 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:18:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:18:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:18:12 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:18:12 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:18:12 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:18:12 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:18:12 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:18:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:44 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:18:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:44 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:18:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:18:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:18:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:18:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:18:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:18:44 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:18:44 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71841]
+2025-12-13 18:18:45 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:18:45 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:18:45 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71856]
+INFO:     Waiting for application startup.
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:18:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:18:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:18:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:18:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:18:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:18:45 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:18:45 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tests/test_responses_api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:19:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:19:45 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:19:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:19:45 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:19:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:19:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:19:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:19:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:19:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:19:45 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:19:45 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71856]
+2025-12-13 18:19:46 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:19:46 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:19:46 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [71903]
+INFO:     Waiting for application startup.
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:19:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:19:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:19:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:19:46 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:19:46 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:19:46 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:19:46 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:21:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:21:13 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:21:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:21:13 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:21:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:21:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:21:13 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:21:13 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:21:13 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:21:13 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:21:13 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71903]
+2025-12-13 18:21:14 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:21:14 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:21:14 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [72043]
+INFO:     Waiting for application startup.
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:21:14 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:21:14 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:21:14 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:21:14 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:21:14 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:21:14 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:21:14 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:26:11 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:11 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:26:11 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:11 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:26:11 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:26:11 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:26:11 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:26:11 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:26:11 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:26:11 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:26:11 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [72043]
+2025-12-13 18:26:13 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:26:13 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:26:13 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [72915]
+INFO:     Waiting for application startup.
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:26:13 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:26:13 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:26:13 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:26:13 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:26:13 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:26:13 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:26:13 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tests/test_responses_api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:26:23 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:23 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:26:23 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:23 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:26:23 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:26:23 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:26:23 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:26:23 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:26:23 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:26:23 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:26:23 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [72915]
+2025-12-13 18:26:25 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:26:25 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:26:25 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [72930]
+INFO:     Waiting for application startup.
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:26:25 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:26:25 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:26:25 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:26:25 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:26:25 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:26:25 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:26:25 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agents/openai_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:26:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:44 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:26:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:44 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:26:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:26:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:26:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:26:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:26:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:26:44 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:26:44 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [72930]
+2025-12-13 18:26:45 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:26:45 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:26:45 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [72958]
+INFO:     Waiting for application startup.
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:26:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:26:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:26:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:26:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:26:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:26:45 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:26:45 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/services/file_storage.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:30:08 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:08 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:30:08 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:08 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:30:08 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:30:08 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:30:08 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:30:08 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:30:08 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:30:08 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:30:08 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [72958]
+2025-12-13 18:30:09 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:30:09 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:30:09 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73232]
+INFO:     Waiting for application startup.
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:30:09 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:30:09 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:30:09 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:30:09 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:30:09 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:30:09 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:30:09 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/routers/files.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:30:38 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:38 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:30:38 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:38 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:30:38 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:30:38 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:30:38 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:30:38 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:30:38 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:30:38 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:30:38 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73232]
+2025-12-13 18:30:39 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:30:39 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:30:39 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73256]
+INFO:     Waiting for application startup.
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:30:39 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:30:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:30:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:30:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:30:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:30:40 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:30:40 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:30:40 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:30:40 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:30:40 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:30:40 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/models/requests.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:31:00 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:00 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:31:00 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:00 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:31:00 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:31:00 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:31:00 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:31:00 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:31:00 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:31:00 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:31:00 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73256]
+2025-12-13 18:31:01 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:31:01 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:31:01 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73276]
+INFO:     Waiting for application startup.
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:31:01 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:31:01 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:31:02 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:31:02 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:31:02 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:31:02 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:31:02 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:31:02 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:31:02 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+2025-12-13 18:31:13 - backend.middleware - [32mINFO[0m - Request started: GET / [ID: be63e7c9]
+2025-12-13 18:31:13 - backend.middleware - [32mINFO[0m - Request completed: GET / [ID: be63e7c9] Status: 200 Duration: 0.003s
+INFO:     192.168.1.1:60534 - "GET / HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/config.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:31:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:18 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:31:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:18 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:31:18 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:31:18 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:31:18 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:31:18 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:31:18 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:31:18 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:31:18 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73276]
+2025-12-13 18:31:19 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:31:19 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:31:19 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73300]
+INFO:     Waiting for application startup.
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:31:19 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:31:19 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:31:19 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:31:19 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:31:19 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:31:19 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:31:19 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:31:37 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:37 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:31:37 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:37 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:31:37 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:31:37 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:31:37 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:31:37 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:31:37 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:31:37 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:31:37 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73300]
+2025-12-13 18:31:38 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:31:38 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:31:38 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73342]
+INFO:     Waiting for application startup.
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:31:38 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:31:38 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:31:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:31:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:31:39 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:31:39 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:31:39 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:31:39 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:31:39 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:31:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:46 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:31:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:46 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:31:46 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:31:46 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:31:46 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:31:46 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:31:46 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:31:46 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:31:46 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73342]
+2025-12-13 18:31:47 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:31:47 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:31:47 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73364]
+INFO:     Waiting for application startup.
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:31:47 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:31:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:31:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:31:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:31:47 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:31:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:31:48 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:31:48 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:31:48 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:31:48 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:31:48 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:31:54 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:31:54 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:31:54 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:31:54 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:31:54 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73364]
+2025-12-13 18:31:54 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:31:54 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:31:54 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73377]
+INFO:     Waiting for application startup.
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:31:54 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:31:54 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:31:55 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:31:55 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:31:55 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:31:55 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:31:55 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:31:55 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:31:55 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:31:55 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tests/test_file_upload.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:32:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:32:44 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:32:44 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:32:44 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:32:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:32:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:32:44 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:32:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:32:44 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:32:44 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:32:44 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73377]
+2025-12-13 18:32:45 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:32:45 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:32:45 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73422]
+INFO:     Waiting for application startup.
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:32:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:32:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:32:45 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:32:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:32:45 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:32:45 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:32:45 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:32:45 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tests/test_file_upload.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:33:03 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:33:03 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:33:03 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:33:03 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:33:03 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:33:03 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:33:03 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:33:03 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:33:03 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:33:03 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:33:03 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73422]
+2025-12-13 18:33:05 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:33:05 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:33:05 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73455]
+INFO:     Waiting for application startup.
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:33:05 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:33:05 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:33:05 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:33:05 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:33:05 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:33:05 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:33:05 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:33:05 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tools/file_search.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:36:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:36:45 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:36:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:36:45 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:36:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:36:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:36:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:36:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:36:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:36:45 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:36:45 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73455]
+2025-12-13 18:36:47 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:36:47 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:36:47 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73554]
+INFO:     Waiting for application startup.
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:36:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:36:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:36:47 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:36:47 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:36:47 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:36:47 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:36:47 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:36:47 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/tools/e2b_code_interpreter.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:37:17 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:17 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:37:17 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:17 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:37:17 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:37:17 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:37:17 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:37:17 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:37:17 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:37:17 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:37:17 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73554]
+2025-12-13 18:37:18 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:37:18 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:37:18 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73578]
+INFO:     Waiting for application startup.
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:37:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:37:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:37:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:37:18 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:37:18 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:37:18 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:37:18 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:37:18 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:37:34 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:34 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:37:34 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:34 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:37:34 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:37:34 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:37:34 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:37:34 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:37:34 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:37:34 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:37:34 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73578]
+2025-12-13 18:37:35 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:37:35 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:37:35 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73603]
+INFO:     Waiting for application startup.
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:37:35 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:37:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:37:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:37:35 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:37:35 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:37:35 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:37:36 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:37:36 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:37:36 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:37:36 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:37:36 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:37:42 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:42 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:37:42 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:42 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:37:42 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:37:42 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:37:42 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:37:42 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:37:42 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:37:42 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:37:42 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73603]
+2025-12-13 18:37:43 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:37:43 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:37:43 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73620]
+INFO:     Waiting for application startup.
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:37:43 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:37:43 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:37:43 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:37:43 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:37:43 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:37:43 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:37:43 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:37:43 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:37:49 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:49 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:37:49 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:49 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:37:49 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:37:49 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:37:49 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:37:49 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:37:49 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:37:49 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:37:49 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73620]
+2025-12-13 18:37:50 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:37:50 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:37:50 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73638]
+INFO:     Waiting for application startup.
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:37:50 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:37:50 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:37:50 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:37:50 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:37:50 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:37:50 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:37:50 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:37:50 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:38:04 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:04 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:38:04 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:04 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:38:04 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:38:04 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:38:04 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:38:04 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:38:04 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:38:04 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:38:04 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73638]
+2025-12-13 18:38:06 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:38:06 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:38:06 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73659]
+INFO:     Waiting for application startup.
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:38:06 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:38:06 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:38:06 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:38:06 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:38:06 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:38:06 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:38:06 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:38:06 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:38:27 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:27 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:38:27 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:27 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:38:27 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:38:27 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:38:27 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:38:27 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:38:27 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:38:27 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:38:27 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73659]
+2025-12-13 18:38:28 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:38:28 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:38:28 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73686]
+INFO:     Waiting for application startup.
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:38:28 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:38:28 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:38:29 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:38:29 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:38:29 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:38:29 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:38:29 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:38:29 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:38:29 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:38:29 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/agent_manager.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:38:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:45 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:38:45 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:45 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:38:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:38:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:38:45 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:38:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:38:45 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:38:45 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:38:45 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73686]
+2025-12-13 18:38:46 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:38:46 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:38:46 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73703]
+INFO:     Waiting for application startup.
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:38:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:38:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:38:46 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:38:46 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:38:46 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:38:46 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:38:46 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:38:46 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/routers/agents.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:39:14 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:39:14 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:39:14 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:39:14 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:39:14 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:39:14 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:39:14 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:39:14 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:39:14 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:39:14 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:39:14 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73703]
+2025-12-13 18:39:15 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:39:15 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:39:15 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [73745]
+INFO:     Waiting for application startup.
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:39:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:39:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:39:15 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:39:15 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:39:15 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:39:15 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:39:15 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:39:15 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_update_request.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_request.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/log_level.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/network.py', 'venv/lib/python3.13/site-packages/bracex/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/client.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_info.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/error.py', 'venv/lib/python3.13/site-packages/e2b/template/main.py', 'venv/lib/python3.13/site-packages/e2b/exceptions.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes_sandbox_id_timeout.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/general_registry.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/node_metrics.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/commands/command_handle.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/delete_sandboxes_sandbox_id.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/commands/command.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_sandboxes_sandbox_id_metrics.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_templates_template_id_builds_build_id.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/new_access_token.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes_sandbox_id_refreshes.py', 'venv/lib/python3.13/site-packages/e2b/envd/versions.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/utils.py', 'venv/lib/python3.13/site-packages/wcmatch/posix.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/gcp_registry_type.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/get_templates_template_id.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/commands/command_handle.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/gcp_registry.py', 'venv/lib/python3.13/site-packages/e2b/template_sync/build_api.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/identifier_masking_details.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/commands/pty.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/get_templates_template_id_files_hash.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/exceptions.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/mcp_type_0.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/new_team_api_key.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_log_entry.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/update_team_api_key.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_v2_templates.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/commands/pty.py', 'venv/lib/python3.13/site-packages/wcmatch/_wcmatch.py', 'venv/lib/python3.13/site-packages/wcmatch/pathlib.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/code_interpreter_sync.py', 'venv/lib/python3.13/site-packages/wcmatch/_wcparse.py', 'venv/lib/python3.13/site-packages/e2b/envd/process/process_connect.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/node_status_change.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_with_builds.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/team.py', 'venv/lib/python3.13/site-packages/e2b/template/readycmd.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/paginator.py', 'venv/lib/python3.13/site-packages/e2b/api/metadata.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/max_team_metric.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/team_api_key.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/connect_sandbox.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/main.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/new_sandbox.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/get_templates_template_id_builds_build_id_status.py', 'venv/lib/python3.13/site-packages/e2b/template/types.py', 'venv/lib/python3.13/site-packages/e2b/envd/api.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_log_entry_fields.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/aws_registry.py', 'venv/lib/python3.13/site-packages/e2b/envd/rpc.py', 'venv/lib/python3.13/site-packages/bracex/__meta__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_network_config.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_start_v2.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_legacy.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_sandboxes_sandbox_id_logs.py', 'venv/lib/python3.13/site-packages/wcmatch/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_v3_templates.py', 'venv/lib/python3.13/site-packages/wcmatch/fnmatch.py', 'venv/lib/python3.13/site-packages/e2b/__init__.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/sandbox_api.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/sandbox_api.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes_sandbox_id_pause.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/commands/command_handle.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_state.py', 'venv/lib/python3.13/site-packages/dockerfile_parse/util.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/filesystem/watch_handle.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/listed_sandbox.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_v_2_templates_template_id_builds_build_id.py', 'venv/lib/python3.13/site-packages/e2b/template/dockerfile_parser.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/created_access_token.py', 'venv/lib/python3.13/site-packages/e2b/template_async/main.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes_sandbox_id_connect.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_sandboxes_sandbox_id.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_log.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/node.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/node_detail.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/filesystem/filesystem.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/mcp.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/patch_templates_template_id.py', 'venv/lib/python3.13/site-packages/e2b/template/logger.py', 'venv/lib/python3.13/site-packages/e2b/template_async/build_api.py', 'venv/lib/python3.13/site-packages/e2b/envd/filesystem/filesystem_pb2.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_status.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_step.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/code_interpreter_async.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/paginator.py', 'venv/lib/python3.13/site-packages/e2b/api/client/types.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/charts.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/signature.py', 'venv/lib/python3.13/site-packages/e2b_connect/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/post_sandboxes_sandbox_id_timeout_body.py', 'venv/lib/python3.13/site-packages/e2b/api/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/general_registry_type.py', 'venv/lib/python3.13/site-packages/dockerfile_parse/constants.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/disk_metrics.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_request_v2.py', 'venv/lib/python3.13/site-packages/wcmatch/__meta__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/post_sandboxes_sandbox_id_resume.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_templates_template_id.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/node_status.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/post_sandboxes_sandbox_id_refreshes_body.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_request_response_v3.py', 'venv/lib/python3.13/site-packages/wcmatch/wcmatch.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_detail.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/filesystem/watch_handle.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/constants.py', 'venv/lib/python3.13/site-packages/bracex/__main__.py', 'venv/lib/python3.13/site-packages/e2b/template/utils.py', 'venv/lib/python3.13/site-packages/e2b/envd/filesystem/filesystem_connect.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_sandboxes_metrics.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/aws_registry_type.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/resumed_sandbox.py', 'venv/lib/python3.13/site-packages/e2b/api/client_sync/__init__.py', 'venv/lib/python3.13/site-packages/e2b/envd/process/process_pb2.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/filesystem/filesystem.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_request_v3.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/team_metric.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/main.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/commands/main.py', 'venv/lib/python3.13/site-packages/e2b/api/client_async/__init__.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/utils.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_logs.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/post_templates.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_sandboxes.py', 'venv/lib/python3.13/site-packages/wcmatch/glob.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/__init__.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandboxes_with_metrics.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/created_team_api_key.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/filesystem/watch_handle.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/team_user.py', 'venv/lib/python3.13/site-packages/e2b/template_sync/main.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/get_templates.py', 'venv/lib/python3.13/site-packages/e2b/template/consts.py', 'venv/lib/python3.13/site-packages/e2b/api/client/errors.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_sync/commands/command.py', 'venv/lib/python3.13/site-packages/e2b_code_interpreter/models.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/get_v2_sandboxes.py', 'venv/lib/python3.13/site-packages/e2b/connection_config.py', 'venv/lib/python3.13/site-packages/dockerfile_parse/__init__.py', 'venv/lib/python3.13/site-packages/wcmatch/util.py', 'venv/lib/python3.13/site-packages/dockerfile_parse/parser.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/template_build_file_upload.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/sandboxes/__init__.py', 'venv/lib/python3.13/site-packages/e2b/sandbox/main.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/sandbox_api.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/build_log_entry.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/build_status_reason.py', 'venv/lib/python3.13/site-packages/e2b/api/client/api/templates/delete_templates_template_id.py', 'venv/lib/python3.13/site-packages/e2b_connect/client.py', 'venv/lib/python3.13/site-packages/e2b/api/client/models/sandbox_metric.py', 'venv/lib/python3.13/site-packages/e2b/sandbox_async/filesystem/filesystem.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-12-13 18:51:16 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:51:16 - backend.app - [32mINFO[0m - 🛑 Shutting down AI Agent Backend Server
+2025-12-13 18:51:16 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:51:16 - backend.agents.registry - [32mINFO[0m - 🧹 Cleaning up agent registry...
+2025-12-13 18:51:16 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt5_assistant'
+2025-12-13 18:51:16 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt4_assistant'
+2025-12-13 18:51:16 - backend.agents.openai_agent - [32mINFO[0m - 🧹 Cleaned up OpenAI agent 'gpt35_turbo'
+2025-12-13 18:51:16 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'developer_workflow'
+2025-12-13 18:51:16 - backend.agents.langgraph_agent - [32mINFO[0m - 🧹 Cleaned up LangGraph agent 'web_search_workflow'
+2025-12-13 18:51:16 - backend.agents.registry - [32mINFO[0m - ✅ Agent registry cleaned up
+2025-12-13 18:51:16 - backend.app - [32mINFO[0m - ✅ Cleanup complete
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73745]
+2025-12-13 18:51:18 - backend.logging_config - [32mINFO[0m - Logging configured - Level: DEBUG
+2025-12-13 18:51:18 - backend.logging_config - [32mINFO[0m - Logs will be written to: logs/app_20251213.log
+2025-12-13 18:51:18 - backend.middleware - [32mINFO[0m - ✅ Middleware configured
+INFO:     Started server process [74392]
+INFO:     Waiting for application startup.
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - 🚀 Starting AI Agent Backend Server
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - Environment: development
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - Debug Mode: True
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - Host: 0.0.0.0:8000
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Found config file at: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - Agent config path: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - 🔄 Initializing agent registry...
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Successfully loaded config file: /Users/zainbaq/Documents/Projects/the-jarvis-project-agent-server/backend/config/agents.json
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m -    Found 5 agent configurations
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - 📄 Loaded 5 agent configurations from file
+2025-12-13 18:51:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt5_assistant' with model gpt-5.2 with tools: file_search, code_interpreter
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt5_assistant (openai)
+2025-12-13 18:51:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt4_assistant' with model gpt-4o with tools: file_search, code_interpreter
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt4_assistant (openai)
+2025-12-13 18:51:18 - backend.agents.openai_agent - [32mINFO[0m - ✅ Initialized OpenAI agent 'gpt35_turbo' with model gpt-3.5-turbo
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: gpt35_turbo (openai)
+2025-12-13 18:51:18 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'developer_workflow' (backend.workflows.developer.tasks.perform_task)
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: developer_workflow (langgraph)
+2025-12-13 18:51:18 - backend.agents.langgraph_agent - [32mINFO[0m - ✅ Initialized LangGraph agent 'web_search_workflow' (backend.workflows.web_search.tasks.perform_task)
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Created agent: web_search_workflow (langgraph)
+2025-12-13 18:51:18 - backend.agents.registry - [32mINFO[0m - ✅ Initialized 5/5 agents
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ✅ Loaded 5 agents
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m -    - GPT-5.2 (gpt5_assistant) - openai
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m -    - GPT-4 Assistant (gpt4_assistant) - openai
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m -    - GPT-3.5 Turbo (gpt35_turbo) - openai
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m -    - Developer Workflow Agent (developer_workflow) - langgraph
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m -    - Web Search Workflow Agent (web_search_workflow) - langgraph
+2025-12-13 18:51:18 - backend.services.file_storage - [32mINFO[0m - FileStorageService initialized (base_dir: backend/temp/files, max_size: 256MB)
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ✅ File storage initialized (max size: 256MB)
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ============================================================
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ✅ Server ready to accept requests
+2025-12-13 18:51:18 - backend.app - [32mINFO[0m - ============================================================
+INFO:     Application startup complete.

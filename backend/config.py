@@ -36,7 +36,11 @@ class Settings(BaseSettings):
     
     # Storage
     TEMP_DIR: str = "temp"
-    
+
+    # File Upload Configuration
+    FILE_UPLOAD_DIR: str = "backend/temp/files"
+    MAX_FILE_SIZE: int = 256 * 1024 * 1024  # 256 MB in bytes
+
     # Optional: Anthropic
     ANTHROPIC_API_KEY: str = ""
     

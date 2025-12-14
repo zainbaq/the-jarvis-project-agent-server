@@ -8,8 +8,9 @@ from contextlib import asynccontextmanager
 import logging
 from dotenv import load_dotenv
 
-from backend.routers import agents, health
+from backend.routers import agents, health, files
 from backend.agents.registry import AgentRegistry
+from backend.services.file_storage import FileStorageService
 from backend.config import settings
 from backend.logging_config import setup_logging
 from backend.middleware import setup_middleware
@@ -40,12 +41,20 @@ async def lifespan(app: FastAPI):
     registry = AgentRegistry(settings.AGENT_CONFIG_PATH)
     await registry.initialize()
     app.state.agent_registry = registry
-    
+
     logger.info(f"✅ Loaded {len(registry.list_agents())} agents")
-    
+
     # Log loaded agents
     for agent_info in registry.list_agents():
         logger.info(f"   - {agent_info.name} ({agent_info.agent_id}) - {agent_info.type}")
+
+    # Initialize file storage service
+    file_storage = FileStorageService(
+        base_dir=settings.FILE_UPLOAD_DIR,
+        max_file_size=settings.MAX_FILE_SIZE
+    )
+    app.state.file_storage = file_storage
+    logger.info(f"✅ File storage initialized (max size: {settings.MAX_FILE_SIZE / 1024 / 1024:.0f}MB)")
     
     logger.info("=" * 60)
     logger.info("✅ Server ready to accept requests")
@@ -85,6 +94,7 @@ setup_middleware(app)
 # Include routers
 app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
+app.include_router(files.router, prefix="/api/files", tags=["files"])
 
 
 @app.get("/")

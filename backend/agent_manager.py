@@ -12,7 +12,10 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 
 from backend.agents.base import BaseAgent, WorkflowAgent
+from backend.agents.openai_agent import OpenAIAgent
 from backend.tools.web_search import WebSearchTool
+from backend.tools.file_search import FileSearchTool
+from backend.tools.e2b_code_interpreter import E2BCodeInterpreterTool
 
 logger = logging.getLogger(__name__)
 
@@ -55,18 +58,23 @@ class AgentManager:
     def __init__(self):
         """Initialize the agent manager"""
         self.web_search_tool = WebSearchTool()
+        self.file_search_tool = FileSearchTool()
+        self.code_interpreter_tool = E2BCodeInterpreterTool()
+
         self.tools_available = {
-            "web_search": self.web_search_tool.is_configured()
+            "web_search": self.web_search_tool.is_configured(),
+            "file_search": self.file_search_tool.is_configured(),
+            "code_interpreter": self.code_interpreter_tool.is_configured()
         }
-        
+
         logger.info(f"AgentManager initialized. Available tools: {self.tools_available}")
     
     def get_available_tools(self) -> Dict[str, bool]:
         """Get status of available tools"""
         return {
             "web_search": self.tools_available.get("web_search", False),
-            "attachments": False,  # Future implementation
-            "code_interpreter": False  # Future implementation
+            "file_search": self.tools_available.get("file_search", False),
+            "code_interpreter": self.tools_available.get("code_interpreter", False)
         }
     
     async def process_query(
@@ -101,6 +109,8 @@ class AgentManager:
             logger.info(f"Generated new conversation ID: {conversation_id}")
 
         # Step 1: Execute tools if needed
+        # NOTE: For now, all agents (including OpenAI) use custom file search
+        # Native OpenAI file_search requires Assistants API which needs more work
         tool_results = await self._execute_tools(
             agent=agent,
             message=message,
@@ -108,10 +118,10 @@ class AgentManager:
             enable_web_search=enable_web_search,
             uploaded_files=uploaded_files
         )
-        
-        # Step 2: Check if this is a workflow agent (different handling)
+
+        # Step 3: Check if this is a workflow agent (different handling)
         is_workflow = isinstance(agent, WorkflowAgent)
-        
+
         if is_workflow:
             # Workflow agents handle their own context and tools
             response = await self._query_workflow_agent(
@@ -169,17 +179,23 @@ class AgentManager:
             )
             tool_results.append(web_search_result)
         
-        # Attachments Tool (Future)
+        # File Search Tool - For ALL agents (custom ChromaDB search)
         if uploaded_files:
-            # TODO: Process attachments
-            attachment_result = ToolResult(
-                tool_name="attachments",
-                success=False,
-                error="Attachment processing not yet implemented",
-                context=None
-            )
-            tool_results.append(attachment_result)
-        
+            if self.tools_available.get("file_search"):
+                file_search_result = await self._execute_file_search(
+                    message=message,
+                    conversation_id=conversation_id,
+                    uploaded_files=uploaded_files
+                )
+                tool_results.append(file_search_result)
+            else:
+                tool_results.append(ToolResult(
+                    tool_name="file_search",
+                    success=False,
+                    error="File search not available",
+                    context=None
+                ))
+
         return tool_results
     
     async def _execute_web_search(
@@ -234,7 +250,116 @@ class AgentManager:
                 success=False,
                 error=str(e)
             )
-    
+
+    async def _execute_file_search(
+        self,
+        message: str,
+        conversation_id: str,
+        uploaded_files: List[Any]
+    ) -> ToolResult:
+        """
+        Execute file search and return results
+
+        Returns:
+            ToolResult with file search context
+        """
+        try:
+            logger.info(f"Executing file search for conversation {conversation_id}")
+
+            # Index files
+            index_result = await self.file_search_tool.index_files(
+                conversation_id=conversation_id,
+                files=uploaded_files
+            )
+
+            if index_result["indexed_files"] == 0:
+                return ToolResult(
+                    tool_name="file_search",
+                    success=False,
+                    error="No files could be indexed",
+                    data=index_result
+                )
+
+            # Get formatted context for the agent
+            file_context = self.file_search_tool.get_file_context(
+                conversation_id=conversation_id,
+                query=message,
+                max_results=5,
+                max_length=2000
+            )
+
+            return ToolResult(
+                tool_name="file_search",
+                success=True,
+                data=index_result,
+                context=file_context
+            )
+
+        except Exception as e:
+            logger.error(f"Error executing file search: {e}", exc_info=True)
+            return ToolResult(
+                tool_name="file_search",
+                success=False,
+                error=str(e)
+            )
+
+    async def _query_openai_with_files(
+        self,
+        agent: "OpenAIAgent",
+        message: str,
+        conversation_id: str,
+        uploaded_files: List[Any],
+        parameters: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Query OpenAI agent with file attachments using native file_search tool
+
+        Args:
+            agent: OpenAI agent instance
+            message: User message
+            conversation_id: Conversation ID
+            uploaded_files: List of FileMetadata objects
+            parameters: Optional parameters
+
+        Returns:
+            Response dict with metadata and tool info
+        """
+        try:
+            logger.info(f"Querying OpenAI agent with {len(uploaded_files)} files")
+
+            # Determine which OpenAI tool to use
+            # For now, default to file_search (could add logic to detect code execution needs)
+            use_file_search = agent.enable_file_search
+            use_code_interpreter = False  # Can be enhanced based on message content
+
+            # Call the OpenAI agent's native file handling method
+            result = await agent.query_with_files(
+                message=message,
+                conversation_id=conversation_id,
+                file_metadata_list=uploaded_files,
+                use_file_search=use_file_search,
+                use_code_interpreter=use_code_interpreter,
+                parameters=parameters
+            )
+
+            # Format response in standard structure
+            return {
+                "response": result["response"],
+                "conversation_id": conversation_id,
+                "metadata": result.get("metadata", {}),
+                "tools_used": [{
+                    "tool": result["metadata"].get("tool_used", "file_search"),
+                    "success": True,
+                    "data": {"files_processed": result["metadata"].get("files_processed", 0)},
+                    "timestamp": ""
+                }],
+                "web_search_enabled": False
+            }
+
+        except Exception as e:
+            logger.error(f"Error querying OpenAI with files: {e}", exc_info=True)
+            raise
+
     def _build_enhanced_prompt(
         self,
         message: str,
@@ -476,10 +601,10 @@ Tools used in this query:
         """Test all available tools"""
         results = {
             "web_search": None,
-            "attachments": {"available": False, "status": "not_implemented"},
-            "code_interpreter": {"available": False, "status": "not_implemented"}
+            "file_search": None,
+            "code_interpreter": None
         }
-        
+
         # Test web search
         if self.tools_available.get("web_search"):
             try:
@@ -495,7 +620,17 @@ Tools used in this query:
                 "available": False,
                 "status": "not_configured"
             }
-        
+
+        # Test file search
+        results["file_search"] = {
+            "available": self.tools_available.get("file_search", False),
+            "configured": self.file_search_tool.is_configured(),
+            "status": "ready" if self.file_search_tool.is_configured() else "not_configured"
+        }
+
+        # Test code interpreter
+        results["code_interpreter"] = self.code_interpreter_tool.get_status()
+
         return results
 
 

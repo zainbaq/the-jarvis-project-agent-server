@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Agent, Message } from '../types';
+import { Agent, Message, UploadedFile } from '../types';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 import { apiClient } from '../api/client';
@@ -22,7 +22,10 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
   }, [selectedAgent, onAgentChange]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
+  // Generate conversation ID immediately on mount (needed for file uploads)
+  const [conversationId, setConversationId] = useState<string>(() => {
+    return `conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+  });
   const [enableWebSearch, setEnableWebSearch] = useState(false);
   const [showAgentDropdown, setShowAgentDropdown] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -41,9 +44,9 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
   }, [chatAgents.length, selectedAgent]);
 
   useEffect(() => {
-    // Clear messages when agent changes
+    // Clear messages and start new conversation when agent changes
     setMessages([]);
-    setConversationId(null);
+    setConversationId(`conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
   }, [selectedAgent?.agent_id]);
 
   useEffect(() => {
@@ -63,14 +66,15 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSendMessage = async (message: string) => {
+  const handleSendMessage = async (message: string, files: UploadedFile[]) => {
     if (!selectedAgent || !message.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
       content: message,
-      timestamp: new Date()
+      timestamp: new Date(),
+      attachedFiles: files.length > 0 ? files : undefined
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -80,7 +84,8 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
       const response = await apiClient.chat(selectedAgent.agent_id, {
         message,
         conversation_id: conversationId || undefined,
-        enable_web_search: enableWebSearch
+        enable_web_search: enableWebSearch,
+        uploaded_files: files.length > 0 ? files : undefined
       });
 
       if (!conversationId) {
@@ -155,6 +160,7 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
       {/* Input */}
       <ChatInput
         onSend={handleSendMessage}
+        conversationId={conversationId}
         loading={loading}
         enableWebSearch={enableWebSearch}
         onToggleWebSearch={() => setEnableWebSearch(!enableWebSearch)}

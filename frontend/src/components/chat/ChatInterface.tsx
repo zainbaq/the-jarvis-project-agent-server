@@ -7,6 +7,7 @@ import { useConversationStore } from '../../stores/conversationStore';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { UploadedFile } from '../../types/files';
 
 interface ChatInterfaceProps {
   agentId: string;
@@ -29,10 +30,11 @@ export function ChatInterface({ agentId, agentName }: ChatInterfaceProps) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [conversation?.messages]);
 
-  const handleSend = (message: string) => {
+  const handleSend = (message: string, files: UploadedFile[]) => {
     sendMessage({
       message,
       enable_web_search: enableWebSearch,
+      uploaded_files: files,
     });
   };
 
@@ -94,6 +96,7 @@ export function ChatInterface({ agentId, agentName }: ChatInterfaceProps) {
       {/* Input */}
       <ChatInput
         onSend={handleSend}
+        conversationId={conversationId || ''}
         disabled={isLoading}
         enableWebSearch={enableWebSearch}
         onToggleWebSearch={() => setEnableWebSearch(!enableWebSearch)}

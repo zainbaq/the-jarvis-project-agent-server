@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Send, Globe, Loader, ChevronDown, Bot, Plus, Trash2 } from "lucide-react";
-import { Agent } from "../types";
+import { Agent, UploadedFile } from "../types";
 import { colors, components, spacing, typography, borderRadius, iconSizes, shadows } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
+import { FileUpload } from "./FileUpload";
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string, files: UploadedFile[]) => void;
+  conversationId: string;
   loading: boolean;
   enableWebSearch: boolean;
   onToggleWebSearch: () => void;
@@ -18,6 +20,7 @@ interface ChatInputProps {
 
 export function ChatInput({
   onSend,
+  conversationId,
   loading,
   enableWebSearch,
   onToggleWebSearch,
@@ -28,6 +31,7 @@ export function ChatInput({
   onDeleteEndpoint,
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [showAgentDropdown, setShowAgentDropdown] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,8 +61,9 @@ export function ChatInput({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() && !loading) {
-      onSend(message);
+      onSend(message, uploadedFiles);
       setMessage("");
+      setUploadedFiles([]);
     }
   };
 
@@ -168,6 +173,13 @@ export function ChatInput({
                   {/* <span>Web Search</span> */}
                 </button>
               )}
+              {/* File Upload */}
+              <FileUpload
+                conversationId={conversationId}
+                uploadedFiles={uploadedFiles}
+                onFilesChange={setUploadedFiles}
+                disabled={loading}
+              />
             </div>
             {/* Bottom Row: Text Input and Send Button */}
             <div className={cn('flex items-end hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inline, spacing.inputContainer, 'mt-4')}>

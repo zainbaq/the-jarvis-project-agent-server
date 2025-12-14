@@ -1,0 +1,4 @@
+IMPORTANT FEATURES:
+    - Real-time collaboration with WebSockets
+    - Advanced encryption for security
+    - Machine learning-powered recommendations

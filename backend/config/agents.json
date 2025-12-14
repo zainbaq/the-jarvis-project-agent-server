@@ -4,24 +4,28 @@
         "agent_id": "gpt5_assistant",
         "name": "GPT-5.2",
         "type": "openai",
-        "description": "General purpose GPT-4o conversational assistant with web search",
+        "description": "General purpose GPT-4o conversational assistant with web search, file search, and code interpreter",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-5.2",
           "temperature": 0.7,
-          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses.",
+          "enable_file_search": true,
+          "enable_code_interpreter": true
         }
       },
       {
         "agent_id": "gpt4_assistant",
         "name": "GPT-4 Assistant",
         "type": "openai",
-        "description": "General purpose GPT-4 conversational assistant with web search",
+        "description": "General purpose GPT-4 conversational assistant with web search, file search, and code interpreter",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-4o",
           "temperature": 0.7,
-          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses.",
+          "enable_file_search": true,
+          "enable_code_interpreter": true
         }
       },
       {
@@ -34,7 +38,9 @@
           "model": "gpt-3.5-turbo",
           "temperature": 0.7,
           "max_tokens": 1500,
-          "system_message": "You are a helpful and efficient AI assistant."
+          "system_message": "You are a helpful and efficient AI assistant.",
+          "enable_file_search": false,
+          "enable_code_interpreter": false
         }
       },
       {

@@ -76,21 +76,34 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
     try:
         # Get agent manager
         agent_manager = get_agent_manager()
-        
+
         # Get conversation history (if agent supports it)
         conversation_history = None
         if hasattr(agent, 'conversations') and chat_request.conversation_id:
             conversation_history = agent.conversations.get(
                 chat_request.conversation_id, []
             )
-        
+
+        # Load file metadata from storage if files are uploaded
+        file_metadata_list = None
+        if chat_request.uploaded_files and chat_request.conversation_id:
+            file_storage = request.app.state.file_storage
+            file_metadata_list = []
+            for uploaded_file in chat_request.uploaded_files:
+                file_meta = file_storage.get_file(
+                    conversation_id=chat_request.conversation_id,
+                    file_id=uploaded_file.file_id
+                )
+                if file_meta:
+                    file_metadata_list.append(file_meta)
+
         # Process query through agent manager
         result = await agent_manager.process_query(
             agent=agent,
             message=chat_request.message,
             conversation_id=chat_request.conversation_id,
             enable_web_search=chat_request.enable_web_search,
-            uploaded_files=chat_request.uploaded_files,
+            uploaded_files=file_metadata_list,
             conversation_history=conversation_history,
             parameters=chat_request.parameters
         )
@@ -178,13 +191,27 @@ async def delete_conversation(
         if isinstance(agent, (OpenAIAgent, EndpointAgent)):
             if conversation_id in agent.conversations:
                 del agent.conversations[conversation_id]
-                
-                # Also clear web search data
+
+                # Get agent manager for tool cleanup
                 from backend.agent_manager import get_agent_manager
                 agent_manager = get_agent_manager()
+
+                # Clear web search data
                 if agent_manager.web_search_tool.is_vector_store_available():
                     agent_manager.web_search_tool.clear_conversation(conversation_id)
-                
+
+                # Clear file search data
+                if agent_manager.tools_available.get("file_search"):
+                    agent_manager.file_search_tool.clear_conversation(conversation_id)
+
+                # Clear local uploaded files
+                file_storage = request.app.state.file_storage
+                await file_storage.clear_conversation_files(conversation_id)
+
+                # Clear OpenAI file resources if OpenAI agent
+                if isinstance(agent, OpenAIAgent):
+                    await agent.cleanup_conversation(conversation_id)
+
                 return {
                     "status": "success",
                     "message": f"Conversation {conversation_id} deleted"

@@ -1,11 +1,13 @@
 // Chat request/response types
 // Similar to Pydantic models in backend/models/requests.py
 
+import { UploadedFile } from './files';
+
 export interface ChatRequest {
   message: string;
   conversation_id?: string;
   enable_web_search?: boolean;
-  uploaded_files?: any[];
+  uploaded_files?: UploadedFile[];
   parameters?: {
     temperature?: number;
     max_tokens?: number;
@@ -41,6 +43,7 @@ export interface Message {
   timestamp: Date;
   metadata?: any;
   toolsUsed?: ToolResult[];
+  attachedFiles?: UploadedFile[];
 }
 
 export interface Conversation {
