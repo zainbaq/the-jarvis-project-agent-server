@@ -1,4 +1,4 @@
-import { Agent, ChatRequest, ChatResponse, WorkflowRequest, WorkflowResponse, DetailedStatus, AgentTestResult, ToolsStatus, ToolsTestResult } from '../types';
+import { Agent, ChatRequest, ChatResponse, WorkflowRequest, WorkflowResponse, DetailedStatus, AgentTestResult, ToolsStatus, ToolsTestResult, KMConnection, KMConnectionCreate, KMConnectionUpdate, KMSelectionUpdate, KMTestResult, KMStatus } from '../types';
 import { mockAgents, getMockChatResponse, getMockWorkflowResponse } from './mockData';
 
 // Try 127.0.0.1 instead of localhost (better for browser security policies)
@@ -227,6 +227,158 @@ export class JarvisAPIClient {
       throw new Error(error.error || error.detail || 'Tools test failed');
     }
 
+    return response.json();
+  }
+
+  // Knowledge Management (KM) API Methods
+
+  async listKMConnections(): Promise<KMConnection[]> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return [];
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch KM connections');
+    }
+    return response.json();
+  }
+
+  async createKMConnection(data: KMConnectionCreate): Promise<KMConnection> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to create KM connection');
+    }
+
+    return response.json();
+  }
+
+  async getKMConnection(connectionId: string): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch KM connection');
+    }
+    return response.json();
+  }
+
+  async updateKMConnection(connectionId: string, data: KMConnectionUpdate): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to update KM connection');
+    }
+
+    return response.json();
+  }
+
+  async deleteKMConnection(connectionId: string): Promise<void> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete KM connection');
+    }
+  }
+
+  async syncKMConnection(connectionId: string): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/sync`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to sync KM connection');
+    }
+
+    return response.json();
+  }
+
+  async testKMConnection(connectionId: string): Promise<KMTestResult> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/test`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to test KM connection');
+    }
+
+    return response.json();
+  }
+
+  async updateKMSelections(connectionId: string, selections: KMSelectionUpdate): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/selections`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(selections)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to update KM selections');
+    }
+
+    return response.json();
+  }
+
+  async getKMStatus(): Promise<KMStatus> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return {
+        km_server_url: 'http://localhost:11000',
+        total_connections: 0,
+        active_connections: 0,
+        connections_with_selections: 0,
+        is_configured: false
+      };
+    }
+
+    const response = await fetch(`${this.baseURL}/api/km/status`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch KM status');
+    }
     return response.json();
   }
 }

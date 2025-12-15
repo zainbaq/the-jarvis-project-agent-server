@@ -60,22 +60,38 @@ async def get_agent(agent_id: str, request: Request):
 async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Request):
     """
     Send a chat message to an agent
-    
+
     The agent manager will handle:
     - Web search if enabled
+    - KM search if enabled
     - Prompt engineering with search results
     - Tool orchestration
     - Conversation context management
     """
+    # Log incoming KM parameters from frontend
+    logger.info(f"[KM DEBUG] /chat endpoint received request:")
+    logger.info(f"[KM DEBUG]   - agent_id: {agent_id}")
+    logger.info(f"[KM DEBUG]   - enable_km_search: {chat_request.enable_km_search}")
+    logger.info(f"[KM DEBUG]   - km_connection_ids: {chat_request.km_connection_ids}")
+    logger.info(f"[KM DEBUG]   - enable_web_search: {chat_request.enable_web_search}")
+    logger.info(f"[KM DEBUG]   - message: {chat_request.message[:100]}...")
+
     registry = request.app.state.agent_registry
     agent = registry.get_agent(agent_id)
-    
+
     if not agent:
         raise HTTPException(status_code=404, detail=f"Agent {agent_id} not found")
-    
+
     try:
         # Get agent manager
         agent_manager = get_agent_manager()
+
+        # Set up KM connector if available and not already configured
+        if hasattr(request.app.state, 'km_connection_storage') and not agent_manager.km_connector_tool:
+            agent_manager.set_km_connector(
+                request.app.state.km_connection_storage,
+                request.app.state.settings.KM_SERVER_URL
+            )
 
         # Get conversation history (if agent supports it)
         conversation_history = None
@@ -103,20 +119,23 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
             message=chat_request.message,
             conversation_id=chat_request.conversation_id,
             enable_web_search=chat_request.enable_web_search,
+            enable_km_search=chat_request.enable_km_search,
+            km_connection_ids=chat_request.km_connection_ids,
             uploaded_files=file_metadata_list,
             conversation_history=conversation_history,
             parameters=chat_request.parameters
         )
-        
+
         return ChatResponse(
             response=result["response"],
             conversation_id=result["conversation_id"],
             agent_id=agent_id,
             metadata=result.get("metadata", {}),
             tools_used=result.get("tools_used", []),
-            web_search_enabled=result.get("web_search_enabled", False)
+            web_search_enabled=result.get("web_search_enabled", False),
+            km_search_enabled=result.get("km_search_enabled", False)
         )
-        
+
     except Exception as e:
         logger.error(f"Error in chat with agent {agent_id}: {e}", exc_info=True)
         raise HTTPException(

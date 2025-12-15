@@ -1,0 +1,33 @@
+{
+  "connections": [
+    {
+      "id": "b38ed366-2cd2-47df-bb13-a9835e2ad88f",
+      "name": "https://knowledge-manager.promethean-labs.co",
+      "username": "zbadmin",
+      "api_key_encrypted": "gAAAAABpP7LHDygCaCshJrnDKeQOKYV03GwPY-YtWvgQf8Hf2yAbiF1qArNyZv9Z6DZenryH1FZlt0ADpgcVm_hhTzbf-SFkDGm34I3XUcgJDlsy1tnNi4TcXd7UpYDLGxBPBykVRSaB",
+      "status": "active",
+      "collections": [
+        {
+          "name": "test_collection",
+          "files": [
+            "Document_1_Project_Brief.pdf",
+            "Document_2_Meeting_Notes.pdf",
+            "Document_3_User_Feedback.pdf",
+            "Document_4_Technical_Spec.pdf",
+            "Document_5_Creative_Writing.pdf"
+          ],
+          "num_chunks": 5
+        }
+      ],
+      "corpuses": [],
+      "selected_collection_names": [
+        "test_collection"
+      ],
+      "selected_corpus_ids": [],
+      "created_at": "2025-12-15T07:03:35.045491",
+      "updated_at": "2025-12-15T07:34:45.370262",
+      "last_sync_at": "2025-12-15T07:34:45.370230",
+      "last_error": null
+    }
+  ]
+}

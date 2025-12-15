@@ -48,7 +48,8 @@ class ChatResponse(BaseModel):
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
     tools_used: List[Dict[str, Any]] = Field(default_factory=list, description="Tools used in this query")
     web_search_enabled: bool = Field(False, description="Whether web search was enabled")
-    
+    km_search_enabled: bool = Field(False, description="Whether knowledge management search was enabled")
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -64,9 +65,15 @@ class ChatResponse(BaseModel):
                         "tool": "web_search",
                         "success": True,
                         "data": {"results_count": 9}
+                    },
+                    {
+                        "tool": "km_search",
+                        "success": True,
+                        "data": {"results_count": 5}
                     }
                 ],
-                "web_search_enabled": True
+                "web_search_enabled": True,
+                "km_search_enabled": True
             }
         }
 

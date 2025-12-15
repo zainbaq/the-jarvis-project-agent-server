@@ -8,9 +8,10 @@ from contextlib import asynccontextmanager
 import logging
 from dotenv import load_dotenv
 
-from backend.routers import agents, health, files
+from backend.routers import agents, health, files, km_connections
 from backend.agents.registry import AgentRegistry
 from backend.services.file_storage import FileStorageService
+from backend.services.km_connection_storage import KMConnectionStorage
 from backend.config import settings
 from backend.logging_config import setup_logging
 from backend.middleware import setup_middleware
@@ -55,6 +56,15 @@ async def lifespan(app: FastAPI):
     )
     app.state.file_storage = file_storage
     logger.info(f"✅ File storage initialized (max size: {settings.MAX_FILE_SIZE / 1024 / 1024:.0f}MB)")
+
+    # Initialize KM connection storage
+    km_storage = KMConnectionStorage(
+        storage_file=settings.KM_CONNECTIONS_FILE,
+        encryption_key=settings.KM_ENCRYPTION_KEY or None
+    )
+    app.state.km_connection_storage = km_storage
+    app.state.settings = settings  # Store settings for access in routers
+    logger.info(f"✅ KM connection storage initialized ({len(km_storage.list_connections())} connections)")
     
     logger.info("=" * 60)
     logger.info("✅ Server ready to accept requests")
@@ -95,6 +105,7 @@ setup_middleware(app)
 app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
 app.include_router(files.router, prefix="/api/files", tags=["files"])
+app.include_router(km_connections.router, prefix="/api/km", tags=["km-connections"])
 
 
 @app.get("/")
@@ -105,7 +116,8 @@ async def root():
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/api/health",
-        "agents": "/api/agents"
+        "agents": "/api/agents",
+        "km": "/api/km"
     }
 
 

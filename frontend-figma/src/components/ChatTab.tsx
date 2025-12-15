@@ -2,7 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { Agent, Message, UploadedFile } from '../types';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
+import { KMDrawer } from './KMDrawer';
 import { apiClient } from '../api/client';
+import { useKMConnections } from '../hooks/useKMConnections';
 import { colors, spacing } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 
@@ -28,8 +30,33 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
   });
   const [enableWebSearch, setEnableWebSearch] = useState(false);
   const [showAgentDropdown, setShowAgentDropdown] = useState(false);
+  const [showKMDrawer, setShowKMDrawer] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // KM Connections hook
+  const {
+    isKMEnabled,
+    activeConnectionIds,
+    getEnabledConnectionIds,
+    getActiveConnections,
+    setKMEnabled,
+  } = useKMConnections();
+
+  // Build active connections list with details for display
+  const activeKMConnections = getActiveConnections().map(conn => ({
+    id: conn.id,
+    name: conn.name,
+    hasSelections: conn.selected_collection_names.length > 0 || conn.selected_corpus_ids.length > 0
+  }));
+
+  // Debug logging for KM state in ChatTab
+  useEffect(() => {
+    console.log('[KM DEBUG ChatTab] KM State:');
+    console.log('[KM DEBUG ChatTab]   - isKMEnabled:', isKMEnabled);
+    console.log('[KM DEBUG ChatTab]   - activeConnectionIds:', activeConnectionIds);
+    console.log('[KM DEBUG ChatTab]   - activeKMConnections:', activeKMConnections);
+  }, [isKMEnabled, activeConnectionIds, activeKMConnections]);
 
   // Filter chat agents (OpenAI and Endpoint types, excluding workflow-only agents)
   const chatAgents = agents.filter(
@@ -81,10 +108,20 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
     setLoading(true);
 
     try {
+      const kmConnectionIds = getEnabledConnectionIds();
+
+      // Debug logging for KM parameters being sent
+      console.log('[KM DEBUG ChatTab] Sending message with KM params:');
+      console.log('[KM DEBUG ChatTab]   - isKMEnabled:', isKMEnabled);
+      console.log('[KM DEBUG ChatTab]   - kmConnectionIds:', kmConnectionIds);
+      console.log('[KM DEBUG ChatTab]   - enable_km_search:', isKMEnabled && !!kmConnectionIds);
+
       const response = await apiClient.chat(selectedAgent.agent_id, {
         message,
         conversation_id: conversationId || undefined,
         enable_web_search: enableWebSearch,
+        enable_km_search: isKMEnabled && !!kmConnectionIds,
+        km_connection_ids: kmConnectionIds,
         uploaded_files: files.length > 0 ? files : undefined
       });
 
@@ -164,11 +201,22 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
         loading={loading}
         enableWebSearch={enableWebSearch}
         onToggleWebSearch={() => setEnableWebSearch(!enableWebSearch)}
+        enableKMSearch={isKMEnabled}
+        activeKMConnectionsCount={activeConnectionIds.length}
+        activeKMConnections={activeKMConnections}
+        onOpenKMDrawer={() => setShowKMDrawer(true)}
+        onToggleKMSearch={() => setKMEnabled(!isKMEnabled)}
         selectedAgent={selectedAgent}
         agents={chatAgents}
         onAgentChange={setSelectedAgent}
         onAddEndpoint={onAddEndpoint}
         onDeleteEndpoint={onDeleteEndpoint}
+      />
+
+      {/* KM Drawer */}
+      <KMDrawer
+        isOpen={showKMDrawer}
+        onClose={() => setShowKMDrawer(false)}
       />
     </div>
   );

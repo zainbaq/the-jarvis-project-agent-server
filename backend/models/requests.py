@@ -30,15 +30,19 @@ class ChatRequest(BaseModel):
     message: str = Field(..., description="User message to send to the agent")
     conversation_id: Optional[str] = Field(None, description="Optional conversation ID for context")
     enable_web_search: bool = Field(False, description="Enable web search for this query")
+    enable_km_search: bool = Field(False, description="Enable knowledge management search for this query")
+    km_connection_ids: Optional[List[str]] = Field(None, description="Specific KM connection IDs to use (None = all active)")
     uploaded_files: Optional[List[UploadedFileMetadata]] = Field(None, description="List of uploaded file metadata")
     parameters: Optional[Dict[str, Any]] = Field(None, description="Optional parameters to override defaults")
-    
+
     class Config:
         json_schema_extra = {
             "example": {
                 "message": "What are the latest developments in AI?",
                 "conversation_id": "conv_12345",
                 "enable_web_search": True,
+                "enable_km_search": True,
+                "km_connection_ids": ["conn_123", "conn_456"],
                 "parameters": {
                     "temperature": 0.7,
                     "max_tokens": 2000

@@ -1,9 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Globe, Loader, ChevronDown, Bot, Plus, Trash2 } from "lucide-react";
+import { Send, Globe, Loader, ChevronDown, Bot, Plus, Trash2, Database, X, Check } from "lucide-react";
 import { Agent, UploadedFile } from "../types";
 import { colors, components, spacing, typography, borderRadius, iconSizes, shadows } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 import { FileUpload } from "./FileUpload";
+
+interface ActiveKMConnection {
+  id: string;
+  name: string;
+  hasSelections: boolean;
+}
 
 interface ChatInputProps {
   onSend: (message: string, files: UploadedFile[]) => void;
@@ -11,6 +17,11 @@ interface ChatInputProps {
   loading: boolean;
   enableWebSearch: boolean;
   onToggleWebSearch: () => void;
+  enableKMSearch: boolean;
+  activeKMConnectionsCount: number;
+  activeKMConnections: ActiveKMConnection[];
+  onOpenKMDrawer: () => void;
+  onToggleKMSearch: () => void;
   selectedAgent: Agent | null;
   agents: Agent[];
   onAgentChange: (agent: Agent) => void;
@@ -24,6 +35,11 @@ export function ChatInput({
   loading,
   enableWebSearch,
   onToggleWebSearch,
+  enableKMSearch,
+  activeKMConnectionsCount,
+  activeKMConnections,
+  onOpenKMDrawer,
+  onToggleKMSearch,
   selectedAgent,
   agents,
   onAgentChange,
@@ -170,9 +186,37 @@ export function ChatInput({
                   title="Web Search"
                 >
                   <Globe className={iconSizes.sm} />
-                  {/* <span>Web Search</span> */}
                 </button>
               )}
+              {/* Knowledge Base Toggle */}
+              <button
+                type="button"
+                onClick={onOpenKMDrawer}
+                className={cn(
+                  components.buttonVariants.webSearchBase,
+                  enableKMSearch && activeKMConnectionsCount > 0
+                    ? components.buttonVariants.webSearchActive
+                    : components.buttonVariants.webSearchInactive,
+                  'relative'
+                )}
+                title={
+                  enableKMSearch && activeKMConnectionsCount > 0
+                    ? `Knowledge Base Active (${activeKMConnectionsCount} connection${activeKMConnectionsCount > 1 ? 's' : ''})`
+                    : activeKMConnectionsCount > 0
+                    ? `Knowledge Base Configured (${activeKMConnectionsCount} connection${activeKMConnectionsCount > 1 ? 's' : ''}) - Click to enable`
+                    : 'Knowledge Base - Click to configure'
+                }
+              >
+                <Database className={iconSizes.sm} />
+                {activeKMConnectionsCount > 0 && (
+                  <span className={cn(
+                    "absolute -top-1 -right-1 w-4 h-4 text-white text-xs rounded-full flex items-center justify-center",
+                    enableKMSearch ? "bg-green-500" : "bg-gray-500"
+                  )}>
+                    {activeKMConnectionsCount}
+                  </span>
+                )}
+              </button>
               {/* File Upload */}
               <FileUpload
                 conversationId={conversationId}
@@ -181,6 +225,46 @@ export function ChatInput({
                 disabled={loading}
               />
             </div>
+
+            {/* Active KM Connections Indicator */}
+            {enableKMSearch && activeKMConnections.length > 0 && (
+              <div className="flex items-center gap-2 mt-3 flex-wrap">
+                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-600/20 border border-purple-500/40 rounded-lg">
+                  <Database className="w-3.5 h-3.5 text-purple-400" />
+                  <span className="text-xs text-purple-300 font-medium">Knowledge Base Active</span>
+                  <button
+                    type="button"
+                    onClick={onToggleKMSearch}
+                    className="ml-1 p-0.5 hover:bg-purple-500/30 rounded transition-colors"
+                    title="Disable Knowledge Base"
+                  >
+                    <X className="w-3 h-3 text-purple-400 hover:text-purple-200" />
+                  </button>
+                </div>
+                {activeKMConnections.map((conn) => (
+                  <button
+                    key={conn.id}
+                    type="button"
+                    onClick={onOpenKMDrawer}
+                    className={cn(
+                      'flex items-center gap-1.5 px-2 py-1 rounded-md text-xs transition-colors',
+                      conn.hasSelections
+                        ? 'bg-green-600/20 border border-green-500/40 text-green-300 hover:bg-green-600/30'
+                        : 'bg-amber-600/20 border border-amber-500/40 text-amber-300 hover:bg-amber-600/30'
+                    )}
+                    title={conn.hasSelections ? `${conn.name} - Ready` : `${conn.name} - No collections selected`}
+                  >
+                    {conn.hasSelections ? (
+                      <Check className="w-3 h-3" />
+                    ) : (
+                      <span className="w-3 h-3 text-center">!</span>
+                    )}
+                    <span className="max-w-[120px] truncate">{conn.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Bottom Row: Text Input and Send Button */}
             <div className={cn('flex flex-col hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inputContainer, 'mt-4')}>
               {/* Uploaded Files Display */}
