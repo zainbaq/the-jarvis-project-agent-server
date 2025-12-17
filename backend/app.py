@@ -8,10 +8,11 @@ from contextlib import asynccontextmanager
 import logging
 from dotenv import load_dotenv
 
-from backend.routers import agents, health, files, km_connections
+from backend.routers import agents, health, files, km_connections, session_km, session_endpoints
 from backend.agents.registry import AgentRegistry
 from backend.services.file_storage import FileStorageService
 from backend.services.km_connection_storage import KMConnectionStorage
+from backend.services.session_manager import SessionManager
 from backend.config import settings
 from backend.logging_config import setup_logging
 from backend.middleware import setup_middleware
@@ -57,27 +58,35 @@ async def lifespan(app: FastAPI):
     app.state.file_storage = file_storage
     logger.info(f"✅ File storage initialized (max size: {settings.MAX_FILE_SIZE / 1024 / 1024:.0f}MB)")
 
-    # Initialize KM connection storage
+    # Initialize KM connection storage (for backward compatibility)
     km_storage = KMConnectionStorage(
         storage_file=settings.KM_CONNECTIONS_FILE,
         encryption_key=settings.KM_ENCRYPTION_KEY or None
     )
     app.state.km_connection_storage = km_storage
     app.state.settings = settings  # Store settings for access in routers
-    logger.info(f"✅ KM connection storage initialized ({len(km_storage.list_connections())} connections)")
-    
+    logger.info(f"KM connection storage initialized ({len(km_storage.list_connections())} connections)")
+
+    # Initialize session manager (for session-based isolation)
+    session_manager = SessionManager()
+    await session_manager.start_cleanup_task()
+    app.state.session_manager = session_manager
+    logger.info("Session manager initialized (24h TTL, in-memory storage)")
+
     logger.info("=" * 60)
-    logger.info("✅ Server ready to accept requests")
+    logger.info("Server ready to accept requests")
     logger.info("=" * 60)
     
     yield
     
     # Shutdown
     logger.info("=" * 60)
-    logger.info("🛑 Shutting down AI Agent Backend Server")
+    logger.info("Shutting down AI Agent Backend Server")
     logger.info("=" * 60)
+    await session_manager.stop_cleanup_task()
+    logger.info("Session manager cleanup task stopped")
     await registry.cleanup()
-    logger.info("✅ Cleanup complete")
+    logger.info("Cleanup complete")
 
 
 # Create FastAPI app
@@ -106,6 +115,10 @@ app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
 app.include_router(files.router, prefix="/api/files", tags=["files"])
 app.include_router(km_connections.router, prefix="/api/km", tags=["km-connections"])
+
+# Session-scoped routers (for session-based isolation)
+app.include_router(session_km.router, prefix="/api/session/km", tags=["session-km"])
+app.include_router(session_endpoints.router, prefix="/api/session", tags=["session"])
 
 
 @app.get("/")

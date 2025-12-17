@@ -1,4 +1,4 @@
-import { Agent, ChatRequest, ChatResponse, WorkflowRequest, WorkflowResponse, DetailedStatus, AgentTestResult, ToolsStatus, ToolsTestResult, KMConnection, KMConnectionCreate, KMConnectionUpdate, KMSelectionUpdate, KMTestResult, KMStatus } from '../types';
+import { Agent, ChatRequest, ChatResponse, WorkflowRequest, WorkflowResponse, DetailedStatus, AgentTestResult, ToolsStatus, ToolsTestResult, KMConnection, KMConnectionCreate, KMConnectionUpdate, KMSelectionUpdate, KMTestResult, KMStatus, CustomEndpoint, CustomEndpointCreate, SessionInfo } from '../types';
 import { mockAgents, getMockChatResponse, getMockWorkflowResponse } from './mockData';
 
 // Try 127.0.0.1 instead of localhost (better for browser security policies)
@@ -19,8 +19,35 @@ function isDemoMode(): boolean {
 }
 
 export class JarvisAPIClient {
+  private sessionId: string = '';
+
   get baseURL(): string {
     return getBaseUrl();
+  }
+
+  /**
+   * Set the session ID for all subsequent requests
+   */
+  setSessionId(sessionId: string): void {
+    this.sessionId = sessionId;
+    console.log('[API Client] Session ID set:', sessionId.substring(0, 20) + '...');
+  }
+
+  /**
+   * Get headers including session ID and content type
+   */
+  private getHeaders(includeContentType: boolean = true): Record<string, string> {
+    const headers: Record<string, string> = {};
+
+    if (includeContentType) {
+      headers['Content-Type'] = 'application/json';
+    }
+
+    if (this.sessionId) {
+      headers['X-Session-ID'] = this.sessionId;
+    }
+
+    return headers;
   }
 
   async listAgents(filters?: { agent_type?: string; capability?: string }): Promise<Agent[]> {
@@ -38,7 +65,9 @@ export class JarvisAPIClient {
 
     const params = new URLSearchParams(filters as any);
     try {
-      const response = await fetch(`${this.baseURL}/api/agents${params.toString() ? '?' + params : ''}`);
+      const response = await fetch(`${this.baseURL}/api/agents${params.toString() ? '?' + params : ''}`, {
+        headers: this.getHeaders(false)
+      });
       if (!response.ok) {
         throw new Error(`Failed to fetch agents: ${response.statusText}`);
       }
@@ -60,7 +89,9 @@ export class JarvisAPIClient {
       return agent;
     }
 
-    const response = await fetch(`${this.baseURL}/api/agents/${agentId}`);
+    const response = await fetch(`${this.baseURL}/api/agents/${agentId}`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch agent: ${response.statusText}`);
     }
@@ -75,7 +106,7 @@ export class JarvisAPIClient {
 
     const response = await fetch(`${this.baseURL}/api/agents/${agentId}/chat`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(),
       body: JSON.stringify(request)
     });
     
@@ -95,7 +126,7 @@ export class JarvisAPIClient {
 
     const response = await fetch(`${this.baseURL}/api/agents/${agentId}/workflow`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(),
       body: JSON.stringify(request)
     });
     
@@ -114,7 +145,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/agents/${agentId}/conversations/${conversationId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: this.getHeaders(false)
     });
     
     if (!response.ok) {
@@ -133,7 +165,9 @@ export class JarvisAPIClient {
       };
     }
 
-    const response = await fetch(`${this.baseURL}/api/health`);
+    const response = await fetch(`${this.baseURL}/api/health`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Health check failed');
     }
@@ -157,7 +191,9 @@ export class JarvisAPIClient {
       };
     }
 
-    const response = await fetch(`${this.baseURL}/api/status`);
+    const response = await fetch(`${this.baseURL}/api/status`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch status');
     }
@@ -177,7 +213,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/agents/${agentId}/test`, {
-      method: 'POST'
+      method: 'POST',
+      headers: this.getHeaders(false)
     });
 
     if (!response.ok) {
@@ -200,7 +237,9 @@ export class JarvisAPIClient {
       };
     }
 
-    const response = await fetch(`${this.baseURL}/api/agents/tools/status`);
+    const response = await fetch(`${this.baseURL}/api/agents/tools/status`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch tools status');
     }
@@ -219,7 +258,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/agents/tools/test`, {
-      method: 'POST'
+      method: 'POST',
+      headers: this.getHeaders(false)
     });
 
     if (!response.ok) {
@@ -230,7 +270,7 @@ export class JarvisAPIClient {
     return response.json();
   }
 
-  // Knowledge Management (KM) API Methods
+  // Knowledge Management (KM) API Methods (Global - for backward compatibility)
 
   async listKMConnections(): Promise<KMConnection[]> {
     if (isDemoMode()) {
@@ -238,7 +278,9 @@ export class JarvisAPIClient {
       return [];
     }
 
-    const response = await fetch(`${this.baseURL}/api/km/connections`);
+    const response = await fetch(`${this.baseURL}/api/km/connections`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch KM connections');
     }
@@ -253,7 +295,7 @@ export class JarvisAPIClient {
 
     const response = await fetch(`${this.baseURL}/api/km/connections`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(),
       body: JSON.stringify(data)
     });
 
@@ -270,7 +312,9 @@ export class JarvisAPIClient {
       throw new Error('KM connections not available in demo mode');
     }
 
-    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`);
+    const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch KM connection');
     }
@@ -284,7 +328,7 @@ export class JarvisAPIClient {
 
     const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(),
       body: JSON.stringify(data)
     });
 
@@ -302,7 +346,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: this.getHeaders(false)
     });
 
     if (!response.ok) {
@@ -316,7 +361,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/sync`, {
-      method: 'POST'
+      method: 'POST',
+      headers: this.getHeaders(false)
     });
 
     if (!response.ok) {
@@ -333,7 +379,8 @@ export class JarvisAPIClient {
     }
 
     const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/test`, {
-      method: 'POST'
+      method: 'POST',
+      headers: this.getHeaders(false)
     });
 
     if (!response.ok) {
@@ -351,7 +398,7 @@ export class JarvisAPIClient {
 
     const response = await fetch(`${this.baseURL}/api/km/connections/${connectionId}/selections`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(),
       body: JSON.stringify(selections)
     });
 
@@ -375,9 +422,231 @@ export class JarvisAPIClient {
       };
     }
 
-    const response = await fetch(`${this.baseURL}/api/km/status`);
+    const response = await fetch(`${this.baseURL}/api/km/status`, {
+      headers: this.getHeaders(false)
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch KM status');
+    }
+    return response.json();
+  }
+
+  // ==================== Session-Scoped KM Connections ====================
+
+  async listSessionKMConnections(): Promise<KMConnection[]> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return [];
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections`, {
+      headers: this.getHeaders(false)
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch session KM connections');
+    }
+    return response.json();
+  }
+
+  async createSessionKMConnection(data: KMConnectionCreate): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('Session KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to create session KM connection');
+    }
+
+    return response.json();
+  }
+
+  async deleteSessionKMConnection(connectionId: string): Promise<void> {
+    if (isDemoMode()) {
+      throw new Error('Session KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections/${connectionId}`, {
+      method: 'DELETE',
+      headers: this.getHeaders(false)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete session KM connection');
+    }
+  }
+
+  async syncSessionKMConnection(connectionId: string): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('Session KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections/${connectionId}/sync`, {
+      method: 'POST',
+      headers: this.getHeaders(false)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to sync session KM connection');
+    }
+
+    return response.json();
+  }
+
+  async testSessionKMConnection(connectionId: string): Promise<KMTestResult> {
+    if (isDemoMode()) {
+      throw new Error('Session KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections/${connectionId}/test`, {
+      method: 'POST',
+      headers: this.getHeaders(false)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to test session KM connection');
+    }
+
+    return response.json();
+  }
+
+  async updateSessionKMSelections(connectionId: string, selections: KMSelectionUpdate): Promise<KMConnection> {
+    if (isDemoMode()) {
+      throw new Error('Session KM connections not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/connections/${connectionId}/selections`, {
+      method: 'PUT',
+      headers: this.getHeaders(),
+      body: JSON.stringify(selections)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to update session KM selections');
+    }
+
+    return response.json();
+  }
+
+  async getSessionKMStatus(): Promise<KMStatus & { session_id?: string }> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return {
+        km_server_url: 'http://localhost:11000',
+        total_connections: 0,
+        active_connections: 0,
+        connections_with_selections: 0,
+        is_configured: false
+      };
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/km/status`, {
+      headers: this.getHeaders(false)
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch session KM status');
+    }
+    return response.json();
+  }
+
+  // ==================== Session-Scoped Custom Endpoints ====================
+
+  async listCustomEndpoints(): Promise<CustomEndpoint[]> {
+    if (isDemoMode()) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return [];
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/endpoints`, {
+      headers: this.getHeaders(false)
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch custom endpoints');
+    }
+    return response.json();
+  }
+
+  async createCustomEndpoint(data: CustomEndpointCreate): Promise<CustomEndpoint> {
+    if (isDemoMode()) {
+      throw new Error('Custom endpoints not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/endpoints`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to create custom endpoint');
+    }
+
+    return response.json();
+  }
+
+  async deleteCustomEndpoint(endpointId: string): Promise<void> {
+    if (isDemoMode()) {
+      throw new Error('Custom endpoints not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/endpoints/${endpointId}`, {
+      method: 'DELETE',
+      headers: this.getHeaders(false)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete custom endpoint');
+    }
+  }
+
+  async testCustomEndpoint(endpointId: string): Promise<{ success: boolean; message: string }> {
+    if (isDemoMode()) {
+      throw new Error('Custom endpoints not available in demo mode');
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/endpoints/${endpointId}/test`, {
+      method: 'POST',
+      headers: this.getHeaders(false)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || 'Failed to test custom endpoint');
+    }
+
+    return response.json();
+  }
+
+  // ==================== Session Info ====================
+
+  async getSessionInfo(): Promise<SessionInfo> {
+    if (isDemoMode()) {
+      return {
+        session_id: 'demo_session',
+        conversation_id: 'demo_conversation',
+        created_at: new Date().toISOString(),
+        last_activity: new Date().toISOString(),
+        km_connections_count: 0,
+        custom_endpoints_count: 0,
+        agent_config_overrides_count: 0
+      };
+    }
+
+    const response = await fetch(`${this.baseURL}/api/session/info`, {
+      headers: this.getHeaders(false)
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch session info');
     }
     return response.json();
   }

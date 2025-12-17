@@ -1,18 +1,28 @@
-// Custom hook for KM connections management
-// Uses React state with localStorage persistence for settings
-
+/**
+ * Custom hook for KM connections management
+ *
+ * Now uses SESSION-SCOPED API endpoints:
+ * - KM connections are stored per-session (browser tab)
+ * - Fresh login required for each session
+ * - Connections lost on server restart
+ *
+ * UI preferences (enabled state) still persist in localStorage
+ */
 import { useState, useEffect, useCallback } from 'react';
 import { apiClient } from '../api/client';
 import type {
   KMConnection,
   KMConnectionCreate,
-  KMConnectionUpdate,
   KMSelectionUpdate,
   KMSearchSettings
 } from '../types';
 
 const KM_SETTINGS_KEY = 'jarvis_km_settings';
 
+/**
+ * Load UI preferences from localStorage
+ * Note: Only loads enabled state, not connection IDs (those come from session API)
+ */
 function loadSettings(): KMSearchSettings {
   if (typeof window === 'undefined') {
     return { enabled: false, activeConnectionIds: [] };
@@ -20,7 +30,9 @@ function loadSettings(): KMSearchSettings {
   try {
     const stored = localStorage.getItem(KM_SETTINGS_KEY);
     if (stored) {
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      // Only restore enabled state, not connection IDs (session-scoped)
+      return { enabled: parsed.enabled || false, activeConnectionIds: [] };
     }
   } catch (e) {
     console.error('Failed to load KM settings:', e);
@@ -28,10 +40,17 @@ function loadSettings(): KMSearchSettings {
   return { enabled: false, activeConnectionIds: [] };
 }
 
+/**
+ * Save UI preferences to localStorage
+ * Only saves enabled state (connection IDs are session-scoped)
+ */
 function saveSettings(settings: KMSearchSettings): void {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem(KM_SETTINGS_KEY, JSON.stringify(settings));
+    // Only persist enabled state, not connection IDs
+    localStorage.setItem(KM_SETTINGS_KEY, JSON.stringify({
+      enabled: settings.enabled
+    }));
   } catch (e) {
     console.error('Failed to save KM settings:', e);
   }
@@ -51,22 +70,29 @@ export function useKMConnections() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
 
-  // Fetch connections and status on mount
+  // Fetch connections and status on mount (SESSION-SCOPED)
   const fetchConnections = useCallback(async () => {
-    console.log('[KM DEBUG] Fetching connections...');
+    console.log('[KM] Fetching session connections...');
     setIsLoading(true);
     setError(null);
     try {
       const [data, status] = await Promise.all([
-        apiClient.listKMConnections(),
-        apiClient.getKMStatus()
+        apiClient.listSessionKMConnections(),
+        apiClient.getSessionKMStatus()
       ]);
-      console.log('[KM DEBUG] Connections fetched:', data);
-      console.log('[KM DEBUG] KM Status:', status);
+      console.log('[KM] Session connections fetched:', data.length);
       setConnections(data);
       setKmServerUrl(status.km_server_url);
+
+      // Auto-activate all session connections (since they're session-scoped)
+      if (data.length > 0) {
+        setSearchSettings(prev => ({
+          ...prev,
+          activeConnectionIds: data.map(c => c.id)
+        }));
+      }
     } catch (e) {
-      console.error('[KM DEBUG] Error fetching connections:', e);
+      console.error('[KM] Error fetching session connections:', e);
       setError(e instanceof Error ? e.message : 'Failed to fetch connections');
     } finally {
       setIsLoading(false);
@@ -83,45 +109,30 @@ export function useKMConnections() {
     saveSettings(searchSettings);
   }, [searchSettings]);
 
-  // Debug logging for state changes
-  useEffect(() => {
-    console.log('[KM DEBUG] Current state:');
-    console.log('[KM DEBUG]   - connections:', connections.length);
-    console.log('[KM DEBUG]   - isKMEnabled:', searchSettings.enabled);
-    console.log('[KM DEBUG]   - activeConnectionIds:', searchSettings.activeConnectionIds);
-  }, [connections, searchSettings]);
-
-  // Create connection
+  // Create connection (SESSION-SCOPED - requires login)
   const createConnection = useCallback(async (data: KMConnectionCreate): Promise<KMConnection> => {
     setIsCreating(true);
     try {
-      const newConnection = await apiClient.createKMConnection(data);
+      const newConnection = await apiClient.createSessionKMConnection(data);
       setConnections(prev => [...prev, newConnection]);
+      // Auto-activate new connection
+      setSearchSettings(prev => ({
+        ...prev,
+        activeConnectionIds: [...prev.activeConnectionIds, newConnection.id]
+      }));
       return newConnection;
     } finally {
       setIsCreating(false);
     }
   }, []);
 
-  // Update connection
-  const updateConnection = useCallback(async (id: string, data: KMConnectionUpdate): Promise<KMConnection> => {
-    setIsUpdating(true);
-    try {
-      const updated = await apiClient.updateKMConnection(id, data);
-      setConnections(prev => prev.map(c => c.id === id ? updated : c));
-      return updated;
-    } finally {
-      setIsUpdating(false);
-    }
-  }, []);
-
-  // Delete connection
+  // Delete connection (SESSION-SCOPED)
   const deleteConnection = useCallback(async (id: string): Promise<void> => {
     setIsDeleting(true);
     try {
-      await apiClient.deleteKMConnection(id);
+      await apiClient.deleteSessionKMConnection(id);
       setConnections(prev => prev.filter(c => c.id !== id));
-      // Remove from active connections if it was active
+      // Remove from active connections
       setSearchSettings(prev => ({
         ...prev,
         activeConnectionIds: prev.activeConnectionIds.filter(cid => cid !== id)
@@ -131,11 +142,11 @@ export function useKMConnections() {
     }
   }, []);
 
-  // Sync connection
+  // Sync connection (SESSION-SCOPED)
   const syncConnection = useCallback(async (id: string): Promise<KMConnection> => {
     setIsSyncing(true);
     try {
-      const updated = await apiClient.syncKMConnection(id);
+      const updated = await apiClient.syncSessionKMConnection(id);
       setConnections(prev => prev.map(c => c.id === id ? updated : c));
       return updated;
     } finally {
@@ -143,21 +154,21 @@ export function useKMConnections() {
     }
   }, []);
 
-  // Test connection
+  // Test connection (SESSION-SCOPED)
   const testConnection = useCallback(async (id: string) => {
     setIsTesting(true);
     try {
-      return await apiClient.testKMConnection(id);
+      return await apiClient.testSessionKMConnection(id);
     } finally {
       setIsTesting(false);
     }
   }, []);
 
-  // Update selections
+  // Update selections (SESSION-SCOPED)
   const updateSelections = useCallback(async (id: string, selections: KMSelectionUpdate): Promise<KMConnection> => {
     setIsUpdating(true);
     try {
-      const updated = await apiClient.updateKMSelections(id, selections);
+      const updated = await apiClient.updateSessionKMSelections(id, selections);
       setConnections(prev => prev.map(c => c.id === id ? updated : c));
       return updated;
     } finally {
@@ -227,9 +238,8 @@ export function useKMConnections() {
     toggleConnectionActive,
     setActiveConnections,
 
-    // Connection mutations
+    // Connection mutations (session-scoped)
     createConnection,
-    updateConnection,
     deleteConnection,
     syncConnection,
     testConnection,

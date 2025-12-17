@@ -1,7 +1,7 @@
 export interface Agent {
   agent_id: string;
   name: string;
-  type: "openai" | "endpoint" | "langgraph";
+  type: "openai" | "endpoint" | "langgraph" | "custom_endpoint";
   description: string;
   capabilities: string[];
   status: "active" | "inactive";
@@ -227,4 +227,33 @@ export interface KMStatus {
 export interface KMSearchSettings {
   enabled: boolean;
   activeConnectionIds: string[];
+}
+
+// Session-scoped Custom Endpoints
+
+export interface CustomEndpoint {
+  id: string;
+  name: string;
+  url: string;
+  model: string;
+  created_at: string;
+}
+
+export interface CustomEndpointCreate {
+  name: string;
+  url: string;
+  api_key: string;
+  model: string;
+}
+
+// Session Info
+
+export interface SessionInfo {
+  session_id: string;
+  conversation_id: string;
+  created_at: string;
+  last_activity: string;
+  km_connections_count: number;
+  custom_endpoints_count: number;
+  agent_config_overrides_count: number;
 }

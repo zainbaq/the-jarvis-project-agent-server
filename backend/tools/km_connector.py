@@ -175,7 +175,19 @@ class KMServerClient:
             else:
                 data["collections"] = collection_names
 
-        return await self._make_request("POST", "/api/v1/query/", json_data=data)
+        logger.info(f"[KM DEBUG] === KM SERVER API REQUEST ===")
+        logger.info(f"[KM DEBUG] URL: {self.base_url}/api/v1/query/")
+        logger.info(f"[KM DEBUG] Method: POST")
+        logger.info(f"[KM DEBUG] Request Body: {data}")
+
+        response = await self._make_request("POST", "/api/v1/query/", json_data=data)
+
+        logger.info(f"[KM DEBUG] === KM SERVER API RESPONSE ===")
+        logger.info(f"[KM DEBUG] Response keys: {response.keys() if response else 'None'}")
+        logger.info(f"[KM DEBUG] Full response: {response}")
+        logger.info(f"[KM DEBUG] === END KM SERVER API RESPONSE ===")
+
+        return response
 
     async def query_corpus(
         self,
@@ -463,13 +475,30 @@ class KMConnectorTool:
                     n_results=n_results
                 )
 
-                # Parse results
-                raw_results = response.get('raw_results', {})
-                documents = raw_results.get('documents', [[]])[0]
-                metadatas = raw_results.get('metadatas', [[]])[0]
-                distances = raw_results.get('distances', [[]])[0]
+                # Log raw response structure
+                logger.info(f"[KM DEBUG] Parsing KM response for collections query:")
+                logger.info(f"[KM DEBUG]   - Response type: {type(response)}")
+                logger.info(f"[KM DEBUG]   - Response keys: {response.keys() if isinstance(response, dict) else 'N/A'}")
 
-                for doc, meta, dist in zip(documents, metadatas, distances):
+                # Check for 'context' field directly in response (KM server may return this)
+                if 'context' in response:
+                    logger.info(f"[KM DEBUG]   - Found 'context' field in response: {len(response['context'])} chars")
+                    logger.info(f"[KM DEBUG]   - Context preview: {response['context'][:500] if response['context'] else 'EMPTY'}...")
+
+                # Parse results from raw_results
+                raw_results = response.get('raw_results', {})
+                logger.info(f"[KM DEBUG]   - raw_results keys: {raw_results.keys() if isinstance(raw_results, dict) else 'N/A'}")
+
+                documents = raw_results.get('documents', [[]])[0] if raw_results.get('documents') else []
+                metadatas = raw_results.get('metadatas', [[]])[0] if raw_results.get('metadatas') else []
+                distances = raw_results.get('distances', [[]])[0] if raw_results.get('distances') else []
+
+                logger.info(f"[KM DEBUG]   - Parsed documents count: {len(documents)}")
+                logger.info(f"[KM DEBUG]   - Parsed metadatas count: {len(metadatas)}")
+                logger.info(f"[KM DEBUG]   - Parsed distances count: {len(distances)}")
+
+                for i, (doc, meta, dist) in enumerate(zip(documents, metadatas, distances)):
+                    logger.info(f"[KM DEBUG]   - Document {i}: len={len(doc) if doc else 0}, dist={dist}, meta={meta}")
                     all_query_results.append(KMQueryResult(
                         content=doc,
                         source=meta.get('source', 'Unknown'),
@@ -479,7 +508,7 @@ class KMConnectorTool:
                     ))
 
             except Exception as e:
-                logger.error(f"Error querying collections for {connection.id}: {e}")
+                logger.error(f"Error querying collections for {connection.id}: {e}", exc_info=True)
                 raise
 
         # Query corpuses
@@ -519,8 +548,16 @@ class KMConnectorTool:
         # Limit total results
         all_query_results = all_query_results[:n_results * 2]
 
+        logger.info(f"[KM DEBUG] Building context from {len(all_query_results)} query results")
+
         # Format context
         context = self.get_km_context(all_query_results)
+
+        logger.info(f"[KM DEBUG] === FINAL KMSearchResult ===")
+        logger.info(f"[KM DEBUG]   - results_count: {len(all_query_results)}")
+        logger.info(f"[KM DEBUG]   - context length: {len(context) if context else 0}")
+        logger.info(f"[KM DEBUG]   - context preview: {context[:500] if context else 'EMPTY'}...")
+        logger.info(f"[KM DEBUG] === END FINAL KMSearchResult ===")
 
         return KMSearchResult(
             success=True,

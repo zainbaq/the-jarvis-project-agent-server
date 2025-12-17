@@ -7,6 +7,7 @@ import { AddEndpointModal, EndpointConfig } from "./components/AddEndpointModal"
 import { DeleteConfirmModal } from "./components/DeleteConfirmModal";
 import { Agent } from "./types";
 import { apiClient } from "./api/client";
+import { useSession } from "./hooks/useSession";
 
 function App() {
   const [activeTab, setActiveTab] = useState<
@@ -19,6 +20,18 @@ function App() {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [agentToDelete, setAgentToDelete] = useState<Agent | null>(null);
+
+  // Initialize session (persists across refresh, isolated per tab)
+  const { sessionId, isInitialized: sessionInitialized } = useSession();
+
+  // Set session ID on API client when session is ready
+  useEffect(() => {
+    if (sessionInitialized && sessionId) {
+      apiClient.setSessionId(sessionId);
+      console.log('[App] Session initialized, reloading agents...');
+      loadAgents();
+    }
+  }, [sessionInitialized, sessionId]);
 
   // Enable demo mode by default on first load
   useEffect(() => {
@@ -52,34 +65,27 @@ function App() {
   const loadAgents = async () => {
     try {
       setLoading(true);
+      // listAgents now includes session custom endpoints via include_custom=true (default)
       const data = await apiClient.listAgents();
-      
-      // Load custom endpoints from localStorage and merge with backend agents
-      const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-      setAgents([...data, ...customEndpoints]);
+      setAgents(data);
     } catch (error) {
       console.error("Failed to load agents:", error);
-      
+
       // If backend is not available, enable demo mode automatically
       if (error instanceof Error && error.message.includes('Cannot connect to backend')) {
         console.log('Backend not available, enabling demo mode...');
         localStorage.setItem('jarvis_demo_mode', 'true');
-        
+
         // Try loading agents again with demo mode enabled
         try {
           const data = await apiClient.listAgents();
-          const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-          setAgents([...data, ...customEndpoints]);
+          setAgents(data);
         } catch (demoError) {
           console.error('Failed to load demo data:', demoError);
-          // Even if demo fails, load custom endpoints
-          const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-          setAgents(customEndpoints);
+          setAgents([]);
         }
       } else {
-        // Load custom endpoints even if backend fails
-        const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-        setAgents(customEndpoints);
+        setAgents([]);
       }
     } finally {
       setLoading(false);
@@ -88,31 +94,34 @@ function App() {
 
   const handleAddEndpoint = async (config: EndpointConfig) => {
     try {
-      // Create a new endpoint agent
-      const newAgent: Agent = {
-        agent_id: `endpoint_${Date.now()}`,
+      // Create custom endpoint via session API
+      const newEndpoint = await apiClient.createCustomEndpoint({
         name: config.name,
-        type: 'endpoint',
-        description: `Custom endpoint: ${config.endpoint_url}`,
-        capabilities: ['chat'],
+        url: config.endpoint_url,
+        api_key: config.api_key || '',
+        model: config.model_name || 'gpt-4'
+      });
+
+      // Convert to Agent format for display
+      const newAgent: Agent = {
+        agent_id: newEndpoint.id,
+        name: newEndpoint.name,
+        type: 'custom_endpoint',
+        description: `Custom endpoint (${newEndpoint.model})`,
+        capabilities: ['chat', 'streaming'],
         status: 'active',
         config: {
-          endpoint_url: config.endpoint_url,
-          ...(config.api_key && { api_key: config.api_key }),
-          ...(config.model_name && { model_name: config.model_name })
+          url: newEndpoint.url,
+          model: newEndpoint.model
         }
       };
-
-      // Add to local storage for persistence
-      const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-      customEndpoints.push(newAgent);
-      localStorage.setItem('jarvis_custom_endpoints', JSON.stringify(customEndpoints));
 
       // Add to agents list
       setAgents([...agents, newAgent]);
       setShowAddEndpoint(false);
     } catch (error) {
       console.error('Failed to add endpoint:', error);
+      alert(error instanceof Error ? error.message : 'Failed to add endpoint');
     }
   };
 
@@ -121,20 +130,23 @@ function App() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDeleteEndpoint = () => {
+  const confirmDeleteEndpoint = async () => {
     if (!agentToDelete) return;
 
-    // Remove from localStorage
-    const customEndpoints = JSON.parse(localStorage.getItem('jarvis_custom_endpoints') || '[]');
-    const filtered = customEndpoints.filter((ep: Agent) => ep.agent_id !== agentToDelete.agent_id);
-    localStorage.setItem('jarvis_custom_endpoints', JSON.stringify(filtered));
+    try {
+      // Delete from session via API
+      await apiClient.deleteCustomEndpoint(agentToDelete.agent_id);
 
-    // Remove from state
-    setAgents(agents.filter(a => a.agent_id !== agentToDelete.agent_id));
+      // Remove from state
+      setAgents(agents.filter(a => a.agent_id !== agentToDelete.agent_id));
 
-    // Clear selection if deleted agent was selected
-    if (selectedAgent?.agent_id === agentToDelete.agent_id) {
-      setSelectedAgent(null);
+      // Clear selection if deleted agent was selected
+      if (selectedAgent?.agent_id === agentToDelete.agent_id) {
+        setSelectedAgent(null);
+      }
+    } catch (error) {
+      console.error('Failed to delete endpoint:', error);
+      alert(error instanceof Error ? error.message : 'Failed to delete endpoint');
     }
 
     // Close modal
