@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Send, Globe, Loader, ChevronDown, Bot, Plus, Trash2, Database, X, Check } from "lucide-react";
 import { Agent, UploadedFile } from "../types";
-import { colors, components, spacing, typography, borderRadius, iconSizes, shadows } from '../styles/theme';
+import { colors, components, spacing, typography, iconSizes } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 import { FileUpload } from "./FileUpload";
+import { useDropdown } from "../hooks/useDropdown";
 
 interface ActiveKMConnection {
   id: string;
@@ -48,31 +49,21 @@ export function ChatInput({
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
-  const [showAgentDropdown, setShowAgentDropdown] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Use consolidated dropdown hook for click-outside handling
+  const { isOpen: showAgentDropdown, toggle: toggleDropdown, close: closeDropdown, dropdownRef } = useDropdown();
 
   const supportsWebSearch = selectedAgent?.capabilities.includes("web_search");
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      // Enforce minimum height of 48px (h-12) to match send button
-      const newHeight = Math.max(48, textareaRef.current.scrollHeight);
+      // Enforce minimum height of 56px (h-14) to match send button
+      const newHeight = Math.max(56, textareaRef.current.scrollHeight);
       textareaRef.current.style.height = newHeight + "px";
     }
   }, [message]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowAgentDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,21 +83,20 @@ export function ChatInput({
 
   return (
     <div className={cn('border-t', colors.border.default)}>
-      <div className={cn('flex justify-center', spacing.chatInputArea, 'mt-8 mb-8')}>
-        <form onSubmit={handleSubmit} className={cn('w-full', 'max-w-3xl')}>
+      <div className={cn('flex justify-center', spacing.chatInputArea)}>
+        <form onSubmit={handleSubmit} className={cn('w-full', spacing.inputMaxWidth)}>
           <div className="flex flex-col">
-            {/* Top Row: Web Search and Agent Selector */}
-            <div className={cn('flex items-center gap-2')}>
+            {/* Top Row: Agent Selector (left) + Tool Icons (right) */}
+            <div className="flex items-center justify-between mb-4">
               {/* Agent Selector */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   type="button"
-                  onClick={() => setShowAgentDropdown(!showAgentDropdown)}
+                  onClick={toggleDropdown}
                   className={components.buttonVariants.agentSelector}
                 >
-                  <Bot className={iconSizes.sm} />
-                  {/* <span>{selectedAgent?.name || 'Select Agent'}</span> */}
-                  <ChevronDown className={iconSizes.xs} />
+                  <Bot className={iconSizes.md} />
+                  <ChevronDown className={iconSizes.sm} />
                 </button>
 
                 {showAgentDropdown && (
@@ -122,7 +112,7 @@ export function ChatInput({
                               type="button"
                               onClick={() => {
                                 onAgentChange(agent);
-                                setShowAgentDropdown(false);
+                                closeDropdown();
                               }}
                               className={cn(
                                 isActive
@@ -140,7 +130,7 @@ export function ChatInput({
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   onDeleteEndpoint(agent);
-                                  setShowAgentDropdown(false);
+                                  closeDropdown();
                                 }}
                                 className="p-2 hover:bg-red-500/20 rounded-lg transition-all opacity-0 group-hover:opacity-100"
                                 title="Delete endpoint"
@@ -155,7 +145,7 @@ export function ChatInput({
                         type="button"
                         onClick={() => {
                           onAddEndpoint();
-                          setShowAgentDropdown(false);
+                          closeDropdown();
                         }}
                         className={cn(
                           components.dropdown.item,
@@ -172,136 +162,113 @@ export function ChatInput({
                   </div>
                 )}
               </div>
-              {/* Web Search Toggle */}
-              {supportsWebSearch && (
+
+              {/* Tool Icons - Outside text box, top right */}
+              <div className={cn('flex items-center', spacing.controlGroupGap)}>
+                {/* Web Search Toggle */}
+                {supportsWebSearch && (
+                  <button
+                    type="button"
+                    onClick={onToggleWebSearch}
+                    className={enableWebSearch
+                      ? components.buttonVariants.iconButtonActive
+                      : components.buttonVariants.iconButton
+                    }
+                    title="Web Search"
+                  >
+                    <Globe className={iconSizes.md} />
+                  </button>
+                )}
+                {/* Knowledge Base Toggle */}
                 <button
                   type="button"
-                  onClick={onToggleWebSearch}
+                  onClick={onOpenKMDrawer}
                   className={cn(
-                    components.buttonVariants.webSearchBase,
-                    enableWebSearch
-                      ? components.buttonVariants.webSearchActive
-                      : components.buttonVariants.webSearchInactive
+                    enableKMSearch && activeKMConnectionsCount > 0
+                      ? components.buttonVariants.iconButtonActive
+                      : components.buttonVariants.iconButton
                   )}
-                  title="Web Search"
+                  title={
+                    enableKMSearch && activeKMConnectionsCount > 0
+                      ? 'Knowledge Base Active'
+                      : activeKMConnectionsCount > 0
+                      ? 'Knowledge Base Configured - Click to enable'
+                      : 'Knowledge Base - Click to configure'
+                  }
                 >
-                  <Globe className={iconSizes.sm} />
+                  <Database className={iconSizes.md} />
                 </button>
-              )}
-              {/* Knowledge Base Toggle */}
-              <button
-                type="button"
-                onClick={onOpenKMDrawer}
-                className={cn(
-                  components.buttonVariants.webSearchBase,
-                  enableKMSearch && activeKMConnectionsCount > 0
-                    ? components.buttonVariants.webSearchActive
-                    : components.buttonVariants.webSearchInactive,
-                  'relative'
-                )}
-                title={
-                  enableKMSearch && activeKMConnectionsCount > 0
-                    ? `Knowledge Base Active (${activeKMConnectionsCount} connection${activeKMConnectionsCount > 1 ? 's' : ''})`
-                    : activeKMConnectionsCount > 0
-                    ? `Knowledge Base Configured (${activeKMConnectionsCount} connection${activeKMConnectionsCount > 1 ? 's' : ''}) - Click to enable`
-                    : 'Knowledge Base - Click to configure'
-                }
-              >
-                <Database className={iconSizes.sm} />
-                {activeKMConnectionsCount > 0 && (
-                  <span className={cn(
-                    "absolute -top-1 -right-1 w-4 h-4 text-white text-xs rounded-full flex items-center justify-center",
-                    enableKMSearch ? "bg-green-500" : "bg-gray-500"
-                  )}>
-                    {activeKMConnectionsCount}
-                  </span>
-                )}
-              </button>
-              {/* File Upload */}
-              <FileUpload
-                conversationId={conversationId}
-                uploadedFiles={uploadedFiles}
-                onFilesChange={setUploadedFiles}
-                disabled={loading}
-              />
+                {/* File Upload */}
+                <FileUpload
+                  conversationId={conversationId}
+                  uploadedFiles={uploadedFiles}
+                  onFilesChange={setUploadedFiles}
+                  disabled={loading}
+                />
+              </div>
             </div>
 
-            {/* Active KM Connections Indicator */}
-            {enableKMSearch && activeKMConnections.length > 0 && (
-              <div className="flex items-center gap-2 mt-3 flex-wrap">
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-600/20 border border-purple-500/40 rounded-lg">
-                  <Database className="w-3.5 h-3.5 text-purple-400" />
-                  <span className="text-xs text-purple-300 font-medium">Knowledge Base Active</span>
-                  <button
-                    type="button"
-                    onClick={onToggleKMSearch}
-                    className="ml-1 p-0.5 hover:bg-purple-500/30 rounded transition-colors"
-                    title="Disable Knowledge Base"
-                  >
-                    <X className="w-3 h-3 text-purple-400 hover:text-purple-200" />
-                  </button>
+            {/* Main Input Container */}
+            <div className={cn('flex flex-col bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inputContainer)}>
+              {/* KM Connections Indicator - Inside text box */}
+              {enableKMSearch && activeKMConnections.length > 0 && (
+                <div className="flex items-center flex-wrap gap-4 mb-5 pb-5 border-b border-purple-500/20">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 border border-purple-500/40 rounded-lg">
+                    <Database className="w-3.5 h-3.5 text-purple-400" />
+                    <span className="text-sm text-purple-300 font-medium">Knowledge</span>
+                    <button
+                      type="button"
+                      onClick={onToggleKMSearch}
+                      className="ml-0.5 p-0.5 hover:bg-purple-500/30 rounded transition-colors"
+                      title="Disable Knowledge Base"
+                    >
+                      <X className="w-3 h-3 text-purple-400 hover:text-purple-200" />
+                    </button>
+                  </div>
+                  {activeKMConnections.map((conn) => (
+                    <button
+                      key={conn.id}
+                      type="button"
+                      onClick={onOpenKMDrawer}
+                      className={cn(
+                        'flex items-center gap-2.5 px-4 py-2 rounded-lg text-sm transition-colors',
+                        conn.hasSelections
+                          ? 'bg-green-600/20 border border-green-500/40 text-green-300 hover:bg-green-600/30'
+                          : 'bg-amber-600/20 border border-amber-500/40 text-amber-300 hover:bg-amber-600/30'
+                      )}
+                      title={conn.hasSelections ? `${conn.name} - Ready` : `${conn.name} - No collections selected`}
+                    >
+                      {conn.hasSelections ? (
+                        <Check className="w-3.5 h-3.5" />
+                      ) : (
+                        <span className="w-3.5 h-3.5 text-center">!</span>
+                      )}
+                      <span className="max-w-[160px] truncate">{conn.name}</span>
+                    </button>
+                  ))}
                 </div>
-                {activeKMConnections.map((conn) => (
-                  <button
-                    key={conn.id}
-                    type="button"
-                    onClick={onOpenKMDrawer}
-                    className={cn(
-                      'flex items-center gap-1.5 px-2 py-1 rounded-md text-xs transition-colors',
-                      conn.hasSelections
-                        ? 'bg-green-600/20 border border-green-500/40 text-green-300 hover:bg-green-600/30'
-                        : 'bg-amber-600/20 border border-amber-500/40 text-amber-300 hover:bg-amber-600/30'
-                    )}
-                    title={conn.hasSelections ? `${conn.name} - Ready` : `${conn.name} - No collections selected`}
-                  >
-                    {conn.hasSelections ? (
-                      <Check className="w-3 h-3" />
-                    ) : (
-                      <span className="w-3 h-3 text-center">!</span>
-                    )}
-                    <span className="max-w-[120px] truncate">{conn.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+              )}
 
-            {/* Bottom Row: Text Input and Send Button */}
-            <div className={cn('flex flex-col hover:backdrop-blur-lg bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inputContainer, 'mt-4')}>
-              {/* Uploaded Files Display */}
+              {/* Uploaded Files Display - Inside text box */}
               {uploadedFiles.length > 0 && (
-                <div className="uploaded-files-inline">
+                <div className="flex items-center flex-wrap gap-4 mb-5 pb-5 border-b border-purple-500/20">
                   {uploadedFiles.map((file) => (
-                    <div key={file.file_id} className="uploaded-file-item-inline">
-                      <div className="file-info-inline">
-                        <span className="file-icon">📎</span>
-                        <span className="file-name-inline">{file.filename}</span>
-                        <span className="file-size-inline">
-                          {(file.file_size / 1024).toFixed(1)} KB
-                        </span>
-                      </div>
+                    <div key={file.file_id} className="flex items-center gap-2.5 px-4 py-2 bg-purple-600/20 border border-purple-500/40 rounded-lg">
+                      <span className="text-sm">📎</span>
+                      <span className="text-sm text-purple-300 max-w-[180px] truncate">{file.filename}</span>
+                      <span className="text-sm text-purple-400/60">
+                        {(file.file_size / 1024).toFixed(1)}KB
+                      </span>
                       <button
                         onClick={() => {
                           setUploadedFiles(uploadedFiles.filter((f) => f.file_id !== file.file_id));
                         }}
-                        className="delete-file-button-inline"
+                        className="p-0.5 hover:bg-purple-500/30 rounded transition-colors"
                         title="Remove file"
                         disabled={loading}
                         type="button"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <X className="w-3 h-3 text-purple-400 hover:text-purple-200" />
                       </button>
                     </div>
                   ))}
@@ -309,7 +276,7 @@ export function ChatInput({
               )}
 
               {/* Input Row: Textarea and Send Button */}
-              <div className={cn('flex items-end', spacing.inline)}>
+              <div className="flex items-end gap-4">
                 {/* Message Input */}
                 <div className="flex-1 relative">
                   <textarea
@@ -320,7 +287,7 @@ export function ChatInput({
                     placeholder="Type your message..."
                     rows={1}
                     disabled={loading}
-                    className={cn(components.textarea, 'h-12 max-h-[200px] text-base placeholder-gray-400 focus:placeholder-gray-500')}
+                    className={cn(components.textarea, 'h-14 max-h-[200px] text-base placeholder-gray-400 focus:placeholder-gray-500')}
                   />
                 </div>
 

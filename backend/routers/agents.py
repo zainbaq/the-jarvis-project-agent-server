@@ -16,10 +16,80 @@ from backend.models.responses import (
 from backend.agents.base import WorkflowAgent, AgentCapability
 from backend.agents.endpoint_agent import EndpointAgent
 from backend.agent_manager import get_agent_manager
-from backend.services.session_manager import CustomEndpoint
+from backend.services.session_manager import CustomEndpoint, SessionKMConnection
+from backend.models.km_models import KMConnection, KMConnectionStatus
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+
+class SessionKMConnectionAdapter:
+    """
+    Adapter to make session KM connections compatible with KMConnectorTool.
+
+    Wraps session manager's KM connections to provide the same interface
+    as KMConnectionStorage.
+    """
+
+    def __init__(self, session_manager, session_id: str):
+        self.session_manager = session_manager
+        self.session_id = session_id
+
+    def _to_km_connection(self, session_conn: SessionKMConnection) -> KMConnection:
+        """Convert SessionKMConnection to KMConnection model"""
+        # Convert datetime to ISO string format
+        created_at_str = session_conn.created_at.isoformat() if hasattr(session_conn.created_at, 'isoformat') else str(session_conn.created_at)
+        last_sync_str = session_conn.last_sync_at.isoformat() if session_conn.last_sync_at and hasattr(session_conn.last_sync_at, 'isoformat') else None
+
+        return KMConnection(
+            id=session_conn.id,
+            name=session_conn.name,
+            username=session_conn.username,
+            api_key_encrypted="session_managed",  # Placeholder - actual key accessed via get_connection_api_key
+            status=KMConnectionStatus(session_conn.status) if session_conn.status in ["active", "inactive", "error"] else KMConnectionStatus.ACTIVE,
+            collections=[],  # Not needed for search
+            corpuses=[],  # Not needed for search
+            selected_collection_names=session_conn.selected_collection_names,
+            selected_corpus_ids=session_conn.selected_corpus_ids,
+            created_at=created_at_str,
+            last_sync_at=last_sync_str,
+            last_error=session_conn.last_error
+        )
+
+    def get_connection(self, connection_id: str) -> Optional[KMConnection]:
+        """Get a connection by ID"""
+        session_conn = self.session_manager.get_km_connection(self.session_id, connection_id)
+        if session_conn:
+            return self._to_km_connection(session_conn)
+        return None
+
+    def get_connection_api_key(self, connection_id: str) -> Optional[str]:
+        """Get API key for a connection"""
+        session_conn = self.session_manager.get_km_connection(self.session_id, connection_id)
+        if session_conn:
+            return session_conn.api_key
+        return None
+
+    def list_connections(self) -> List[KMConnection]:
+        """List all connections"""
+        session_conns = self.session_manager.get_km_connections(self.session_id)
+        return [self._to_km_connection(c) for c in session_conns]
+
+    def get_active_connections_with_selections(self) -> List[KMConnection]:
+        """Get active connections that have selections"""
+        session_conns = self.session_manager.get_km_connections(self.session_id)
+        result = []
+        for c in session_conns:
+            if c.status == "active" and (c.selected_collection_names or c.selected_corpus_ids):
+                result.append(self._to_km_connection(c))
+        return result
+
+    def update_status(self, connection_id: str, status: KMConnectionStatus, error: Optional[str] = None):
+        """Update connection status"""
+        updates = {'status': status.value}
+        if error:
+            updates['last_error'] = error
+        self.session_manager.update_km_connection(self.session_id, connection_id, updates)
 
 
 def _create_temp_endpoint_agent(endpoint: CustomEndpoint) -> EndpointAgent:
@@ -172,8 +242,21 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
         # Get agent manager
         agent_manager = get_agent_manager()
 
-        # Set up KM connector if available and not already configured
-        if hasattr(request.app.state, 'km_connection_storage') and not agent_manager.km_connector_tool:
+        # Set up KM connector with session-aware storage
+        # Always update to use session connections (they may have changed)
+        if hasattr(request.state, 'session') and hasattr(request.app.state, 'session_manager'):
+            session = request.state.session
+            session_adapter = SessionKMConnectionAdapter(
+                request.app.state.session_manager,
+                session.session_id
+            )
+            agent_manager.set_km_connector(
+                session_adapter,
+                request.app.state.settings.KM_SERVER_URL
+            )
+            logger.debug(f"[Chat] Using session KM connections for session {session.session_id[:12]}...")
+        elif hasattr(request.app.state, 'km_connection_storage') and not agent_manager.km_connector_tool:
+            # Fallback to file-based storage if no session
             agent_manager.set_km_connector(
                 request.app.state.km_connection_storage,
                 request.app.state.settings.KM_SERVER_URL

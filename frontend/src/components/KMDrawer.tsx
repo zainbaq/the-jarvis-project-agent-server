@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Database, X, Plus, RefreshCw, Trash2, ChevronDown, ChevronUp, AlertTriangle, ExternalLink } from 'lucide-react';
-import { useKMConnections } from '../hooks/useKMConnections';
+import { useKMConnectionsContext } from '../contexts/KMConnectionsContext';
 import { KMConnectionForm } from './KMConnectionForm';
 import { KMCollectionSelector } from './KMCollectionSelector';
 import { colors, typography } from '../styles/theme';
@@ -37,7 +37,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
     updateSelections,
     isUpdating,
     refetch,
-  } = useKMConnections();
+  } = useKMConnectionsContext();
 
   const activeCount = activeConnectionIds.length;
 

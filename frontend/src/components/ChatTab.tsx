@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import { Agent, Message, UploadedFile } from '../types';
+import { useState, useEffect } from 'react';
+import { Agent, UploadedFile } from '../types';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 import { KMDrawer } from './KMDrawer';
-import { apiClient } from '../api/client';
-import { useKMConnections } from '../hooks/useKMConnections';
+import { useKMConnectionsContext } from '../contexts/KMConnectionsContext';
+import { useChatSession } from '../hooks/useChatSession';
 import { colors, spacing } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 
@@ -17,31 +17,20 @@ interface ChatTabProps {
 
 export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint }: ChatTabProps) {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
-
-  // Notify parent when agent changes
-  useEffect(() => {
-    onAgentChange?.(selectedAgent);
-  }, [selectedAgent, onAgentChange]);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [loading, setLoading] = useState(false);
-  // Generate conversation ID immediately on mount (needed for file uploads)
-  const [conversationId, setConversationId] = useState<string>(() => {
-    return `conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
-  });
   const [enableWebSearch, setEnableWebSearch] = useState(false);
-  const [showAgentDropdown, setShowAgentDropdown] = useState(false);
   const [showKMDrawer, setShowKMDrawer] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // KM Connections hook
+  // Use consolidated chat session hook
+  const { messages, loading, conversationId, messagesEndRef, sendMessage } = useChatSession(selectedAgent);
+
+  // KM Connections from shared context
   const {
     isKMEnabled,
     activeConnectionIds,
     getEnabledConnectionIds,
     getActiveConnections,
     setKMEnabled,
-  } = useKMConnections();
+  } = useKMConnectionsContext();
 
   // Build active connections list with details for display
   const activeKMConnections = getActiveConnections().map(conn => ({
@@ -49,6 +38,11 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
     name: conn.name,
     hasSelections: conn.selected_collection_names.length > 0 || conn.selected_corpus_ids.length > 0
   }));
+
+  // Notify parent when agent changes
+  useEffect(() => {
+    onAgentChange?.(selectedAgent);
+  }, [selectedAgent, onAgentChange]);
 
   // Debug logging for KM state in ChatTab
   useEffect(() => {
@@ -63,93 +57,28 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
     agent => agent.type === 'openai' || agent.type === 'endpoint'
   );
 
+  // Select first chat agent by default
   useEffect(() => {
-    // Select first chat agent by default
     if (chatAgents.length > 0 && !selectedAgent) {
       setSelectedAgent(chatAgents[0]);
     }
   }, [chatAgents.length, selectedAgent]);
 
-  useEffect(() => {
-    // Clear messages and start new conversation when agent changes
-    setMessages([]);
-    setConversationId(`conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
-  }, [selectedAgent?.agent_id]);
+  const handleSendMessage = (message: string, files: UploadedFile[]) => {
+    const kmConnectionIds = getEnabledConnectionIds();
 
-  useEffect(() => {
-    // Auto-scroll to bottom when new messages arrive
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    // Debug logging for KM parameters being sent
+    console.log('[KM DEBUG ChatTab] Sending message with KM params:');
+    console.log('[KM DEBUG ChatTab]   - isKMEnabled:', isKMEnabled);
+    console.log('[KM DEBUG ChatTab]   - kmConnectionIds:', kmConnectionIds);
+    console.log('[KM DEBUG ChatTab]   - enable_km_search:', isKMEnabled && !!kmConnectionIds);
 
-  useEffect(() => {
-    // Close dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowAgentDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleSendMessage = async (message: string, files: UploadedFile[]) => {
-    if (!selectedAgent || !message.trim()) return;
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: 'user',
-      content: message,
-      timestamp: new Date(),
-      attachedFiles: files.length > 0 ? files : undefined
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setLoading(true);
-
-    try {
-      const kmConnectionIds = getEnabledConnectionIds();
-
-      // Debug logging for KM parameters being sent
-      console.log('[KM DEBUG ChatTab] Sending message with KM params:');
-      console.log('[KM DEBUG ChatTab]   - isKMEnabled:', isKMEnabled);
-      console.log('[KM DEBUG ChatTab]   - kmConnectionIds:', kmConnectionIds);
-      console.log('[KM DEBUG ChatTab]   - enable_km_search:', isKMEnabled && !!kmConnectionIds);
-
-      const response = await apiClient.chat(selectedAgent.agent_id, {
-        message,
-        conversation_id: conversationId || undefined,
-        enable_web_search: enableWebSearch,
-        enable_km_search: isKMEnabled && !!kmConnectionIds,
-        km_connection_ids: kmConnectionIds,
-        uploaded_files: files.length > 0 ? files : undefined
-      });
-
-      if (!conversationId) {
-        setConversationId(response.conversation_id);
-      }
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: response.response,
-        timestamp: new Date(),
-        metadata: response.metadata,
-        tools_used: response.tools_used
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
-    } catch (error) {
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: `Error: ${error instanceof Error ? error.message : 'Failed to send message'}`,
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setLoading(false);
-    }
+    sendMessage(message, {
+      enableWebSearch,
+      enableKMSearch: isKMEnabled,
+      kmConnectionIds,
+      files
+    });
   };
 
   return (
@@ -161,10 +90,10 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
             className={cn(
               'flex items-center justify-center h-full',
               spacing.chatEmptyState,
-              'pb-32' // 👈 ADD THIS
+              'pb-32'
             )}
           >
-            <div className="text-center max-w-3xl">
+            <div className="text-center max-w-2xl">
               {/* Title */}
               <h3 className={cn('text-3xl font-semibold', colors.text.primary, 'mb-6')}>Start a conversation</h3>
 
@@ -172,20 +101,6 @@ export function ChatTab({ agents, onAddEndpoint, onAgentChange, onDeleteEndpoint
               <p className={cn(colors.text.secondary, 'mb-10 leading-relaxed text-base')}>
                 {selectedAgent ? selectedAgent.description : 'Select an agent from the dropdown below to begin chatting'}
               </p>
-              
-              {/* Capability Tags
-              {selectedAgent && (
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {selectedAgent.capabilities.map((cap) => (
-                    <span
-                      key={cap}
-                      className={cn(components.tag, 'font-medium')}
-                    >
-                      {cap}
-                    </span>
-                  ))}
-                </div>
-              )} */}
             </div>
           </div>
         ) : (

@@ -25,13 +25,13 @@ export function TopNav({ activeTab, onTabChange, onSettingsClick, selectedAgent 
       <div className={cn(spacing.containerMain, spacing.containerMainVertical)}>
         <div className="flex items-center justify-between">
           {/* Logo and Title */}
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-purple-600/30">
-              <Sparkles className={cn(iconSizes.xl, 'text-purple-300')} />
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-purple-600/30">
+              <Sparkles className={cn(iconSizes.lg, 'text-purple-300')} />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white">The Jarvis Project</h1>
-              <p className="text-sm text-gray-400 mt-0.5">Promethean Labs</p>
+              <h1 className="text-base font-bold text-white">The Jarvis Project</h1>
+              <p className="text-xs text-gray-400">Promethean Labs</p>
             </div>
           </div>
 

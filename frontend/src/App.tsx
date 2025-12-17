@@ -8,6 +8,7 @@ import { DeleteConfirmModal } from "./components/DeleteConfirmModal";
 import { Agent } from "./types";
 import { apiClient } from "./api/client";
 import { useSession } from "./hooks/useSession";
+import { KMConnectionsProvider } from "./contexts/KMConnectionsContext";
 
 function App() {
   const [activeTab, setActiveTab] = useState<
@@ -155,71 +156,73 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 animate-gradient" />
+    <KMConnectionsProvider>
+      <div className="flex flex-col h-screen relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 animate-gradient" />
 
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 opacity-20 bg-grid-pattern" />
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-20 bg-grid-pattern" />
 
-      {/* Glow Effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl animate-pulse animation-delay-1s" />
+        {/* Glow Effects */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl animate-pulse animation-delay-1s" />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col h-full">
-        <TopNav
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          onSettingsClick={() => setShowSettings(true)}
-          selectedAgent={selectedAgent}
-        />
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-full">
+          <TopNav
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            onSettingsClick={() => setShowSettings(true)}
+            selectedAgent={selectedAgent}
+          />
 
-        {loading ? (
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-gray-400">Loading agents...</p>
+          {loading ? (
+            <div className="flex-1 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-gray-400">Loading agents...</p>
+              </div>
             </div>
-          </div>
-        ) : (
-          <>
-            {activeTab === "chat" && (
-              <ChatTab
-                agents={agents}
-                onAddEndpoint={() => setShowAddEndpoint(true)}
-                onAgentChange={setSelectedAgent}
-                onDeleteEndpoint={handleDeleteEndpoint}
-              />
-            )}
-            {activeTab === "workflows" && (
-              <WorkflowsTab agents={agents} />
-            )}
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              {activeTab === "chat" && (
+                <ChatTab
+                  agents={agents}
+                  onAddEndpoint={() => setShowAddEndpoint(true)}
+                  onAgentChange={setSelectedAgent}
+                  onDeleteEndpoint={handleDeleteEndpoint}
+                />
+              )}
+              {activeTab === "workflows" && (
+                <WorkflowsTab agents={agents} />
+              )}
+            </>
+          )}
+        </div>
 
-      {/* Modals */}
-      <SettingsModal
-        isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
-      />
-      <AddEndpointModal
-        isOpen={showAddEndpoint}
-        onClose={() => setShowAddEndpoint(false)}
-        onAdd={handleAddEndpoint}
-      />
-      <DeleteConfirmModal
-        isOpen={showDeleteConfirm}
-        onClose={() => {
-          setShowDeleteConfirm(false);
-          setAgentToDelete(null);
-        }}
-        onConfirm={confirmDeleteEndpoint}
-        itemName={agentToDelete?.name || ''}
-        itemType="endpoint"
-      />
-    </div>
+        {/* Modals */}
+        <SettingsModal
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
+        />
+        <AddEndpointModal
+          isOpen={showAddEndpoint}
+          onClose={() => setShowAddEndpoint(false)}
+          onAdd={handleAddEndpoint}
+        />
+        <DeleteConfirmModal
+          isOpen={showDeleteConfirm}
+          onClose={() => {
+            setShowDeleteConfirm(false);
+            setAgentToDelete(null);
+          }}
+          onConfirm={confirmDeleteEndpoint}
+          itemName={agentToDelete?.name || ''}
+          itemType="endpoint"
+        />
+      </div>
+    </KMConnectionsProvider>
   );
 }
 

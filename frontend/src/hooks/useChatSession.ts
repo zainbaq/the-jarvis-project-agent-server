@@ -1,21 +1,31 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { apiClient } from '../api/client';
-import { Agent, Message } from '../types';
+import { Agent, Message, UploadedFile } from '../types';
+
+interface SendMessageOptions {
+  enableWebSearch?: boolean;
+  enableKMSearch?: boolean;
+  kmConnectionIds?: string[];
+  files?: UploadedFile[];
+}
 
 /**
  * Custom hook to manage chat session state and logic
  * Consolidates the chat functionality from ChatTab component
  */
-export function useChatSession(agent: Agent | null, enableWebSearch: boolean = false) {
+export function useChatSession(agent: Agent | null) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
+  // Generate conversation ID immediately on mount (needed for file uploads before first message)
+  const [conversationId, setConversationId] = useState<string>(() =>
+    `conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Clear messages when agent changes
+  // Clear messages and regenerate conversation ID when agent changes
   useEffect(() => {
     setMessages([]);
-    setConversationId(null);
+    setConversationId(`conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
   }, [agent?.agent_id]);
 
   // Auto-scroll to bottom when new messages arrive
@@ -23,14 +33,17 @@ export function useChatSession(agent: Agent | null, enableWebSearch: boolean = f
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const sendMessage = async (message: string) => {
+  const sendMessage = useCallback(async (message: string, options: SendMessageOptions = {}) => {
     if (!agent || !message.trim()) return;
+
+    const { enableWebSearch = false, enableKMSearch = false, kmConnectionIds, files = [] } = options;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
       content: message,
-      timestamp: new Date()
+      timestamp: new Date(),
+      attachedFiles: files.length > 0 ? files : undefined
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -40,7 +53,10 @@ export function useChatSession(agent: Agent | null, enableWebSearch: boolean = f
       const response = await apiClient.chat(agent.agent_id, {
         message,
         conversation_id: conversationId || undefined,
-        enable_web_search: enableWebSearch
+        enable_web_search: enableWebSearch,
+        enable_km_search: enableKMSearch && !!kmConnectionIds,
+        km_connection_ids: kmConnectionIds,
+        uploaded_files: files.length > 0 ? files : undefined
       });
 
       if (!conversationId) {
@@ -68,9 +84,9 @@ export function useChatSession(agent: Agent | null, enableWebSearch: boolean = f
     } finally {
       setLoading(false);
     }
-  };
+  }, [agent, conversationId]);
 
-  const clearHistory = async () => {
+  const clearHistory = useCallback(async () => {
     if (conversationId && agent) {
       try {
         await apiClient.deleteConversation(agent.agent_id, conversationId);
@@ -79,8 +95,8 @@ export function useChatSession(agent: Agent | null, enableWebSearch: boolean = f
       }
     }
     setMessages([]);
-    setConversationId(null);
-  };
+    setConversationId(`conv_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
+  }, [conversationId, agent]);
 
   return {
     messages,

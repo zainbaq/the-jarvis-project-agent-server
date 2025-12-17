@@ -557,7 +557,17 @@ class AgentManager:
     ) -> str:
         """Build system instructions based on available tools"""
 
-        base_instructions = """You are a helpful AI assistant. Provide clear, accurate, and helpful responses."""
+        base_instructions = """You are a helpful AI assistant. Provide clear, accurate, and helpful responses.
+
+FORMAT YOUR RESPONSES USING MARKDOWN:
+- Use **bold** for emphasis and important terms
+- Use bullet points and numbered lists for structured information
+- Use headers (## or ###) to organize longer responses
+- Use `inline code` for technical terms, commands, or file names
+- Use code blocks with language tags for code examples
+- Use > blockquotes for citations or important callouts
+- Use tables when presenting comparative data
+- Keep paragraphs concise and well-spaced"""
 
         if has_search_context:
             search_instructions = """

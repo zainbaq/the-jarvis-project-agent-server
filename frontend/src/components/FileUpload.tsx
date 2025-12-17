@@ -4,6 +4,7 @@
  */
 
 import React, { useRef, useState } from "react";
+import { Paperclip } from "lucide-react";
 import {
   UploadedFile,
   FileUploadProgress,
@@ -12,6 +13,8 @@ import {
   uploadFile,
   validateFile,
 } from "../api/files";
+import { components, iconSizes } from "../styles/theme";
+import { cn } from "@/components/ui/utils";
 
 interface FileUploadProps {
   conversationId: string;
@@ -135,65 +138,62 @@ export function FileUpload({
   };
 
   return (
-    <div className="file-upload-container">
-      {/* Paperclip Button */}
-      <button
-        onClick={handlePaperclipClick}
-        disabled={disabled}
-        className={`paperclip-button ${uploadedFiles.length > 0 ? 'has-files' : ''}`}
-        title="Attach files"
-        type="button"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-        </svg>
-      </button>
-
-      {/* Hidden File Input */}
+    <>
+      {/* Hidden File Input - completely off-screen */}
       <input
         ref={fileInputRef}
         type="file"
         multiple
         onChange={handleFileSelect}
-        style={{ display: "none" }}
         disabled={disabled}
+        tabIndex={-1}
+        style={{ position: 'absolute', left: '-9999px', visibility: 'hidden' }}
       />
 
+      {/* Paperclip Button */}
+      <button
+        onClick={handlePaperclipClick}
+        disabled={disabled}
+        className={cn(
+          uploadedFiles.length > 0
+            ? components.buttonVariants.iconButtonActive
+            : components.buttonVariants.iconButton,
+          'disabled:opacity-50 disabled:cursor-not-allowed'
+        )}
+        title="Attach files"
+        type="button"
+      >
+        <Paperclip className={iconSizes.md} />
+      </button>
+
       {/* Error Display */}
-      {error && <div className="file-upload-error">{error}</div>}
+      {error && <div className="fixed bottom-24 right-8 bg-red-500/20 border border-red-500/40 text-red-300 px-3 py-2 rounded-lg text-sm z-50">{error}</div>}
 
       {/* Upload Progress */}
       {Object.values(uploadProgress).length > 0 && (
-        <div className="upload-progress-container">
+        <div className="fixed bottom-24 right-8 bg-purple-900/90 border border-purple-500/40 rounded-lg p-3 space-y-2 min-w-[200px] z-50">
           {Object.values(uploadProgress).map((progress) => (
-            <div key={progress.file_id} className="upload-progress-item">
-              <div className="upload-progress-info">
-                <span className="upload-filename">{progress.filename}</span>
-                <span className="upload-percentage">{progress.progress}%</span>
+            <div key={progress.file_id} className="space-y-1">
+              <div className="flex justify-between text-xs text-purple-200">
+                <span className="truncate max-w-[150px]">{progress.filename}</span>
+                <span>{progress.progress}%</span>
               </div>
-              <div className="upload-progress-bar">
+              <div className="h-1 bg-purple-950 rounded-full overflow-hidden">
                 <div
-                  className={`upload-progress-fill ${progress.status}`}
+                  className={cn(
+                    'h-full rounded-full transition-all',
+                    progress.status === 'error' ? 'bg-red-500' : 'bg-purple-500'
+                  )}
                   style={{ width: `${progress.progress}%` }}
                 />
               </div>
               {progress.status === "error" && progress.error && (
-                <div className="upload-error">{progress.error}</div>
+                <div className="text-xs text-red-400">{progress.error}</div>
               )}
             </div>
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -51,15 +51,15 @@ export const spacing = {
   containerLg: 'px-6 py-6',
   containerXl: 'px-6 py-8',
   containerMain: 'px-8',            // Main container horizontal padding
-  containerMainVertical: 'py-8',   // Main container vertical padding (increased for nav spacing)
+  containerMainVertical: 'py-4',   // Main container vertical padding
 
   // Component spacing
-  section: 'space-y-6',
-  group: 'space-y-4',
-  compact: 'space-y-3',
-  inline: 'gap-3 px-2',
-  inlineCompact: 'gap-2',
-  inlineStandard: 'gap-1',          // Standard gap for buttons/controls
+  section: 'space-y-8',
+  group: 'space-y-6',
+  compact: 'space-y-4',
+  inline: 'gap-5',
+  inlineCompact: 'gap-4',
+  inlineStandard: 'gap-2',          // Standard gap for buttons/controls
 
   // Button padding variants
   buttonPadding: {
@@ -80,13 +80,18 @@ export const spacing = {
   // Chat UI spacing (responsive, rem-based)
   chatContainer: 'px-8 py-12',      // Generous padding for chat area
   chatEmptyState: 'p-12 pb-32',           // Large padding for empty state
-  chatInputArea: 'px-8 py-4 mt-8',       // Input section padding
-  chatMessageList: 'px-8 py-8',    // Message list padding
-  messageBubble: 'px-6 py-4',       // Message bubble padding
-  inputContainer: 'p-4',            // Input field container padding
-  panelDropdown: 'p-5',             // Dropdown panel padding
-  navSection: 'gap-6',              // Navigation items gap
-  navItems: 'gap-4',                // Gap between nav buttons/tabs
+  chatInputArea: 'px-8 py-8',            // Input section padding (more generous)
+  chatMessageList: 'px-8 py-8',          // Message list padding
+  messageBubble: 'px-6 py-4',            // Message bubble padding
+  inputContainer: 'p-6',                 // Input field container padding (increased)
+  panelDropdown: 'p-6',             // Dropdown panel padding
+  navSection: 'gap-8',              // Navigation items gap
+  navItems: 'gap-6',                // Gap between nav buttons/tabs
+
+  // Icon grouping for controls
+  controlsGap: 'gap-6',             // Gap between control groups
+  controlGroupGap: 'gap-3',         // Gap within a control group (increased)
+  inputMaxWidth: 'max-w-2xl',       // Constrain input container width
 };
 
 export const borderRadius = {
@@ -123,21 +128,25 @@ export const components = {
 
   // Button variants (new centralized button styles)
   buttonVariants: {
-    // Web search toggle
-    webSearchBase: 'flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95',
+    // Icon-only button (for toolbar icons like globe, database, paperclip)
+    iconButton: 'p-2 rounded-md text-gray-400 hover:text-purple-300 hover:bg-purple-800/40 transition-all duration-150',
+    iconButtonActive: 'p-2 rounded-md bg-purple-600/50 text-purple-200 border border-purple-500/40 transition-all duration-150',
+
+    // Web search toggle (legacy - use iconButton instead for icon-only)
+    webSearchBase: 'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95',
     webSearchActive: 'bg-purple-600/40 text-purple-200 shadow-md border border-purple-500/30',
-    webSearchInactive: 'text-gray-400 hover:text-purple-200',
+    webSearchInactive: 'text-gray-400 hover:text-purple-200 hover:bg-purple-900/30',
 
     // Agent selector
-    agentSelector: 'flex items-center gap-2 px-4 py-3 rounded-lg text-white text-sm font-medium transition-all duration-200 active:scale-95 hover:text-purple-200',
+    agentSelector: 'flex items-center gap-1.5 p-2 rounded-md text-gray-400 hover:text-purple-300 hover:bg-purple-800/40 transition-all duration-150',
 
     // Tab button
-    tabBase: 'px-6 py-3 text-base font-medium rounded-lg transition-all duration-200 flex items-center gap-2.5',
+    tabBase: 'px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2',
     tabActive: 'bg-purple-600/30 text-white shadow-lg',
     tabInactive: 'text-gray-400 hover:text-white hover:bg-purple-900/30',
 
     // Send button
-    sendButton: 'p-3.5 bg-transparent hover:bg-gradient-to-br hover:from-purple-600 hover:to-purple-700 active:bg-gradient-to-br active:from-purple-700 active:to-purple-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all duration-200 flex-shrink-0 h-12 w-12 flex items-center justify-center hover:shadow-xl hover:shadow-purple-900/60 active:scale-95',
+    sendButton: 'p-3.5 bg-transparent hover:bg-gradient-to-br hover:from-purple-600 hover:to-purple-700 active:bg-gradient-to-br active:from-purple-700 active:to-purple-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all duration-200 flex-shrink-0 h-14 w-14 flex items-center justify-center hover:shadow-xl hover:shadow-purple-900/60 active:scale-95',
 
     // Test agent button
     testAgent: 'w-full px-2 py-1 bg-purple-600/30 hover:bg-purple-600/40 active:bg-purple-600/50 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 border border-purple-500/20 text-sm font-medium',
@@ -154,11 +163,11 @@ export const components = {
   
   // Message styles
   message: {
-    user: `px-6 py-4 ${borderRadius.md} bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-900/50`,
-    assistant: `px-6 py-4 ${borderRadius.md} bg-purple-900/30 border border-purple-500/30 text-white backdrop-blur-sm`,
+    user: `px-4 py-3 ${borderRadius.sm} bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-md shadow-purple-900/40 max-w-[85%]`,
+    assistant: `px-4 py-3 ${borderRadius.sm} bg-purple-900/30 border border-purple-500/20 text-white max-w-[85%]`,
     avatar: {
-      user: `flex-shrink-0 w-12 h-12 ${borderRadius.md} bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-900/50`,
-      assistant: `flex-shrink-0 w-12 h-12 ${borderRadius.md} bg-purple-600/25 border border-purple-500/30 flex items-center justify-center shadow-md`,
+      user: `flex-shrink-0 w-8 h-8 ${borderRadius.sm} bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-md shadow-purple-900/40`,
+      assistant: `flex-shrink-0 w-8 h-8 ${borderRadius.sm} bg-purple-600/25 border border-purple-500/20 flex items-center justify-center`,
     },
   },
   

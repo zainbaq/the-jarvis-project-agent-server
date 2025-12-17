@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AlertCircle, CheckCircle, Loader, RefreshCw, PlayCircle, X, TestTube2 } from 'lucide-react';
 import { apiClient } from '../api/client';
-import { DetailedStatus, Agent, AgentTestResult } from '../types';
+import { DetailedStatus, Agent } from '../types';
 import { statusBadge, components, spacing, iconSizes } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
 import { TestResultCard } from './TestResultCard';
+import { useAgentTest } from '../hooks/useAgentTest';
 
 interface ConnectionStatusProps {
   selectedAgent?: Agent | null;
@@ -15,8 +16,9 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
   const [error, setError] = useState<string | null>(null);
   const [details, setDetails] = useState<DetailedStatus | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [testingAgent, setTestingAgent] = useState(false);
-  const [testResult, setTestResult] = useState<AgentTestResult | null>(null);
+
+  // Use consolidated agent test hook
+  const { testingAgent, testResult, testAgent } = useAgentTest();
 
   const checkConnection = async () => {
     setStatus('checking');
@@ -38,26 +40,7 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
     window.location.reload();
   };
 
-  const handleTestAgent = async () => {
-    if (!selectedAgent) return;
-
-    setTestingAgent(true);
-    setTestResult(null);
-
-    try {
-      const result = await apiClient.testAgent(selectedAgent.agent_id);
-      setTestResult(result);
-    } catch (err) {
-      setTestResult({
-        success: false,
-        message: 'Test failed',
-        error: err instanceof Error ? err.message : 'Unknown error',
-        agent_type: selectedAgent.type
-      });
-    } finally {
-      setTestingAgent(false);
-    }
-  };
+  const handleTestAgent = () => testAgent(selectedAgent ?? null);
 
   useEffect(() => {
     checkConnection();

@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Agent } from '../types';
 import { WorkflowPanel } from './WorkflowPanel';
 import { Workflow, ChevronDown, Zap } from 'lucide-react';
 import { spacing } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
+import { useDropdown } from '../hooks/useDropdown';
 
 interface WorkflowsTabProps {
   agents: Agent[];
@@ -11,8 +12,9 @@ interface WorkflowsTabProps {
 
 export function WorkflowsTab({ agents }: WorkflowsTabProps) {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
-  const [showAgentDropdown, setShowAgentDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Use consolidated dropdown hook for click-outside handling
+  const { isOpen: showAgentDropdown, toggle: toggleDropdown, close: closeDropdown, dropdownRef } = useDropdown();
 
   // Filter workflow agents (LangGraph agents or agents with workflow capability)
   const workflowAgents = agents.filter(
@@ -26,18 +28,6 @@ export function WorkflowsTab({ agents }: WorkflowsTabProps) {
     }
   }, [workflowAgents.length, selectedAgent]);
 
-  useEffect(() => {
-    // Close dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowAgentDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Workflow Agent Selection Header */}
@@ -50,7 +40,7 @@ export function WorkflowsTab({ agents }: WorkflowsTabProps) {
               {/* Agent Dropdown */}
               <div className="relative w-full" ref={dropdownRef}>
                 <button
-                  onClick={() => setShowAgentDropdown(!showAgentDropdown)}
+                  onClick={toggleDropdown}
                   className="w-full px-4 py-3 bg-purple-900/20 border border-purple-500/20 rounded-xl text-white hover:bg-purple-900/30 transition-all flex items-center justify-between"
                 >
                   {selectedAgent ? (
@@ -75,7 +65,7 @@ export function WorkflowsTab({ agents }: WorkflowsTabProps) {
                           key={agent.agent_id}
                           onClick={() => {
                             setSelectedAgent(agent);
-                            setShowAgentDropdown(false);
+                            closeDropdown();
                           }}
                           className={cn(
                             'w-full text-left px-4 py-3 rounded-lg transition-all',
