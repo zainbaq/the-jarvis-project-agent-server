@@ -1,4 +1,4 @@
-backend/.env
+.env
 vector_stores/
 backend/vector_stores/
 CLAUDE.md
@@ -7,3 +7,8 @@ backend/tests/
 logs/
 
 node_modules/
+
+.claude
+.pytest_cache/
+__pycache__/
+*.pyc

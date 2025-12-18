@@ -11,15 +11,15 @@ class Settings(BaseSettings):
     
     # Server Configuration
     HOST: str = "0.0.0.0"
-    PORT: int = 8000
+    PORT: int = 3000
     DEBUG: bool = True
     ENVIRONMENT: str = "development"
     
     # CORS
     CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "http://localhost:5173",  # Vite dev server
+        "http://localhost:8000",  # Frontend (Vite dev server)
+        "http://localhost:3000",  # Backend (for same-origin requests)
+        "http://localhost:5173",  # Vite default port
         "http://localhost:4173",  # Vite preview server
     ]
     

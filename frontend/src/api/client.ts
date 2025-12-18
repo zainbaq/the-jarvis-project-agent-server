@@ -1,6 +1,6 @@
 import { Agent, ChatRequest, ChatResponse, WorkflowRequest, WorkflowResponse, WorkflowProgress, DetailedStatus, AgentTestResult, ToolsStatus, ToolsTestResult, KMConnection, KMConnectionCreate, KMConnectionUpdate, KMSelectionUpdate, KMTestResult, KMStatus, CustomEndpoint, CustomEndpointCreate, SessionInfo } from '../types';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
 export class JarvisAPIClient {
   private sessionId: string = '';
@@ -47,7 +47,7 @@ export class JarvisAPIClient {
     } catch (error) {
       console.error('Error fetching agents:', error);
       if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Cannot connect to backend. Make sure your backend is running on http://localhost:8000 and CORS is enabled.');
+        throw new Error(`Cannot connect to backend. Make sure your backend is running on ${BASE_URL} and CORS is enabled.`);
       }
       throw error;
     }
