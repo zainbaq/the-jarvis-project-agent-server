@@ -40,3 +40,4 @@ mypy
 
 # Vector DB
 chromadb
+cryptography

@@ -12,10 +12,11 @@ sudo rm -f /etc/systemd/system/jarvis-backend.service
 sudo systemctl daemon-reload
 echo "Backend service removed"
 
-# Remove nginx config
+# Remove nginx config (handle both Debian and RHEL style)
 echo "Removing nginx configuration..."
-sudo rm -f /etc/nginx/sites-enabled/jarvis
-sudo rm -f /etc/nginx/sites-available/jarvis
+sudo rm -f /etc/nginx/sites-enabled/jarvis 2>/dev/null || true
+sudo rm -f /etc/nginx/sites-available/jarvis 2>/dev/null || true
+sudo rm -f /etc/nginx/conf.d/jarvis.conf 2>/dev/null || true
 
 # Test and reload nginx
 if sudo nginx -t 2>/dev/null; then

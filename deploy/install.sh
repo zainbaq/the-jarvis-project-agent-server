@@ -73,8 +73,22 @@ echo "Backend service installed and started"
 # Install nginx config
 echo ""
 echo "Installing nginx configuration..."
-sudo cp "$SCRIPT_DIR/nginx-jarvis.conf.tmp" /etc/nginx/sites-available/jarvis
-sudo ln -sf /etc/nginx/sites-available/jarvis /etc/nginx/sites-enabled/
+
+# Detect nginx config directory (Debian/Ubuntu vs RHEL/Amazon Linux)
+if [ -d "/etc/nginx/sites-available" ]; then
+    # Debian/Ubuntu style
+    sudo cp "$SCRIPT_DIR/nginx-jarvis.conf.tmp" /etc/nginx/sites-available/jarvis
+    sudo ln -sf /etc/nginx/sites-available/jarvis /etc/nginx/sites-enabled/
+    echo "Installed to /etc/nginx/sites-available/jarvis"
+elif [ -d "/etc/nginx/conf.d" ]; then
+    # RHEL/CentOS/Amazon Linux style
+    sudo cp "$SCRIPT_DIR/nginx-jarvis.conf.tmp" /etc/nginx/conf.d/jarvis.conf
+    echo "Installed to /etc/nginx/conf.d/jarvis.conf"
+else
+    echo "ERROR: Could not find nginx config directory!"
+    echo "Please manually copy nginx-jarvis.conf to your nginx config directory."
+    exit 1
+fi
 
 # Test nginx config
 if sudo nginx -t; then
