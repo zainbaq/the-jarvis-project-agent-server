@@ -389,11 +389,11 @@ def generate_file(state: CodeGenState) -> CodeGenState:
         # Add the generated code to the codebase
         updated_codebase = {**codebase, current_file: code}
         print(f"Successfully generated code for {current_file}")
-        
+
         return {
             **state,
             "codebase": updated_codebase,
-            "current_file": None,  # Reset current file
+            # Keep current_file set so review_code, improve_code, generate_tests can use it
         }
     except Exception as e:
         error_msg = f"Error generating {current_file}: {str(e)}"

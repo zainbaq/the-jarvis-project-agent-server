@@ -36,13 +36,23 @@ class Settings(BaseSettings):
     
     # Storage
     TEMP_DIR: str = "temp"
-    
+
+    # File Upload Configuration
+    FILE_UPLOAD_DIR: str = "backend/temp/files"
+    MAX_FILE_SIZE: int = 256 * 1024 * 1024  # 256 MB in bytes
+
     # Optional: Anthropic
     ANTHROPIC_API_KEY: str = ""
-    
+
+    # Knowledge Management Server Configuration
+    KM_SERVER_URL: str = "http://localhost:11000"
+    KM_CONNECTIONS_FILE: str = "backend/data/km_connections.json"
+    KM_ENCRYPTION_KEY: str = ""  # Auto-generated if not set
+
     class Config:
-        env_file = ".env"
+        env_file = ["backend/.env", ".env"]  # Look in backend/.env first, then .env
         case_sensitive = True
+        extra = "ignore"  # Ignore extra env vars not defined in Settings
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

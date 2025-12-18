@@ -4,24 +4,28 @@
         "agent_id": "gpt5_assistant",
         "name": "GPT-5.2",
         "type": "openai",
-        "description": "General purpose GPT-4o conversational assistant with web search",
+        "description": "General purpose GPT-4o conversational assistant with web search, file search, and code interpreter",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-5.2",
           "temperature": 0.7,
-          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses.",
+          "enable_file_search": true,
+          "enable_code_interpreter": true
         }
       },
       {
         "agent_id": "gpt4_assistant",
         "name": "GPT-4 Assistant",
         "type": "openai",
-        "description": "General purpose GPT-4 conversational assistant with web search",
+        "description": "General purpose GPT-4 conversational assistant with web search, file search, and code interpreter",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-4o",
           "temperature": 0.7,
-          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses."
+          "system_message": "You are a helpful AI assistant. Provide clear, accurate, and concise responses.",
+          "enable_file_search": true,
+          "enable_code_interpreter": true
         }
       },
       {
@@ -34,7 +38,9 @@
           "model": "gpt-3.5-turbo",
           "temperature": 0.7,
           "max_tokens": 1500,
-          "system_message": "You are a helpful and efficient AI assistant."
+          "system_message": "You are a helpful and efficient AI assistant.",
+          "enable_file_search": false,
+          "enable_code_interpreter": false
         }
       },
       {
@@ -65,6 +71,21 @@
           "model_name": "gpt-4",
           "temperature": 0.2,
           "recursion_limit": 100
+        }
+      },
+      {
+        "agent_id": "document_intelligence",
+        "name": "Document Intelligence",
+        "type": "langgraph",
+        "description": "Analyze, summarize, and extract information from documents (PDF, DOCX, TXT, images)",
+        "config": {
+          "workflow_module": "backend.workflows.document_intelligence.document_assistant.tasks",
+          "workflow_function": "perform_task",
+          "provider": "openai",
+          "api_key": "${OPENAI_API_KEY}",
+          "model_name": "gpt-4o",
+          "temperature": 0.2,
+          "recursion_limit": 50
         }
       }
     ]

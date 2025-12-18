@@ -1,0 +1,31 @@
+{
+  "connections": [
+    {
+      "id": "f351d177-d304-4d2c-b398-c95012b30ade",
+      "name": "test connection",
+      "username": "zainbaq1",
+      "api_key_encrypted": "gAAAAABpQj94-RIT56mEHT1yIycWUmbWeHp_MDTL-9JPLKYhjyKjOeAKMqPOpl1GwP8mp6073RiHTqgwqqfd-Z22SGp3_5GaEVKfbmCh9v67q9L7eDdXT4BavqVUV4DCzDS1lCK2Twe3",
+      "status": "active",
+      "collections": [
+        {
+          "name": "patient_records",
+          "files": [
+            "patient_record_1_diabetes.pdf",
+            "patient_record_2_depression.pdf",
+            "patient_record_3_asthma.pdf"
+          ],
+          "num_chunks": 3
+        }
+      ],
+      "corpuses": [],
+      "selected_collection_names": [
+        "patient_records"
+      ],
+      "selected_corpus_ids": [],
+      "created_at": "2025-12-17T05:28:24.521987",
+      "updated_at": "2025-12-17T05:28:33.952324",
+      "last_sync_at": "2025-12-17T05:28:24.782121",
+      "last_error": null
+    }
+  ]
+}
