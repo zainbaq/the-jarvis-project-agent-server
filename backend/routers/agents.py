@@ -352,13 +352,47 @@ async def execute_workflow(
         )
     
     try:
-        result = await agent.execute_workflow(
-            task=workflow_request.task,
-            parameters=workflow_request.parameters
-        )
-        
+        # Merge task_id into parameters for progress tracking
+        params = workflow_request.parameters or {}
+        if workflow_request.task_id:
+            params["task_id"] = workflow_request.task_id
+            # Create the task in progress tracker immediately so polling works
+            # This prevents race condition where frontend polls before workflow starts
+            from backend.progress_manager import create_task
+            create_task(workflow_request.task_id)
+            logger.info(f"Created progress task: {workflow_request.task_id}")
+
+        # Resolve file_ids to file paths for document workflows
+        document_paths = []
+        if workflow_request.file_ids and workflow_request.conversation_id:
+            file_storage = request.app.state.file_storage
+            for file_id in workflow_request.file_ids:
+                file_meta = file_storage.get_file(
+                    workflow_request.conversation_id,
+                    file_id
+                )
+                if file_meta and file_meta.filepath:
+                    document_paths.append(file_meta.filepath)
+                    logger.info(f"Resolved file {file_id} to path: {file_meta.filepath}")
+
+        # Handle document_intelligence workflow - it expects a dict task with user_request and document_paths
+        if agent_id == "document_intelligence" and document_paths:
+            task_data = {
+                "user_request": workflow_request.task,
+                "document_paths": document_paths
+            }
+            result = await agent.execute_workflow(
+                task=task_data,
+                parameters=params
+            )
+        else:
+            result = await agent.execute_workflow(
+                task=workflow_request.task,
+                parameters=params
+            )
+
         return WorkflowExecuteResponse(**result)
-        
+
     except Exception as e:
         logger.error(f"Error executing workflow on agent {agent_id}: {e}")
         raise HTTPException(
@@ -505,11 +539,11 @@ async def test_tools(request: Request):
     Test all available tools
     """
     from backend.agent_manager import get_agent_manager
-    
+
     try:
         agent_manager = get_agent_manager()
         results = await agent_manager.test_tools()
-        
+
         return {
             "success": True,
             "results": results
@@ -520,3 +554,34 @@ async def test_tools(request: Request):
             "success": False,
             "error": str(e)
         }
+
+
+@router.get("/progress/{task_id}")
+async def get_workflow_progress(task_id: str, request: Request):
+    """
+    Get progress for a running workflow task
+
+    Returns progress percentage, status message, and task status.
+    Used by frontend to poll for real-time progress updates.
+    """
+    from backend.progress_manager import get_progress
+
+    progress = get_progress(task_id)
+
+    if progress is None:
+        # Task not found - might not have started yet or already cleaned up
+        return {
+            "task_id": task_id,
+            "progress": 0,
+            "message": "Task not found or not started",
+            "status": "unknown"
+        }
+
+    return {
+        "task_id": task_id,
+        "progress": progress.get("progress", 0),
+        "message": progress.get("message", ""),
+        "status": progress.get("status", "running"),
+        "started_at": progress.get("started_at"),
+        "updated_at": progress.get("updated_at")
+    }

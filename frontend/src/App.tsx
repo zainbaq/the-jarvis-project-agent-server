@@ -34,33 +34,9 @@ function App() {
     }
   }, [sessionInitialized, sessionId]);
 
-  // Enable demo mode by default on first load
-  useEffect(() => {
-    const hasConfigured = localStorage.getItem(
-      "jarvis_configured",
-    );
-    if (!hasConfigured) {
-      // First time user - enable demo mode
-      localStorage.setItem("jarvis_demo_mode", "true");
-      localStorage.setItem("jarvis_configured", "true");
-    }
-  }, []);
-
   // Load agents
   useEffect(() => {
     loadAgents();
-
-    // Listen for storage changes (when demo mode is toggled)
-    const handleStorageChange = () => {
-      loadAgents();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () =>
-      window.removeEventListener(
-        "storage",
-        handleStorageChange,
-      );
   }, []);
 
   const loadAgents = async () => {
@@ -71,23 +47,7 @@ function App() {
       setAgents(data);
     } catch (error) {
       console.error("Failed to load agents:", error);
-
-      // If backend is not available, enable demo mode automatically
-      if (error instanceof Error && error.message.includes('Cannot connect to backend')) {
-        console.log('Backend not available, enabling demo mode...');
-        localStorage.setItem('jarvis_demo_mode', 'true');
-
-        // Try loading agents again with demo mode enabled
-        try {
-          const data = await apiClient.listAgents();
-          setAgents(data);
-        } catch (demoError) {
-          console.error('Failed to load demo data:', demoError);
-          setAgents([]);
-        }
-      } else {
-        setAgents([]);
-      }
+      setAgents([]);
     } finally {
       setLoading(false);
     }

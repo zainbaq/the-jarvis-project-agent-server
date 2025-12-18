@@ -100,6 +100,9 @@ export interface ChatResponse {
 
 export interface WorkflowRequest {
   task: string;
+  task_id?: string;
+  file_ids?: string[];
+  conversation_id?: string;
   parameters?: {
     recursion_limit?: number;
     temperature?: number;
@@ -114,6 +117,15 @@ export interface WorkflowResponse {
   result?: any;
   error?: string;
   execution_time?: number;
+}
+
+export interface WorkflowProgress {
+  task_id: string;
+  progress: number;
+  message: string;
+  status: "running" | "completed" | "failed" | "unknown";
+  started_at?: string;
+  updated_at?: string;
 }
 
 export interface DetailedStatus {

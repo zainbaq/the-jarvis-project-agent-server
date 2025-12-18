@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Globe, Wrench, CheckCircle, XCircle, Loader } from 'lucide-react';
+import { X, Wrench, CheckCircle, XCircle, Loader } from 'lucide-react';
 import { ConnectionStatus } from './ConnectionStatus';
 import { colors, components, spacing, typography, borderRadius } from '../styles/theme';
 import { cn } from '@/components/ui/utils';
@@ -12,12 +12,6 @@ interface SettingsModalProps {
 }
 
 export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const [backendUrl, setBackendUrl] = useState(
-    localStorage.getItem('jarvis_backend_url') || 'http://localhost:8000'
-  );
-  const [demoMode, setDemoMode] = useState(
-    localStorage.getItem('jarvis_demo_mode') === 'true'
-  );
   const [toolsStatus, setToolsStatus] = useState<ToolsStatus | null>(null);
   const [toolsTestResult, setToolsTestResult] = useState<ToolsTestResult | null>(null);
   const [testingTools, setTestingTools] = useState(false);
@@ -60,12 +54,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   if (!isOpen) return null;
 
   const handleSave = () => {
-    localStorage.setItem('jarvis_backend_url', backendUrl);
-    localStorage.setItem('jarvis_demo_mode', demoMode ? 'true' : 'false');
-    
-    // Trigger storage event to reload agents
-    window.dispatchEvent(new Event('storage'));
-    
     onClose();
   };
 
@@ -98,49 +86,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               Connection Status
             </label>
             <ConnectionStatus />
-          </div>
-
-          {/* Backend URL */}
-          <div>
-            <label className={cn(typography.body.base, colors.text.secondary, 'mb-2 block')}>
-              Backend URL
-            </label>
-            <input
-              type="text"
-              value={backendUrl}
-              onChange={(e) => setBackendUrl(e.target.value)}
-              placeholder="http://localhost:8000"
-              className={components.input}
-            />
-            <p className={cn(typography.body.small, colors.text.muted, 'mt-2')}>
-              The URL of your JARVIS Agent Server backend
-            </p>
-          </div>
-
-          {/* Demo Mode Toggle */}
-          <div className="flex items-center justify-between">
-            <div>
-              <label className={cn(typography.body.base, colors.text.secondary, 'block')}>
-                Demo Mode
-              </label>
-              <p className={cn(typography.body.small, colors.text.muted, 'mt-1')}>
-                Use demo data when backend is unavailable
-              </p>
-            </div>
-            <button
-              onClick={() => setDemoMode(!demoMode)}
-              className={cn(
-                components.toggle.container,
-                demoMode ? components.toggle.active : components.toggle.inactive
-              )}
-            >
-              <span
-                className={cn(
-                  components.toggle.knob,
-                  demoMode ? components.toggle.knobActive : components.toggle.knobInactive
-                )}
-              />
-            </button>
           </div>
 
           {/* Tools Status */}

@@ -72,6 +72,21 @@
           "temperature": 0.2,
           "recursion_limit": 100
         }
+      },
+      {
+        "agent_id": "document_intelligence",
+        "name": "Document Intelligence",
+        "type": "langgraph",
+        "description": "Analyze, summarize, and extract information from documents (PDF, DOCX, TXT, images)",
+        "config": {
+          "workflow_module": "backend.workflows.document_intelligence.document_assistant.tasks",
+          "workflow_function": "perform_task",
+          "provider": "openai",
+          "api_key": "${OPENAI_API_KEY}",
+          "model_name": "gpt-4o",
+          "temperature": 0.2,
+          "recursion_limit": 50
+        }
       }
     ]
   }

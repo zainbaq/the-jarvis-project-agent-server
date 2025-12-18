@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AlertCircle, CheckCircle, Loader, RefreshCw, PlayCircle, X, TestTube2 } from 'lucide-react';
+import { AlertCircle, CheckCircle, Loader, RefreshCw, X, TestTube2 } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { DetailedStatus, Agent } from '../types';
 import { statusBadge, components, spacing, iconSizes } from '../styles/theme';
@@ -35,11 +35,6 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
     }
   };
 
-  const enableDemoMode = () => {
-    localStorage.setItem('jarvis_demo_mode', 'true');
-    window.location.reload();
-  };
-
   const handleTestAgent = () => testAgent(selectedAgent ?? null);
 
   useEffect(() => {
@@ -48,7 +43,6 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
 
   // Compact status indicator for top nav
   if (status === 'connected') {
-    const isDemoMode = details?.status === 'demo';
     return (
       <div className="relative">
         <button
@@ -56,24 +50,20 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
           className={cn(
             spacing.buttonPadding.sm,
             'rounded-lg text-xs flex items-center gap-2 transition-all',
-            isDemoMode ? statusBadge.demo : statusBadge.connected
+            statusBadge.connected
           )}
         >
-          <span className={cn('w-2 h-2 rounded-full animate-pulse', isDemoMode ? 'bg-yellow-400' : 'bg-green-400')} />
-          <span>{isDemoMode ? 'Demo' : 'Connected'}</span>
+          <span className="w-2 h-2 rounded-full animate-pulse bg-green-400" />
+          <span>Connected</span>
         </button>
-        
+
         {showDetails && (
           <div className={cn('absolute top-full right-0 mt-2 w-96 bg-[#1a0f2e] border border-purple-500/30 rounded-md shadow-2xl z-50 overflow-hidden p-6')}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                {isDemoMode ? (
-                  <PlayCircle className={cn(iconSizes.md, 'text-yellow-400')} />
-                ) : (
-                  <CheckCircle className={cn(iconSizes.md, 'text-green-400')} />
-                )}
-                <span className={cn('text-base font-medium', isDemoMode ? 'text-yellow-300' : 'text-green-300')}>
-                  {isDemoMode ? 'Demo Mode' : 'Backend Connected'}
+                <CheckCircle className={cn(iconSizes.md, 'text-green-400')} />
+                <span className="text-base font-medium text-green-300">
+                  Backend Connected
                 </span>
               </div>
               <button onClick={() => setShowDetails(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-all">
@@ -127,12 +117,6 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
                 {testResult && <TestResultCard testResult={testResult} />}
               </div>
             )}
-
-            {isDemoMode && (
-              <p className="text-yellow-300/80 text-xs mt-4 pt-4 border-t border-white/10">
-                Using mock data. Configure backend to connect to real API.
-              </p>
-            )}
           </div>
         )}
       </div>
@@ -162,25 +146,13 @@ export function ConnectionStatus({ selectedAgent }: ConnectionStatusProps) {
                 <X className="w-4 h-4 text-gray-400" />
               </button>
             </div>
-            
+
             <div className="space-y-4 text-xs">
               <div>
-                <p className="text-gray-200 mb-2"><strong>✅ Quick Solution: Demo Mode</strong></p>
-                <button
-                  onClick={enableDemoMode}
-                  className="w-full px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
-                >
-                  <PlayCircle className="w-4 h-4" />
-                  Try Demo Mode
-                </button>
-              </div>
-
-              <div className="border-t border-white/10 pt-4">
-                <p className="text-gray-200 mb-2"><strong>🔧 Connect to Real Backend:</strong></p>
+                <p className="text-gray-200 mb-2"><strong>Make sure the backend is running:</strong></p>
                 <ol className="list-decimal list-inside space-y-1 text-gray-400">
-                  <li>Install ngrok</li>
-                  <li>Run: <code className="bg-white/10 px-1 py-0.5 rounded">ngrok http 8000</code></li>
-                  <li>Copy HTTPS URL to Backend Settings</li>
+                  <li>Navigate to the backend directory</li>
+                  <li>Run: <code className="bg-white/10 px-1 py-0.5 rounded">uvicorn backend.app:app --reload</code></li>
                 </ol>
               </div>
 

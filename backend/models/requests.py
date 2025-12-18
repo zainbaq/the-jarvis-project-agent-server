@@ -54,12 +54,18 @@ class ChatRequest(BaseModel):
 class WorkflowExecuteRequest(BaseModel):
     """Request model for workflow execution"""
     task: str = Field(..., description="Task description for the workflow")
+    task_id: Optional[str] = Field(None, description="Unique task ID for progress tracking")
+    file_ids: Optional[List[str]] = Field(None, description="List of uploaded file IDs for document workflows")
+    conversation_id: Optional[str] = Field(None, description="Conversation ID for file resolution")
     parameters: Optional[Dict[str, Any]] = Field(None, description="Optional workflow parameters")
-    
+
     class Config:
         json_schema_extra = {
             "example": {
                 "task": "Create a REST API for a todo application with FastAPI",
+                "task_id": "abc-123-def-456",
+                "file_ids": ["file-uuid-1", "file-uuid-2"],
+                "conversation_id": "conv-123",
                 "parameters": {
                     "recursion_limit": 100,
                     "temperature": 0.0
