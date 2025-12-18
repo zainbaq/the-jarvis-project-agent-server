@@ -106,8 +106,8 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-purple-500/20">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between border-b border-purple-500/20" style={{ padding: '20px 24px' }}>
+          <div className="flex items-center" style={{ gap: '12px' }}>
             <Database className="w-5 h-5 text-purple-400" />
             <h2 className={cn('text-lg font-semibold', colors.text.primary)}>Knowledge Base</h2>
           </div>
@@ -119,12 +119,12 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
           </button>
         </div>
 
-        <p className={cn('px-4 pt-2 text-sm', colors.text.secondary)}>
+        <p className={cn('text-sm', colors.text.secondary)} style={{ padding: '12px 24px 0 24px' }}>
           Connect to your knowledge management server
         </p>
 
         {/* Enable toggle */}
-        <div className="px-4 py-4 border-b border-purple-500/20">
+        <div className="border-b border-purple-500/20" style={{ padding: '20px 24px' }}>
           <label className="flex items-center justify-between cursor-pointer">
             <span className={cn(typography.body.base, colors.text.primary, 'font-medium')}>
               Enable Knowledge Base Search
@@ -162,7 +162,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto" style={{ padding: '24px' }}>
           {isLoading ? (
             <div className="flex justify-center py-8">
               <RefreshCw className="w-6 h-6 text-purple-400 animate-spin" />
@@ -186,7 +186,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
             />
           ) : connections.length === 0 ? (
             <div className="text-center py-8">
-              <Database className="w-12 h-12 text-purple-500/30 mx-auto mb-4" />
+              <Database className="w-12 h-12 text-purple-400 mx-auto mb-4" />
               <p className={cn(colors.text.secondary, 'mb-4')}>No connections configured</p>
               <button
                 onClick={() => setShowAddForm(true)}
@@ -215,7 +215,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
                     )}
                   >
                     {/* Connection Header */}
-                    <div className="p-3">
+                    <div style={{ padding: '16px' }}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           {/* Enable Toggle */}
@@ -234,10 +234,10 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
 
                           {/* Connection Info */}
                           <div>
-                            <div className={cn(typography.body.base, colors.text.primary, 'font-medium')}>
+                            <div className="text-sm font-medium" style={{ color: 'white' }}>
                               {connection.name}
                             </div>
-                            <div className={cn(typography.body.small, colors.text.secondary)}>
+                            <div className="text-xs" style={{ color: '#9ca3af' }}>
                               {connection.username}
                               {hasSelections && (
                                 <span className="ml-2 text-purple-400">
@@ -308,7 +308,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
 
                       {/* Warning: Active but no selections */}
                       {isActive && !hasSelections && (
-                        <div className="mt-2 text-xs text-amber-400 bg-amber-900/20 p-2 rounded">
+                        <div className="text-xs bg-amber-900/20 rounded" style={{ marginTop: '12px', padding: '10px', color: '#fbbf24' }}>
                           No collections selected. Expand to select collections or corpuses.
                         </div>
                       )}
@@ -316,7 +316,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
 
                     {/* Expanded: Collection Selector */}
                     {isExpanded && (
-                      <div className="border-t border-purple-500/20 bg-purple-950/30 p-3">
+                      <div className="border-t border-purple-500/20 bg-purple-950/30" style={{ padding: '16px' }}>
                         <KMCollectionSelector
                           connection={connection}
                           updateSelections={updateSelections}
@@ -333,7 +333,7 @@ export function KMDrawer({ isOpen, onClose }: KMDrawerProps) {
 
         {/* Footer */}
         {!showAddForm && connections.length > 0 && (
-          <div className="p-4 border-t border-purple-500/20">
+          <div className="border-t border-purple-500/20" style={{ padding: '20px 24px' }}>
             <button
               onClick={() => setShowAddForm(true)}
               className="w-full px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2"

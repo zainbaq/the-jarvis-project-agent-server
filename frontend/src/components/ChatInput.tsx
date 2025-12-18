@@ -212,14 +212,15 @@ export function ChatInput({
             <div className="flex flex-col bg-purple-900/40 border border-purple-500/30 rounded-xl" style={{ padding: '18px' }}>
               {/* KM Connections Indicator - Inside text box */}
               {enableKMSearch && activeKMConnections.length > 0 && (
-                <div className="flex items-center flex-wrap gap-4 mb-5 pb-5 border-b border-purple-500/20">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 border border-purple-500/40 rounded-lg">
+                <div className="flex items-center flex-wrap border-b border-purple-500/20" style={{ gap: '10px', marginBottom: '16px', paddingBottom: '16px' }}>
+                  <div className="flex items-center bg-purple-600/20 border border-purple-500/40 rounded-lg" style={{ gap: '8px', padding: '8px 14px' }}>
                     <Database className="w-3.5 h-3.5 text-purple-400" />
                     <span className="text-sm text-purple-300 font-medium">Knowledge</span>
                     <button
                       type="button"
                       onClick={onToggleKMSearch}
-                      className="ml-0.5 p-0.5 hover:bg-purple-500/30 rounded transition-colors"
+                      className="hover:bg-purple-500/30 rounded transition-colors"
+                      style={{ marginLeft: '4px', padding: '4px' }}
                       title="Disable Knowledge Base"
                     >
                       <X className="w-3 h-3 text-purple-400 hover:text-purple-200" />
@@ -231,11 +232,12 @@ export function ChatInput({
                       type="button"
                       onClick={onOpenKMDrawer}
                       className={cn(
-                        'flex items-center gap-2.5 px-4 py-2 rounded-lg text-sm transition-colors',
+                        'flex items-center rounded-lg text-sm transition-colors',
                         conn.hasSelections
                           ? 'bg-green-600/20 border border-green-500/40 text-green-300 hover:bg-green-600/30'
                           : 'bg-amber-600/20 border border-amber-500/40 text-amber-300 hover:bg-amber-600/30'
                       )}
+                      style={{ gap: '8px', padding: '8px 14px' }}
                       title={conn.hasSelections ? `${conn.name} - Ready` : `${conn.name} - No collections selected`}
                     >
                       {conn.hasSelections ? (
@@ -251,9 +253,9 @@ export function ChatInput({
 
               {/* Uploaded Files Display - Inside text box */}
               {uploadedFiles.length > 0 && (
-                <div className="flex items-center flex-wrap gap-4 mb-5 pb-5 border-b border-purple-500/20">
+                <div className="flex items-center flex-wrap border-b border-purple-500/20" style={{ gap: '10px', marginBottom: '16px', paddingBottom: '16px' }}>
                   {uploadedFiles.map((file) => (
-                    <div key={file.file_id} className="flex items-center gap-2.5 px-4 py-2 bg-purple-600/20 border border-purple-500/40 rounded-lg">
+                    <div key={file.file_id} className="flex items-center bg-purple-600/20 border border-purple-500/40 rounded-lg" style={{ gap: '8px', padding: '8px 14px' }}>
                       <span className="text-sm">📎</span>
                       <span className="text-sm text-purple-300 max-w-[180px] truncate">{file.filename}</span>
                       <span className="text-sm text-purple-400/60">
@@ -263,7 +265,8 @@ export function ChatInput({
                         onClick={() => {
                           setUploadedFiles(uploadedFiles.filter((f) => f.file_id !== file.file_id));
                         }}
-                        className="p-0.5 hover:bg-purple-500/30 rounded transition-colors"
+                        className="hover:bg-purple-500/30 rounded transition-colors"
+                        style={{ padding: '4px' }}
                         title="Remove file"
                         disabled={loading}
                         type="button"

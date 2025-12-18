@@ -52,16 +52,17 @@ export function MessageList({ messages, loading }: MessageListProps) {
 
                 {/* Tools Used */}
                 {message.tools_used && message.tools_used.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                  <div className="flex flex-wrap" style={{ gap: '8px', marginTop: '10px' }}>
                     {message.tools_used.map((tool, idx) => (
                       <div
                         key={idx}
                         className={cn(
-                          'flex items-center gap-1 px-2 py-0.5 rounded text-xs',
+                          'flex items-center rounded text-xs',
                           tool.success
-                            ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                            : 'bg-red-500/10 border border-red-500/20 text-red-400'
+                            ? 'bg-green-500/10 text-green-400'
+                            : 'bg-red-500/10 text-red-400'
                         )}
+                        style={{ gap: '6px', padding: '4px 10px' }}
                       >
                         {tool.success ? (
                           <CheckCircle2 className="w-3 h-3" />

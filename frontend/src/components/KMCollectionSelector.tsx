@@ -81,30 +81,33 @@ export function KMCollectionSelector({ connection, updateSelections, isUpdating 
       {/* Collections Section */}
       {connection.collections.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <h4 className={cn(typography.body.base, colors.text.primary, 'font-medium')}>
+          <div className="flex items-center justify-between" style={{ marginBottom: '12px' }}>
+            <h4 className="text-sm font-medium" style={{ color: 'white' }}>
               Collections ({selectedCollections.length}/{connection.collections.length})
             </h4>
-            <div className="flex gap-2">
+            <div className="flex" style={{ gap: '12px' }}>
               <button
                 onClick={handleSelectAllCollections}
-                className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                className="text-xs hover:opacity-80 transition-colors"
+                style={{ color: '#c084fc' }}
               >
                 Select All
               </button>
               <button
                 onClick={handleDeselectAllCollections}
-                className="text-xs text-gray-400 hover:text-gray-300 transition-colors"
+                className="text-xs hover:opacity-80 transition-colors"
+                style={{ color: '#9ca3af' }}
               >
                 Deselect All
               </button>
             </div>
           </div>
-          <div className="space-y-1 max-h-40 overflow-y-auto">
+          <div className="max-h-40 overflow-y-auto" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {connection.collections.map((collection) => (
               <label
                 key={collection.name}
-                className="flex items-center gap-2 p-2 hover:bg-purple-900/30 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center hover:bg-purple-900/30 rounded-lg cursor-pointer transition-colors"
+                style={{ gap: '10px', padding: '10px' }}
               >
                 <input
                   type="checkbox"
@@ -113,10 +116,10 @@ export function KMCollectionSelector({ connection, updateSelections, isUpdating 
                   className="w-4 h-4 rounded border-purple-500/50 bg-purple-900/50 text-purple-600 focus:ring-purple-500"
                 />
                 <div className="flex-1 min-w-0">
-                  <div className={cn(typography.body.base, colors.text.primary, 'truncate')}>
+                  <div className="text-sm truncate" style={{ color: 'white' }}>
                     {collection.name}
                   </div>
-                  <div className={cn(typography.body.small, colors.text.secondary)}>
+                  <div className="text-xs" style={{ color: '#9ca3af' }}>
                     {collection.num_chunks} chunks, {collection.files.length} files
                   </div>
                 </div>
@@ -129,30 +132,33 @@ export function KMCollectionSelector({ connection, updateSelections, isUpdating 
       {/* Corpuses Section */}
       {connection.corpuses.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <h4 className={cn(typography.body.base, colors.text.primary, 'font-medium')}>
+          <div className="flex items-center justify-between" style={{ marginBottom: '12px' }}>
+            <h4 className="text-sm font-medium" style={{ color: 'white' }}>
               Corpuses ({selectedCorpuses.length}/{connection.corpuses.length})
             </h4>
-            <div className="flex gap-2">
+            <div className="flex" style={{ gap: '12px' }}>
               <button
                 onClick={handleSelectAllCorpuses}
-                className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                className="text-xs hover:opacity-80 transition-colors"
+                style={{ color: '#c084fc' }}
               >
                 Select All
               </button>
               <button
                 onClick={handleDeselectAllCorpuses}
-                className="text-xs text-gray-400 hover:text-gray-300 transition-colors"
+                className="text-xs hover:opacity-80 transition-colors"
+                style={{ color: '#9ca3af' }}
               >
                 Deselect All
               </button>
             </div>
           </div>
-          <div className="space-y-1 max-h-40 overflow-y-auto">
+          <div className="max-h-40 overflow-y-auto" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {connection.corpuses.map((corpus) => (
               <label
                 key={corpus.id}
-                className="flex items-center gap-2 p-2 hover:bg-purple-900/30 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center hover:bg-purple-900/30 rounded-lg cursor-pointer transition-colors"
+                style={{ gap: '10px', padding: '10px' }}
               >
                 <input
                   type="checkbox"
@@ -161,10 +167,10 @@ export function KMCollectionSelector({ connection, updateSelections, isUpdating 
                   className="w-4 h-4 rounded border-purple-500/50 bg-purple-900/50 text-purple-600 focus:ring-purple-500"
                 />
                 <div className="flex-1 min-w-0">
-                  <div className={cn(typography.body.base, colors.text.primary, 'truncate')}>
+                  <div className="text-sm truncate" style={{ color: 'white' }}>
                     {corpus.display_name || corpus.name}
                   </div>
-                  <div className={cn(typography.body.small, colors.text.secondary)}>
+                  <div className="text-xs" style={{ color: '#9ca3af' }}>
                     {corpus.chunk_count} chunks, {corpus.file_count} files
                     {corpus.category && ` - ${corpus.category}`}
                   </div>
@@ -177,28 +183,26 @@ export function KMCollectionSelector({ connection, updateSelections, isUpdating 
 
       {/* Empty State */}
       {connection.collections.length === 0 && connection.corpuses.length === 0 && (
-        <div className={cn('text-center py-4', typography.body.base, colors.text.secondary)}>
+        <div className="text-center text-sm" style={{ padding: '16px 0', color: '#9ca3af' }}>
           No collections or corpuses available. Try syncing the connection.
         </div>
       )}
 
       {/* Save/Reset Buttons */}
       {hasChanges && (
-        <div className="flex gap-2 pt-2 border-t border-purple-500/20">
+        <div className="flex border-t border-purple-500/20" style={{ gap: '10px', paddingTop: '12px', marginTop: '12px' }}>
           <button
             onClick={handleReset}
-            className={cn(
-              'flex-1 px-3 py-1.5 text-sm border border-purple-500/30 rounded-lg',
-              colors.text.secondary,
-              'hover:bg-purple-900/30 transition-colors'
-            )}
+            className="flex-1 text-sm border border-purple-500/30 rounded-lg hover:bg-purple-900/30 transition-colors"
+            style={{ padding: '8px 12px', color: '#9ca3af' }}
             disabled={isSaving || isUpdating}
           >
             Reset
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-3 py-1.5 text-sm bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="flex-1 text-sm bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center"
+            style={{ padding: '8px 12px', gap: '8px' }}
             disabled={isSaving || isUpdating}
           >
             {isSaving ? (
