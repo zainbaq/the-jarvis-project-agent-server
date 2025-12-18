@@ -56,5 +56,7 @@
     server: {
       port: 8000,
       open: true,
+      host: true,  // Listen on all interfaces (0.0.0.0)
+      allowedHosts: ['ai.promethean-labs.co', 'localhost'],
     },
   });

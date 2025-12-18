@@ -4,7 +4,6 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 CURRENT_USER=$(whoami)
-PROJECT_NAME="the-jarvis-project-agent-server"
 
 echo "========================================"
 echo "Installing Jarvis Project Services"
@@ -13,17 +12,32 @@ echo "Project directory: $PROJECT_DIR"
 echo "User: $CURRENT_USER"
 echo ""
 
-# Detect actual project path
-ACTUAL_PROJECT_PATH="$PROJECT_DIR"
+# Check for .env file
+if [ ! -f "$PROJECT_DIR/backend/.env" ]; then
+    echo "WARNING: backend/.env file not found!"
+    echo "Creating from .env.example if available..."
+    if [ -f "$PROJECT_DIR/backend/.env.example" ]; then
+        cp "$PROJECT_DIR/backend/.env.example" "$PROJECT_DIR/backend/.env"
+        echo "Created backend/.env from .env.example"
+        echo "Please edit backend/.env with your API keys!"
+    else
+        echo "No .env.example found. Service will start without env file."
+        echo "You may need to create backend/.env manually with your API keys."
+    fi
+    echo ""
+fi
 
 # Create temp copies to modify
 cp "$SCRIPT_DIR/jarvis-backend.service" "$SCRIPT_DIR/jarvis-backend.service.tmp"
 cp "$SCRIPT_DIR/nginx-jarvis.conf" "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
 
-# Update paths in service files
-sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$ACTUAL_PROJECT_PATH|g" "$SCRIPT_DIR/jarvis-backend.service.tmp"
+# Update paths in service files (replace template path with actual path)
+sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$PROJECT_DIR|g" "$SCRIPT_DIR/jarvis-backend.service.tmp"
 sed -i "s|User=ubuntu|User=$CURRENT_USER|g" "$SCRIPT_DIR/jarvis-backend.service.tmp"
-sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$ACTUAL_PROJECT_PATH|g" "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
+sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$PROJECT_DIR|g" "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
+
+echo "Service file paths updated to: $PROJECT_DIR"
+echo ""
 
 # Check if venv exists
 if [ ! -d "$PROJECT_DIR/venv" ]; then
