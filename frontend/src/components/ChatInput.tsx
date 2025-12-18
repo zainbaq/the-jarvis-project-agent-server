@@ -83,11 +83,11 @@ export function ChatInput({
 
   return (
     <div className={cn('border-t', colors.border.default)}>
-      <div className={cn('flex justify-center', spacing.chatInputArea)}>
-        <form onSubmit={handleSubmit} className={cn('w-full', spacing.inputMaxWidth)}>
+      <div className="flex justify-center" style={{ padding: '20px 32px 28px 32px' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '672px' }}>
           <div className="flex flex-col">
             {/* Top Row: Agent Selector (left) + Tool Icons (right) */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between" style={{ marginBottom: '14px' }}>
               {/* Agent Selector */}
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -209,7 +209,7 @@ export function ChatInput({
             </div>
 
             {/* Main Input Container */}
-            <div className={cn('flex flex-col bg-purple-900/40 border border-purple-500/30 rounded-xl', spacing.inputContainer)}>
+            <div className="flex flex-col bg-purple-900/40 border border-purple-500/30 rounded-xl" style={{ padding: '18px' }}>
               {/* KM Connections Indicator - Inside text box */}
               {enableKMSearch && activeKMConnections.length > 0 && (
                 <div className="flex items-center flex-wrap gap-4 mb-5 pb-5 border-b border-purple-500/20">
@@ -276,7 +276,7 @@ export function ChatInput({
               )}
 
               {/* Input Row: Textarea and Send Button */}
-              <div className="flex items-end gap-4">
+              <div className="flex items-center" style={{ gap: '16px' }}>
                 {/* Message Input */}
                 <div className="flex-1 relative">
                   <textarea
@@ -295,7 +295,12 @@ export function ChatInput({
                 <button
                   type="submit"
                   disabled={!message.trim() || loading}
-                  className={components.buttonVariants.sendButton}
+                  className="rounded-xl transition-all duration-200 flex-shrink-0 flex items-center justify-center hover:bg-purple-600/30 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    padding: '12px'
+                  }}
                 >
                   {loading ? (
                     <Loader className={cn(iconSizes.lg, 'animate-spin', colors.text.primary)} />

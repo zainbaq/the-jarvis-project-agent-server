@@ -50,8 +50,8 @@ export const spacing = {
   container: 'px-6 py-4',
   containerLg: 'px-6 py-6',
   containerXl: 'px-6 py-8',
-  containerMain: 'px-8',            // Main container horizontal padding
-  containerMainVertical: 'py-4',   // Main container vertical padding
+  containerMain: 'px-12',           // Main container horizontal padding
+  containerMainVertical: 'py-8',   // Main container vertical padding
 
   // Component spacing
   section: 'space-y-8',
@@ -141,7 +141,7 @@ export const components = {
     agentSelector: 'flex items-center gap-1.5 p-2 rounded-md text-gray-400 hover:text-purple-300 hover:bg-purple-800/40 transition-all duration-150',
 
     // Tab button
-    tabBase: 'px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2',
+    tabBase: 'px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2',
     tabActive: 'bg-purple-600/30 text-white shadow-lg',
     tabInactive: 'text-gray-400 hover:text-white hover:bg-purple-900/30',
 
@@ -152,7 +152,7 @@ export const components = {
     testAgent: 'w-full px-2 py-1 bg-purple-600/30 hover:bg-purple-600/40 active:bg-purple-600/50 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 border border-purple-500/20 text-sm font-medium',
 
     // Settings icon button
-    settingsIcon: 'p-2.5 rounded-lg hover:bg-purple-900/30 transition-all duration-200 active:scale-95',
+    settingsIcon: 'p-3 rounded-lg hover:bg-purple-900/30 transition-all duration-200 active:scale-95',
   },
   
   // Card styles
