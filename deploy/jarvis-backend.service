@@ -7,8 +7,9 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/home/ubuntu/the-jarvis-project-agent-server
 Environment="PATH=/home/ubuntu/the-jarvis-project-agent-server/venv/bin"
+Environment="KM_SERVER_URL=https://knowledge-manager.promethean-labs.co"
 EnvironmentFile=-/home/ubuntu/the-jarvis-project-agent-server/backend/.env
-ExecStart=/home/ubuntu/the-jarvis-project-agent-server/venv/bin/uvicorn backend.app:app --host 0.0.0.0 --port 3000 --workers 4
+ExecStart=/home/ubuntu/the-jarvis-project-agent-server/venv/bin/uvicorn backend.app:app --host 0.0.0.0 --port 3000 --workers 1
 Restart=always
 RestartSec=5
 StandardOutput=journal
