@@ -12,6 +12,17 @@ const nextConfig = {
     domains: [],
   },
 
+  // Redirect root to /chat
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/chat',
+        permanent: false,
+      },
+    ];
+  },
+
   // Proxy API requests to FastAPI backend
   async rewrites() {
     // Use 127.0.0.1 instead of localhost to avoid DNS resolution issues
