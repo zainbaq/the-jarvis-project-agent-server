@@ -8,8 +8,9 @@ The Agent Manager sits between API requests and agents, handling:
 - Unified interface for all agent types
 """
 import logging
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, AsyncGenerator
 from datetime import datetime
+import uuid
 
 from backend.agents.base import BaseAgent, WorkflowAgent
 from backend.agents.openai_agent import OpenAIAgent
@@ -104,6 +105,7 @@ class AgentManager:
         conversation_id: Optional[str] = None,
         enable_web_search: bool = False,
         enable_km_search: bool = False,
+        enable_code_interpreter: bool = False,
         km_connection_ids: Optional[List[str]] = None,
         uploaded_files: Optional[List[Dict]] = None,
         conversation_history: Optional[List[Dict]] = None,
@@ -118,6 +120,7 @@ class AgentManager:
             conversation_id: Unique conversation identifier (will be generated if None)
             enable_web_search: Whether to use web search
             enable_km_search: Whether to use knowledge management search
+            enable_code_interpreter: Whether to use OpenAI code interpreter
             km_connection_ids: Specific KM connection IDs to use (None = all active)
             uploaded_files: List of uploaded file metadata
             conversation_history: Previous conversation messages
@@ -131,15 +134,46 @@ class AgentManager:
         logger.info(f"[KM DEBUG]   - enable_km_search: {enable_km_search}")
         logger.info(f"[KM DEBUG]   - km_connection_ids: {km_connection_ids}")
         logger.info(f"[KM DEBUG]   - enable_web_search: {enable_web_search}")
+        logger.info(f"[KM DEBUG]   - enable_code_interpreter: {enable_code_interpreter}")
         logger.info(f"[KM DEBUG]   - message preview: {message[:100]}...")
 
         # Generate conversation ID if not provided
         if not conversation_id:
-            import uuid
             conversation_id = f"conv_{uuid.uuid4().hex[:12]}"
             logger.info(f"Generated new conversation ID: {conversation_id}")
 
-        # Step 1: Execute tools if needed
+        # Check if code interpreter should be used (OpenAI agent with code_interpreter enabled)
+        is_openai_agent = isinstance(agent, OpenAIAgent)
+        agent_has_code_interpreter = getattr(agent, 'enable_code_interpreter', False) if is_openai_agent else False
+
+        logger.info(f"[CODE_INTERP DEBUG] enable_code_interpreter from request: {enable_code_interpreter}")
+        logger.info(f"[CODE_INTERP DEBUG] agent type: {type(agent).__name__}, is OpenAIAgent: {is_openai_agent}")
+        logger.info(f"[CODE_INTERP DEBUG] agent.enable_code_interpreter: {agent_has_code_interpreter}")
+
+        use_code_interpreter = (
+            enable_code_interpreter and
+            is_openai_agent and
+            agent_has_code_interpreter
+        )
+
+        logger.info(f"[CODE_INTERP DEBUG] use_code_interpreter result: {use_code_interpreter}")
+
+        if use_code_interpreter:
+            # Route to code interpreter path (bypasses standard tools)
+            logger.info(f"Using OpenAI code interpreter for agent {agent.agent_id}")
+            response = await self._query_with_code_interpreter(
+                agent=agent,
+                message=message,
+                conversation_id=conversation_id,
+                uploaded_files=uploaded_files,
+                parameters=parameters
+            )
+            response["tools_used"] = [{"tool": "code_interpreter", "success": True, "data": {}, "timestamp": datetime.utcnow().isoformat()}]
+            response["web_search_enabled"] = False
+            response["km_search_enabled"] = False
+            return response
+
+        # Step 1: Execute tools if needed (standard path)
         tool_results = await self._execute_tools(
             agent=agent,
             message=message,
@@ -176,9 +210,197 @@ class AgentManager:
         response["tools_used"] = [tr.to_dict() for tr in tool_results]
         response["web_search_enabled"] = enable_web_search
         response["km_search_enabled"] = enable_km_search
+        # Add empty generated_files and code_executions for non-code-interpreter responses
+        response.setdefault("generated_files", [])
+        response.setdefault("code_executions", [])
 
         return response
-    
+
+    async def process_query_stream(
+        self,
+        agent: BaseAgent,
+        message: str,
+        conversation_id: Optional[str] = None,
+        enable_web_search: bool = False,
+        enable_km_search: bool = False,
+        enable_code_interpreter: bool = False,
+        km_connection_ids: Optional[List[str]] = None,
+        uploaded_files: Optional[List[Dict]] = None,
+        conversation_history: Optional[List[Dict]] = None,
+        parameters: Optional[Dict[str, Any]] = None
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Process query with streaming response
+
+        Args:
+            agent: The agent to use for generating response
+            message: User's message
+            conversation_id: Unique conversation identifier (will be generated if None)
+            enable_web_search: Whether to use web search
+            enable_km_search: Whether to use knowledge management search
+            enable_code_interpreter: Whether to use OpenAI code interpreter
+            km_connection_ids: Specific KM connection IDs to use (None = all active)
+            uploaded_files: List of uploaded file metadata
+            conversation_history: Previous conversation messages
+            parameters: Additional parameters for agent
+
+        Yields:
+            Dict with type and data:
+                - {"type": "tool", "data": {...}} for tool results
+                - {"type": "token", "data": "text"} for streaming tokens
+                - {"type": "done", "data": {...}} for completion
+                - {"type": "error", "data": "message"} for errors
+                - {"type": "file", "data": {...}} for generated files (code interpreter)
+                - {"type": "code_execution", "data": {...}} for code execution results
+        """
+        logger.info(f"[STREAM] process_query_stream called for agent {agent.agent_id}")
+
+        # Generate conversation ID if not provided
+        if not conversation_id:
+            conversation_id = f"conv_{uuid.uuid4().hex[:12]}"
+            logger.info(f"[STREAM] Generated new conversation ID: {conversation_id}")
+
+        # Check if code interpreter should be used
+        is_openai_agent = isinstance(agent, OpenAIAgent)
+        agent_has_code_interpreter = getattr(agent, 'enable_code_interpreter', False) if is_openai_agent else False
+
+        logger.info(f"[STREAM CODE_INTERP] enable_code_interpreter from request: {enable_code_interpreter}")
+        logger.info(f"[STREAM CODE_INTERP] agent type: {type(agent).__name__}, is OpenAIAgent: {is_openai_agent}")
+        logger.info(f"[STREAM CODE_INTERP] agent.enable_code_interpreter: {agent_has_code_interpreter}")
+
+        use_code_interpreter = (
+            enable_code_interpreter and
+            is_openai_agent and
+            agent_has_code_interpreter
+        )
+
+        logger.info(f"[STREAM CODE_INTERP] use_code_interpreter result: {use_code_interpreter}")
+
+        if use_code_interpreter:
+            # Code interpreter doesn't support true streaming, but we can yield results progressively
+            logger.info(f"[STREAM] Using code interpreter (non-streaming fallback)")
+            try:
+                result = await self._query_with_code_interpreter(
+                    agent=agent,
+                    message=message,
+                    conversation_id=conversation_id,
+                    uploaded_files=uploaded_files,
+                    parameters=parameters
+                )
+
+                # Yield code executions first
+                for code_exec in result.get("code_executions", []):
+                    yield {"type": "code_execution", "data": code_exec}
+
+                # Yield generated files
+                for gen_file in result.get("generated_files", []):
+                    yield {"type": "file", "data": gen_file}
+
+                # Yield the text response
+                yield {"type": "token", "data": result["response"]}
+
+                # Yield completion
+                yield {
+                    "type": "done",
+                    "data": {
+                        "conversation_id": result["conversation_id"],
+                        "response": result["response"],
+                        "metadata": result.get("metadata", {}),
+                        "generated_files": result.get("generated_files", []),
+                        "code_executions": result.get("code_executions", [])
+                    }
+                }
+            except Exception as e:
+                logger.error(f"[STREAM] Code interpreter error: {e}", exc_info=True)
+                yield {"type": "error", "data": str(e)}
+            return
+
+        # Step 1: Execute tools first (non-streaming)
+        tool_results = await self._execute_tools(
+            agent=agent,
+            message=message,
+            conversation_id=conversation_id,
+            enable_web_search=enable_web_search,
+            enable_km_search=enable_km_search,
+            km_connection_ids=km_connection_ids,
+            uploaded_files=uploaded_files
+        )
+
+        # Yield tool results
+        for result in tool_results:
+            yield {"type": "tool", "data": result.to_dict()}
+
+        # Step 2: Check if this is a workflow agent (doesn't support streaming)
+        is_workflow = isinstance(agent, WorkflowAgent)
+
+        if is_workflow:
+            # Workflow agents don't support streaming - fall back to regular query
+            logger.info(f"[STREAM] Workflow agent detected, falling back to non-streaming")
+            response = await self._query_workflow_agent(
+                agent=agent,
+                message=message,
+                tool_results=tool_results,
+                parameters=parameters
+            )
+            yield {"type": "token", "data": response["response"]}
+            yield {
+                "type": "done",
+                "data": {
+                    "conversation_id": conversation_id,
+                    "response": response["response"],
+                    "metadata": response.get("metadata", {})
+                }
+            }
+            return
+
+        # Step 3: Build enhanced prompt with tool results
+        prompt_data = self._build_enhanced_prompt(
+            message=message,
+            tool_results=tool_results,
+            conversation_history=conversation_history
+        )
+
+        # Prepare parameters with system instructions
+        agent_params = parameters.copy() if parameters else {}
+        if prompt_data["has_tool_context"]:
+            agent_params["system_message"] = prompt_data["system_instructions"]
+
+        # Step 4: Stream from agent
+        if hasattr(agent, 'query_stream'):
+            logger.info(f"[STREAM] Using streaming query for agent {agent.agent_id}")
+            try:
+                async for chunk in agent.query_stream(
+                    message=prompt_data["enhanced_message"],
+                    conversation_id=conversation_id,
+                    system_message=agent_params.get("system_message"),
+                    parameters=agent_params
+                ):
+                    yield chunk
+            except Exception as e:
+                logger.error(f"[STREAM] Error during streaming: {e}", exc_info=True)
+                yield {"type": "error", "data": str(e)}
+        else:
+            # Fallback for agents without streaming support
+            logger.info(f"[STREAM] Agent {agent.agent_id} doesn't support streaming, using fallback")
+            try:
+                result = await agent.query(
+                    message=prompt_data["enhanced_message"],
+                    conversation_id=conversation_id,
+                    parameters=agent_params
+                )
+                yield {"type": "token", "data": result["response"]}
+                yield {
+                    "type": "done",
+                    "data": {
+                        "conversation_id": result["conversation_id"],
+                        "response": result["response"],
+                        "metadata": result.get("metadata", {})
+                    }
+                }
+            except Exception as e:
+                logger.error(f"[STREAM] Error in fallback query: {e}", exc_info=True)
+                yield {"type": "error", "data": str(e)}
+
     async def _execute_tools(
         self,
         agent: BaseAgent,
@@ -496,6 +718,54 @@ class AgentManager:
         except Exception as e:
             logger.error(f"Error querying OpenAI with files: {e}", exc_info=True)
             raise
+
+    async def _query_with_code_interpreter(
+        self,
+        agent: "OpenAIAgent",
+        message: str,
+        conversation_id: str,
+        uploaded_files: Optional[List[Any]] = None,
+        parameters: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Query OpenAI agent with code interpreter enabled.
+
+        Uses OpenAI's Assistants API code_interpreter tool for Python execution,
+        data analysis, chart generation, etc.
+
+        Args:
+            agent: OpenAI agent instance with code_interpreter enabled
+            message: User message
+            conversation_id: Conversation ID
+            uploaded_files: Optional list of file metadata to upload for analysis
+            parameters: Additional parameters
+
+        Returns:
+            Dict with response, generated_files, code_executions, and metadata
+        """
+        try:
+            logger.info(f"Querying OpenAI code interpreter for conversation {conversation_id}")
+
+            # Call the OpenAI agent's code interpreter method
+            result = await agent.query_with_code_interpreter(
+                message=message,
+                conversation_id=conversation_id,
+                uploaded_files=uploaded_files,
+                system_message=parameters.get("system_message") if parameters else None,
+                parameters=parameters
+            )
+
+            return {
+                "response": result["response"],
+                "conversation_id": result["conversation_id"],
+                "metadata": result.get("metadata", {}),
+                "generated_files": result.get("generated_files", []),
+                "code_executions": result.get("code_executions", [])
+            }
+
+        except Exception as e:
+            logger.error(f"Error querying code interpreter: {e}", exc_info=True)
+            raise RuntimeError(f"Code interpreter query failed: {str(e)}")
 
     def _build_enhanced_prompt(
         self,

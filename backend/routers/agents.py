@@ -6,8 +6,10 @@ Supports both:
 - Session-scoped custom endpoints (stored in session memory)
 """
 from fastapi import APIRouter, Request, HTTPException, Query
+from fastapi.responses import StreamingResponse
 from typing import List, Optional, Dict, Any
 import logging
+import json
 
 from backend.models.requests import ChatRequest, WorkflowExecuteRequest
 from backend.models.responses import (
@@ -213,6 +215,7 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
     logger.debug(f"[Chat]   - enable_km_search: {chat_request.enable_km_search}")
     logger.debug(f"[Chat]   - km_connection_ids: {chat_request.km_connection_ids}")
     logger.debug(f"[Chat]   - enable_web_search: {chat_request.enable_web_search}")
+    logger.debug(f"[Chat]   - enable_code_interpreter: {chat_request.enable_code_interpreter}")
 
     agent = None
     is_custom_endpoint = False
@@ -289,6 +292,7 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
             conversation_id=chat_request.conversation_id,
             enable_web_search=chat_request.enable_web_search,
             enable_km_search=chat_request.enable_km_search,
+            enable_code_interpreter=chat_request.enable_code_interpreter,
             km_connection_ids=chat_request.km_connection_ids,
             uploaded_files=file_metadata_list,
             conversation_history=conversation_history,
@@ -302,7 +306,9 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
             metadata=result.get("metadata", {}),
             tools_used=result.get("tools_used", []),
             web_search_enabled=result.get("web_search_enabled", False),
-            km_search_enabled=result.get("km_search_enabled", False)
+            km_search_enabled=result.get("km_search_enabled", False),
+            generated_files=result.get("generated_files", []),
+            code_executions=result.get("code_executions", [])
         )
 
         # Cleanup temporary custom endpoint agent
@@ -324,6 +330,121 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
             status_code=500,
             detail=f"Error processing chat: {str(e)}"
         )
+
+
+@router.post("/{agent_id}/chat/stream")
+async def chat_stream(agent_id: str, chat_request: ChatRequest, request: Request):
+    """
+    Stream chat response using Server-Sent Events
+
+    Returns a stream of events:
+    - {"type": "tool", "data": {...}} for tool results
+    - {"type": "token", "data": "text"} for streaming tokens
+    - {"type": "done", "data": {...}} for completion
+    - {"type": "error", "data": "message"} for errors
+
+    Supports both global agents and session custom endpoints.
+    """
+    logger.info(f"[Stream] /chat/stream endpoint received request for agent: {agent_id}")
+
+    agent = None
+    is_custom_endpoint = False
+
+    # First check if this is a session custom endpoint
+    if hasattr(request.state, 'session'):
+        session = request.state.session
+        session_manager = request.app.state.session_manager
+        custom_endpoint = session_manager.get_custom_endpoint(session.session_id, agent_id)
+
+        if custom_endpoint:
+            agent = _create_temp_endpoint_agent(custom_endpoint)
+            await agent.initialize()
+            is_custom_endpoint = True
+            logger.info(f"[Stream] Using session custom endpoint: {custom_endpoint.name}")
+
+    # If not a custom endpoint, check global registry
+    if not agent:
+        registry = request.app.state.agent_registry
+        agent = registry.get_agent(agent_id)
+
+    if not agent:
+        raise HTTPException(status_code=404, detail=f"Agent {agent_id} not found")
+
+    # Get agent manager
+    agent_manager = get_agent_manager()
+
+    # Set up KM connector with session-aware storage
+    if hasattr(request.state, 'session') and hasattr(request.app.state, 'session_manager'):
+        session = request.state.session
+        session_adapter = SessionKMConnectionAdapter(
+            request.app.state.session_manager,
+            session.session_id
+        )
+        agent_manager.set_km_connector(
+            session_adapter,
+            request.app.state.settings.KM_SERVER_URL
+        )
+    elif hasattr(request.app.state, 'km_connection_storage') and not agent_manager.km_connector_tool:
+        agent_manager.set_km_connector(
+            request.app.state.km_connection_storage,
+            request.app.state.settings.KM_SERVER_URL
+        )
+
+    # Get conversation history
+    conversation_history = None
+    if hasattr(agent, 'conversations') and chat_request.conversation_id:
+        conversation_history = agent.conversations.get(
+            chat_request.conversation_id, []
+        )
+
+    # Load file metadata from storage if files are uploaded
+    file_metadata_list = None
+    if chat_request.uploaded_files and chat_request.conversation_id:
+        file_storage = request.app.state.file_storage
+        file_metadata_list = []
+        for uploaded_file in chat_request.uploaded_files:
+            file_meta = file_storage.get_file(
+                conversation_id=chat_request.conversation_id,
+                file_id=uploaded_file.file_id
+            )
+            if file_meta:
+                file_metadata_list.append(file_meta)
+
+    async def event_generator():
+        try:
+            async for chunk in agent_manager.process_query_stream(
+                agent=agent,
+                message=chat_request.message,
+                conversation_id=chat_request.conversation_id,
+                enable_web_search=chat_request.enable_web_search,
+                enable_km_search=chat_request.enable_km_search,
+                enable_code_interpreter=chat_request.enable_code_interpreter,
+                km_connection_ids=chat_request.km_connection_ids,
+                uploaded_files=file_metadata_list,
+                conversation_history=conversation_history,
+                parameters=chat_request.parameters
+            ):
+                yield f"data: {json.dumps(chunk)}\n\n"
+        except Exception as e:
+            logger.error(f"[Stream] Streaming error: {e}", exc_info=True)
+            yield f"data: {json.dumps({'type': 'error', 'data': str(e)})}\n\n"
+        finally:
+            # Cleanup temporary custom endpoint agent
+            if is_custom_endpoint and agent:
+                try:
+                    await agent.cleanup()
+                except Exception:
+                    pass
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"
+        }
+    )
 
 
 @router.post("/{agent_id}/workflow", response_model=WorkflowExecuteResponse)
@@ -585,3 +706,55 @@ async def get_workflow_progress(task_id: str, request: Request):
         "started_at": progress.get("started_at"),
         "updated_at": progress.get("updated_at")
     }
+
+
+@router.get("/generated/{conversation_id}/files/{file_id}/download")
+async def download_generated_file(conversation_id: str, file_id: str):
+    """
+    Download a file generated by code interpreter.
+
+    Generated files are stored in backend/temp/generated/{conversation_id}/
+    """
+    import os
+    from fastapi.responses import FileResponse
+
+    # Build path to generated files directory
+    generated_dir = os.path.join("backend/temp/generated", conversation_id)
+
+    if not os.path.exists(generated_dir):
+        raise HTTPException(status_code=404, detail="Conversation generated files not found")
+
+    # Find file matching the file_id pattern
+    matching_file = None
+    for filename in os.listdir(generated_dir):
+        if file_id in filename:
+            matching_file = filename
+            break
+
+    if not matching_file:
+        raise HTTPException(status_code=404, detail=f"Generated file {file_id} not found")
+
+    file_path = os.path.join(generated_dir, matching_file)
+
+    # Determine mime type
+    ext = os.path.splitext(matching_file)[1].lower()
+    mime_types = {
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.webp': 'image/webp',
+        '.pdf': 'application/pdf',
+        '.csv': 'text/csv',
+        '.json': 'application/json',
+        '.txt': 'text/plain',
+        '.py': 'text/x-python',
+        '.html': 'text/html',
+    }
+    media_type = mime_types.get(ext, 'application/octet-stream')
+
+    return FileResponse(
+        path=file_path,
+        filename=matching_file,
+        media_type=media_type
+    )
