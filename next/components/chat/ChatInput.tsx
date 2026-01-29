@@ -136,7 +136,7 @@ export function ChatInput({
   const canSend = input.trim().length > 0 && selectedAgent && !disabled;
 
   return (
-    <div className="px-4 md:px-8 py-4 bg-gradient-to-t from-white dark:from-gray-950 via-white/90 dark:via-gray-950/90 to-transparent">
+    <div className="px-3 md:px-8 py-3 md:py-4 bg-gradient-to-t from-white dark:from-gray-950 via-white/90 dark:via-gray-950/90 to-transparent">
       <div className="max-w-3xl mx-auto">
         {/* Uploaded files */}
         {uploadedFiles.length > 0 && (
@@ -319,7 +319,7 @@ export function ChatInput({
           </div>
 
           {/* Textarea and send button */}
-          <div className="flex items-end gap-3 p-3">
+          <div className="flex items-end gap-2 md:gap-3 p-2 md:p-3">
             <textarea
               ref={textareaRef}
               value={input}
@@ -334,30 +334,30 @@ export function ChatInput({
               }
               disabled={disabled || !selectedAgent}
               rows={1}
-              className="flex-1 bg-transparent border-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none resize-none py-2 text-[15px] leading-relaxed"
+              className="flex-1 bg-transparent border-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none resize-none py-2 text-sm md:text-[15px] leading-relaxed"
             />
 
             <button
               onClick={handleSubmit}
               disabled={!canSend}
               className={cn(
-                'p-3 rounded-xl transition-all duration-200 flex-shrink-0',
+                'p-2.5 md:p-3 rounded-xl transition-all duration-200 flex-shrink-0',
                 canSend
                   ? 'bg-gray-900 dark:bg-gray-700 text-white hover:bg-gray-800 dark:hover:bg-gray-600 active:scale-95'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
               )}
             >
               {disabled ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
               ) : (
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4 md:w-5 md:h-5" />
               )}
             </button>
           </div>
         </div>
 
-        {/* Keyboard hints */}
-        <div className="flex items-center justify-center gap-4 mt-3 text-xs text-gray-400 dark:text-gray-600">
+        {/* Keyboard hints - hidden on mobile */}
+        <div className="hidden sm:flex items-center justify-center gap-4 mt-3 text-xs text-gray-400 dark:text-gray-600">
           <span className="flex items-center gap-1.5">
             <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded text-gray-500 font-mono text-[10px]">
               ↵

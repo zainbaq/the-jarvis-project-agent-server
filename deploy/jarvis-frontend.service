@@ -1,0 +1,18 @@
+[Unit]
+Description=Jarvis Frontend Next.js Server
+After=network.target jarvis-backend.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/the-jarvis-project-agent-server/next
+Environment="PORT=8000"
+Environment="NODE_ENV=production"
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

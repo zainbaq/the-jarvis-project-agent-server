@@ -440,9 +440,13 @@ async def chat_stream(agent_id: str, chat_request: ChatRequest, request: Request
         event_generator(),
         media_type="text/event-stream",
         headers={
-            "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
             "Connection": "keep-alive",
-            "X-Accel-Buffering": "no"
+            "X-Accel-Buffering": "no",
+            "Content-Type": "text/event-stream",
+            "Transfer-Encoding": "chunked",
         }
     )
 
@@ -716,28 +720,31 @@ async def download_generated_file(conversation_id: str, file_id: str):
     Generated files are stored in backend/temp/generated/{conversation_id}/
     """
     import os
+    from pathlib import Path
     from fastapi.responses import FileResponse
 
-    # Build path to generated files directory
-    generated_dir = os.path.join("backend/temp/generated", conversation_id)
+    # Build absolute path to generated files directory
+    # Get the backend directory (parent of routers)
+    backend_dir = Path(__file__).parent.parent
+    generated_dir = backend_dir / "temp" / "generated" / conversation_id
 
-    if not os.path.exists(generated_dir):
+    if not generated_dir.exists():
         raise HTTPException(status_code=404, detail="Conversation generated files not found")
 
     # Find file matching the file_id pattern
     matching_file = None
-    for filename in os.listdir(generated_dir):
-        if file_id in filename:
-            matching_file = filename
+    for f in generated_dir.iterdir():
+        if file_id in f.name:
+            matching_file = f.name
             break
 
     if not matching_file:
         raise HTTPException(status_code=404, detail=f"Generated file {file_id} not found")
 
-    file_path = os.path.join(generated_dir, matching_file)
+    file_path = generated_dir / matching_file
 
     # Determine mime type
-    ext = os.path.splitext(matching_file)[1].lower()
+    ext = file_path.suffix.lower()
     mime_types = {
         '.png': 'image/png',
         '.jpg': 'image/jpeg',
@@ -750,11 +757,13 @@ async def download_generated_file(conversation_id: str, file_id: str):
         '.txt': 'text/plain',
         '.py': 'text/x-python',
         '.html': 'text/html',
+        '.bin': 'application/octet-stream',
+        '.zip': 'application/zip',
     }
     media_type = mime_types.get(ext, 'application/octet-stream')
 
     return FileResponse(
-        path=file_path,
+        path=str(file_path),
         filename=matching_file,
         media_type=media_type
     )

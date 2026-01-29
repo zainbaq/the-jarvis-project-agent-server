@@ -560,13 +560,19 @@ class OpenAIAgent(BaseAgent):
                 }
             }
 
-            response = await self.client.responses.create(
-                model=self.model,
-                instructions=instructions,
-                input=input_messages,
-                tools=[code_interpreter_tool],
-                temperature=self.temperature
-            )
+            logger.info(f"[CODE_INTERP] Calling Responses API with model: {self.model}")
+            try:
+                response = await self.client.responses.create(
+                    model=self.model,
+                    instructions=instructions,
+                    input=input_messages,
+                    tools=[code_interpreter_tool],
+                    temperature=self.temperature
+                )
+                logger.info(f"[CODE_INTERP] Responses API call successful")
+            except Exception as api_error:
+                logger.error(f"[CODE_INTERP] Responses API call failed for model {self.model}: {api_error}")
+                raise
 
             # Process the response outputs
             generated_files: List[GeneratedFile] = []
@@ -752,6 +758,225 @@ class OpenAIAgent(BaseAgent):
             logger.error(f"❌ Code interpreter error: {e}")
             raise RuntimeError(f"Code interpreter query failed: {str(e)}")
 
+    async def query_with_code_interpreter_stream(
+        self,
+        message: str,
+        conversation_id: str,
+        uploaded_files: Optional[List[Any]] = None,
+        system_message: Optional[str] = None,
+        parameters: Optional[Dict[str, Any]] = None
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Stream response from code interpreter using OpenAI Responses API streaming.
+
+        This enables real-time streaming of code execution results, generated files,
+        and text responses as they are produced.
+
+        Args:
+            message: User message
+            conversation_id: Conversation ID for tracking
+            uploaded_files: Optional list of file metadata to upload for analysis
+            system_message: Optional system message override
+            parameters: Additional parameters
+
+        Yields:
+            - {"type": "code_execution", "data": CodeExecutionResult}
+            - {"type": "file", "data": GeneratedFile}
+            - {"type": "token", "data": "text chunk"}
+            - {"type": "done", "data": {...}}
+        """
+        if not self._initialized or not self.client:
+            raise RuntimeError(f"Agent {self.agent_id} not initialized")
+
+        if not self.enable_code_interpreter:
+            raise RuntimeError(f"Code interpreter not enabled for agent {self.agent_id}")
+
+        try:
+            # Build conversation history for context
+            history = self.conversations.get(conversation_id, [])
+
+            # Build input messages
+            input_messages = []
+            for msg in history[-(self.max_history_messages * 2):]:
+                input_messages.append(msg)
+
+            # Build user message content
+            user_content = message
+
+            # If files are uploaded, read and include their content in the message
+            if uploaded_files:
+                file_descriptions = []
+                for file_meta in uploaded_files:
+                    try:
+                        with open(file_meta.filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                            content = f.read()
+                        file_descriptions.append(f"\n\n--- File: {file_meta.filename} ---\n{content[:10000]}")
+                    except Exception as e:
+                        logger.warning(f"Could not read file {file_meta.filename}: {e}")
+
+                if file_descriptions:
+                    user_content = message + "\n\nAttached files:" + "".join(file_descriptions)
+
+            input_messages.append({"role": "user", "content": user_content})
+            instructions = system_message or self.system_message
+
+            code_interpreter_tool = {
+                "type": "code_interpreter",
+                "container": {
+                    "type": "auto",
+                    "file_ids": []
+                }
+            }
+
+            logger.info(f"[CODE_INTERP_STREAM] Creating streaming Responses API call with model: {self.model}")
+
+            # Create STREAMING response
+            stream = await self.client.responses.create(
+                model=self.model,
+                instructions=instructions,
+                input=input_messages,
+                tools=[code_interpreter_tool],
+                temperature=self.temperature,
+                stream=True  # KEY: Enable streaming
+            )
+
+            generated_files: List[GeneratedFile] = []
+            code_executions: List[CodeExecutionResult] = []
+            full_response = ""
+            container_id = None
+            current_code_input = ""
+
+            async for event in stream:
+                event_type = getattr(event, 'type', None)
+                logger.debug(f"[CODE_INTERP_STREAM] Event type: {event_type}")
+
+                # Extract container_id when available
+                if event_type == "response.output_item.added":
+                    item = getattr(event, 'item', None)
+                    if item and getattr(item, 'type', None) == "code_interpreter_call":
+                        container_id = getattr(item, 'container_id', None)
+                        logger.info(f"[CODE_INTERP_STREAM] Container ID: {container_id}")
+
+                # Handle text deltas (incremental text from message outputs)
+                elif event_type == "response.output_text.delta":
+                    delta = getattr(event, 'delta', '')
+                    if delta:
+                        full_response += delta
+                        yield {"type": "token", "data": delta}
+
+                # Handle content part deltas (for output_text content)
+                elif event_type == "response.content_part.delta":
+                    delta_obj = getattr(event, 'delta', None)
+                    if delta_obj:
+                        text = getattr(delta_obj, 'text', '')
+                        if text:
+                            full_response += text
+                            yield {"type": "token", "data": text}
+
+                # Handle completed output items
+                elif event_type == "response.output_item.done":
+                    item = getattr(event, 'item', None)
+                    if item:
+                        item_type = getattr(item, 'type', None)
+                        logger.info(f"[CODE_INTERP_STREAM] Output item done: {item_type}")
+
+                        if item_type == "code_interpreter_call":
+                            # Process code execution
+                            code_input = getattr(item, 'code', '')
+                            outputs = getattr(item, 'outputs', []) or []
+                            exec_output = ""
+                            exec_files: List[GeneratedFile] = []
+
+                            for output in outputs:
+                                output_type = getattr(output, 'type', None)
+                                logger.info(f"[CODE_INTERP_STREAM] Processing output type: {output_type}")
+
+                                if output_type == "logs":
+                                    exec_output += getattr(output, 'logs', '') + "\n"
+                                elif output_type == "image":
+                                    # Download image from URL
+                                    image_url = getattr(output, 'url', None)
+                                    if image_url:
+                                        logger.info(f"[CODE_INTERP_STREAM] Downloading image from URL")
+                                        file_data = await self._download_image_from_url(
+                                            image_url=image_url,
+                                            conversation_id=conversation_id
+                                        )
+                                        if file_data:
+                                            generated_files.append(file_data)
+                                            exec_files.append(file_data)
+                                            yield {"type": "file", "data": file_data.model_dump()}
+
+                            code_exec = CodeExecutionResult(
+                                success=True,
+                                code=code_input,
+                                output=exec_output.strip() if exec_output else None,
+                                error=None,
+                                generated_files=exec_files
+                            )
+                            code_executions.append(code_exec)
+                            yield {"type": "code_execution", "data": code_exec.model_dump()}
+
+                        elif item_type == "message":
+                            # Process message content for any remaining text/annotations
+                            # Skip annotation-based file downloads if we already have images
+                            # from code execution outputs (they reference the same files)
+                            if generated_files:
+                                logger.info(f"[CODE_INTERP_STREAM] Skipping message annotations - already have {len(generated_files)} files from code execution")
+                                continue
+
+                            content_list = getattr(item, 'content', []) or []
+                            for content in content_list:
+                                content_type = getattr(content, 'type', None)
+                                if content_type == "output_text":
+                                    text = getattr(content, 'text', '')
+                                    # Check for file annotations (only if no files from code execution)
+                                    annotations = getattr(content, 'annotations', []) or []
+                                    for annotation in annotations:
+                                        ann_type = getattr(annotation, 'type', None)
+                                        if ann_type == "container_file_citation":
+                                            ann_file_id = getattr(annotation, 'file_id', None)
+                                            ann_container_id = getattr(annotation, 'container_id', None) or container_id
+                                            if ann_file_id and ann_container_id:
+                                                file_data = await self._download_and_store_file(
+                                                    openai_file_id=ann_file_id,
+                                                    conversation_id=conversation_id,
+                                                    content_type="image",
+                                                    container_id=ann_container_id
+                                                )
+                                                if file_data:
+                                                    generated_files.append(file_data)
+                                                    yield {"type": "file", "data": file_data.model_dump()}
+
+                # Handle response completion
+                elif event_type == "response.completed":
+                    logger.info(f"[CODE_INTERP_STREAM] Response completed")
+                    break
+
+            # Update conversation history
+            if conversation_id not in self.conversations:
+                self.conversations[conversation_id] = []
+            self.conversations[conversation_id].append({"role": "user", "content": message})
+            self.conversations[conversation_id].append({"role": "assistant", "content": full_response})
+
+            # Yield completion
+            yield {
+                "type": "done",
+                "data": {
+                    "conversation_id": conversation_id,
+                    "response": full_response.strip(),
+                    "metadata": {"model": self.model},
+                    "generated_files": [gf.model_dump() for gf in generated_files],
+                    "code_executions": [ce.model_dump() for ce in code_executions]
+                }
+            }
+
+            logger.info(f"✅ Code interpreter streaming completed (files: {len(generated_files)}, executions: {len(code_executions)})")
+
+        except Exception as e:
+            logger.error(f"❌ Code interpreter streaming error: {e}", exc_info=True)
+            yield {"type": "error", "data": str(e)}
+
     async def _get_or_create_assistant(
         self,
         conversation_id: str,
@@ -908,16 +1133,56 @@ class OpenAIAgent(BaseAgent):
                     original_filename = file_info.filename or f"output_{openai_file_id}"
             except Exception as e:
                 logger.warning(f"[FILE_DOWNLOAD] Could not retrieve file info: {e}")
-                # Try to infer from file content (check for PNG magic bytes)
+                # Try to infer from file content using magic bytes
                 if file_bytes[:8] == b'\x89PNG\r\n\x1a\n':
                     original_filename = f"output_{openai_file_id}.png"
                 elif file_bytes[:2] == b'\xff\xd8':
                     original_filename = f"output_{openai_file_id}.jpg"
                 elif file_bytes[:6] in (b'GIF87a', b'GIF89a'):
                     original_filename = f"output_{openai_file_id}.gif"
+                elif file_bytes[:5] == b'%PDF-':
+                    original_filename = f"output_{openai_file_id}.pdf"
+                elif file_bytes[:4] == b'PK\x03\x04':
+                    # ZIP-based format (could be xlsx, docx, etc.)
+                    original_filename = f"output_{openai_file_id}.zip"
+                elif file_bytes[:1] == b'{' or file_bytes[:1] == b'[':
+                    # Likely JSON
+                    original_filename = f"output_{openai_file_id}.json"
+                else:
+                    # Check if it's text content
+                    try:
+                        file_bytes[:1000].decode('utf-8')
+                        # If we can decode as UTF-8, it's likely a text file
+                        original_filename = f"output_{openai_file_id}.txt"
+                    except UnicodeDecodeError:
+                        # Binary file with unknown type
+                        original_filename = f"output_{openai_file_id}.bin"
 
-            # Determine file extension and mime type
-            file_ext = os.path.splitext(original_filename)[1].lstrip('.') or 'png'
+            # Determine file extension from filename
+            file_ext = os.path.splitext(original_filename)[1].lstrip('.')
+
+            # If no extension found, detect from file content using magic bytes
+            if not file_ext or file_ext == 'bin':
+                if file_bytes[:8] == b'\x89PNG\r\n\x1a\n':
+                    file_ext = 'png'
+                elif file_bytes[:3] == b'\xff\xd8\xff':
+                    file_ext = 'jpg'
+                elif file_bytes[:6] in (b'GIF87a', b'GIF89a'):
+                    file_ext = 'gif'
+                elif file_bytes[:5] == b'%PDF-':
+                    file_ext = 'pdf'
+                elif file_bytes[:4] == b'PK\x03\x04':
+                    file_ext = 'zip'
+                elif file_bytes[:1] == b'{' or file_bytes[:1] == b'[':
+                    file_ext = 'json'
+                else:
+                    # Check if it's text content
+                    try:
+                        file_bytes[:1000].decode('utf-8')
+                        file_ext = 'txt'
+                    except UnicodeDecodeError:
+                        file_ext = 'bin'
+
             mime_type = self._get_mime_type(file_ext)
 
             # Generate unique local file ID
@@ -933,12 +1198,15 @@ class OpenAIAgent(BaseAgent):
             with open(file_path, 'wb') as f:
                 f.write(file_bytes)
 
-            # Build download URL
-            download_url = f"/api/generated/{conversation_id}/files/{local_file_id}/download"
+            # Build download URL (must match the router endpoint)
+            download_url = f"/api/agents/generated/{conversation_id}/files/{local_file_id}/download"
+
+            # Determine actual content type from file extension and mime type
+            actual_content_type = self._determine_content_type(file_ext, mime_type)
 
             # For images, include base64 for inline display
             inline_data = None
-            if content_type == "image":
+            if actual_content_type == "image":
                 inline_data = base64.b64encode(file_bytes).decode('utf-8')
 
             generated_file = GeneratedFile(
@@ -947,7 +1215,7 @@ class OpenAIAgent(BaseAgent):
                 file_type=file_ext,
                 file_size=len(file_bytes),
                 mime_type=mime_type,
-                content_type=content_type,
+                content_type=actual_content_type,
                 download_url=download_url,
                 inline_data=inline_data,
                 created_at=datetime.utcnow().isoformat()
@@ -976,8 +1244,36 @@ class OpenAIAgent(BaseAgent):
             'py': 'text/x-python',
             'html': 'text/html',
             'xml': 'application/xml',
+            'bin': 'application/octet-stream',
+            'zip': 'application/zip',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         }
         return mime_types.get(extension.lower(), 'application/octet-stream')
+
+    def _determine_content_type(self, extension: str, mime_type: str) -> str:
+        """
+        Determine high-level content type category from extension and mime type.
+
+        Returns one of: 'image', 'document', 'data', 'code'
+        """
+        image_extensions = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp', 'ico'}
+        document_extensions = {'pdf', 'doc', 'docx', 'txt', 'rtf', 'md', 'html', 'htm'}
+        data_extensions = {'csv', 'json', 'xml', 'xlsx', 'xls', 'yaml', 'yml'}
+        code_extensions = {'py', 'js', 'ts', 'java', 'cpp', 'c', 'h', 'go', 'rs', 'rb', 'php', 'swift', 'kt', 'sql', 'sh', 'bash'}
+
+        ext = extension.lower().lstrip('.')
+
+        if ext in image_extensions or mime_type.startswith('image/'):
+            return 'image'
+        elif ext in document_extensions:
+            return 'document'
+        elif ext in data_extensions:
+            return 'data'
+        elif ext in code_extensions:
+            return 'code'
+        else:
+            return 'document'  # default fallback
 
     async def _download_image_from_url(
         self,

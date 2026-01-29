@@ -8,6 +8,7 @@ The Agent Manager sits between API requests and agents, handling:
 - Unified interface for all agent types
 """
 import logging
+import asyncio
 from typing import Dict, Any, Optional, List, AsyncGenerator
 from datetime import datetime
 import uuid
@@ -255,6 +256,10 @@ class AgentManager:
         """
         logger.info(f"[STREAM] process_query_stream called for agent {agent.agent_id}")
 
+        # Yield initial "thinking" status and flush
+        yield {"type": "status", "data": {"state": "thinking", "message": "Analyzing your request..."}}
+        await asyncio.sleep(0)  # Force flush to client
+
         # Generate conversation ID if not provided
         if not conversation_id:
             conversation_id = f"conv_{uuid.uuid4().hex[:12]}"
@@ -277,45 +282,72 @@ class AgentManager:
         logger.info(f"[STREAM CODE_INTERP] use_code_interpreter result: {use_code_interpreter}")
 
         if use_code_interpreter:
-            # Code interpreter doesn't support true streaming, but we can yield results progressively
-            logger.info(f"[STREAM] Using code interpreter (non-streaming fallback)")
+            # Use streaming code interpreter for real-time output
+            logger.info(f"[STREAM] Using streaming code interpreter")
+
+            # Yield "executing" status before code interpreter runs and flush
+            yield {"type": "status", "data": {"state": "executing", "message": "Running code..."}}
+            await asyncio.sleep(0)  # Force flush to client
+
             try:
-                result = await self._query_with_code_interpreter(
-                    agent=agent,
-                    message=message,
-                    conversation_id=conversation_id,
-                    uploaded_files=uploaded_files,
-                    parameters=parameters
-                )
+                # Check if agent has streaming code interpreter method
+                if hasattr(agent, 'query_with_code_interpreter_stream'):
+                    # Use streaming method - delegate all yields directly
+                    async for chunk in agent.query_with_code_interpreter_stream(
+                        message=message,
+                        conversation_id=conversation_id,
+                        uploaded_files=uploaded_files,
+                        system_message=parameters.get("system_message") if parameters else None,
+                        parameters=parameters
+                    ):
+                        yield chunk
+                else:
+                    # Fallback to non-streaming for agents without streaming support
+                    logger.info(f"[STREAM] Agent doesn't support streaming code interpreter, using fallback")
+                    result = await self._query_with_code_interpreter(
+                        agent=agent,
+                        message=message,
+                        conversation_id=conversation_id,
+                        uploaded_files=uploaded_files,
+                        parameters=parameters
+                    )
 
-                # Yield code executions first
-                for code_exec in result.get("code_executions", []):
-                    yield {"type": "code_execution", "data": code_exec}
+                    # Yield "processing" status while handling results
+                    yield {"type": "status", "data": {"state": "processing", "message": "Processing results..."}}
 
-                # Yield generated files
-                for gen_file in result.get("generated_files", []):
-                    yield {"type": "file", "data": gen_file}
+                    # Yield code executions first
+                    for code_exec in result.get("code_executions", []):
+                        yield {"type": "code_execution", "data": code_exec}
 
-                # Yield the text response
-                yield {"type": "token", "data": result["response"]}
+                    # Yield generated files
+                    for gen_file in result.get("generated_files", []):
+                        yield {"type": "file", "data": gen_file}
 
-                # Yield completion
-                yield {
-                    "type": "done",
-                    "data": {
-                        "conversation_id": result["conversation_id"],
-                        "response": result["response"],
-                        "metadata": result.get("metadata", {}),
-                        "generated_files": result.get("generated_files", []),
-                        "code_executions": result.get("code_executions", [])
+                    # Yield the text response
+                    yield {"type": "token", "data": result["response"]}
+
+                    # Yield completion
+                    yield {
+                        "type": "done",
+                        "data": {
+                            "conversation_id": result["conversation_id"],
+                            "response": result["response"],
+                            "metadata": result.get("metadata", {}),
+                            "generated_files": result.get("generated_files", []),
+                            "code_executions": result.get("code_executions", [])
+                        }
                     }
-                }
             except Exception as e:
                 logger.error(f"[STREAM] Code interpreter error: {e}", exc_info=True)
                 yield {"type": "error", "data": str(e)}
             return
 
         # Step 1: Execute tools first (non-streaming)
+        # Update status if we're about to run tools
+        if enable_web_search or enable_km_search or uploaded_files:
+            yield {"type": "status", "data": {"state": "executing", "message": "Searching..."}}
+            await asyncio.sleep(0)  # Force flush to client
+
         tool_results = await self._execute_tools(
             agent=agent,
             message=message,
@@ -366,6 +398,10 @@ class AgentManager:
             agent_params["system_message"] = prompt_data["system_instructions"]
 
         # Step 4: Stream from agent
+        # Update status to "generating" before starting the stream
+        yield {"type": "status", "data": {"state": "generating", "message": "Generating response..."}}
+        await asyncio.sleep(0)  # Force flush to client
+
         if hasattr(agent, 'query_stream'):
             logger.info(f"[STREAM] Using streaming query for agent {agent.agent_id}")
             try:
@@ -744,7 +780,8 @@ class AgentManager:
             Dict with response, generated_files, code_executions, and metadata
         """
         try:
-            logger.info(f"Querying OpenAI code interpreter for conversation {conversation_id}")
+            model_name = getattr(agent, 'model', 'unknown')
+            logger.info(f"Querying OpenAI code interpreter for conversation {conversation_id} (model: {model_name})")
 
             # Call the OpenAI agent's code interpreter method
             result = await agent.query_with_code_interpreter(
@@ -755,6 +792,7 @@ class AgentManager:
                 parameters=parameters
             )
 
+            logger.info(f"Code interpreter query completed successfully for {conversation_id}")
             return {
                 "response": result["response"],
                 "conversation_id": result["conversation_id"],
@@ -764,7 +802,7 @@ class AgentManager:
             }
 
         except Exception as e:
-            logger.error(f"Error querying code interpreter: {e}", exc_info=True)
+            logger.error(f"Error querying code interpreter (model: {getattr(agent, 'model', 'unknown')}): {e}", exc_info=True)
             raise RuntimeError(f"Code interpreter query failed: {str(e)}")
 
     def _build_enhanced_prompt(

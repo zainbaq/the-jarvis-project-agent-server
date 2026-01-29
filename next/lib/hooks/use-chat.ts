@@ -2,9 +2,10 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
+import { flushSync } from 'react-dom';
 import { apiClient } from '@/lib/api/client';
 import { useChatStore } from '@/lib/store/chat-store';
-import type { Message, ChatRequest, ToolUsage, ChatStreamDoneData, GeneratedFile, CodeExecutionResult } from '@/lib/api/types';
+import type { Message, ChatRequest, ToolUsage, ChatStreamDoneData, GeneratedFile, CodeExecutionResult, StatusUpdate } from '@/lib/api/types';
 
 export function useChat() {
   const {
@@ -17,6 +18,7 @@ export function useChat() {
     codeInterpreterEnabled,
     activeKMConnectionIds,
     uploadedFiles,
+    currentStatus,
     addMessage,
     setConversationId,
     setLoading,
@@ -26,6 +28,7 @@ export function useChat() {
     appendToMessage,
     finishStreaming,
     updateMessage,
+    setStatus,
   } = useChatStore();
 
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -55,16 +58,10 @@ export function useChat() {
     };
     addMessage(userMessage);
 
-    // Create placeholder assistant message for streaming
+    // Don't add assistant message yet - wait for first token
+    // This allows ActivityIndicator to show without an empty bubble
     const assistantMessageId = `msg_${Date.now()}_response`;
-    const assistantMessage: Message = {
-      id: assistantMessageId,
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-    };
-    addMessage(assistantMessage);
-    startStreaming(assistantMessageId);
+    let messageAdded = false;
 
     // Build request
     const request: ChatRequest = {
@@ -88,8 +85,35 @@ export function useChat() {
         abortControllerRef.current.signal
       )) {
         switch (chunk.type) {
+          case 'status':
+            // Use flushSync to force immediate render for status updates
+            flushSync(() => {
+              setStatus(chunk.data as StatusUpdate);
+            });
+            break;
           case 'token':
-            appendToMessage(assistantMessageId, chunk.data as string);
+            // Add assistant message on FIRST token (not before)
+            // This allows ActivityIndicator to show cleanly without empty bubble
+            if (!messageAdded) {
+              const assistantMessage: Message = {
+                id: assistantMessageId,
+                role: 'assistant',
+                content: chunk.data as string,
+                timestamp: new Date(),
+              };
+              // Use flushSync to force immediate render for streaming effect
+              flushSync(() => {
+                addMessage(assistantMessage);
+                startStreaming(assistantMessageId);
+                setStatus(null); // Clear status when content starts flowing
+              });
+              messageAdded = true;
+            } else {
+              // Use flushSync to force immediate render for each token
+              flushSync(() => {
+                appendToMessage(assistantMessageId, chunk.data as string);
+              });
+            }
             break;
           case 'tool':
             toolsUsed.push(chunk.data as ToolUsage);
@@ -97,23 +121,70 @@ export function useChat() {
           case 'file':
             // Generated file from code interpreter
             generatedFiles.push(chunk.data as GeneratedFile);
-            // Update message with the new file immediately
-            updateMessage(assistantMessageId, {
-              generatedFiles: [...generatedFiles],
-            });
+            // Add message if not added yet (for file-only responses)
+            if (!messageAdded) {
+              const assistantMessage: Message = {
+                id: assistantMessageId,
+                role: 'assistant',
+                content: '',
+                timestamp: new Date(),
+                generatedFiles: [...generatedFiles],
+              };
+              flushSync(() => {
+                addMessage(assistantMessage);
+                startStreaming(assistantMessageId);
+                setStatus(null);
+              });
+              messageAdded = true;
+            } else {
+              flushSync(() => {
+                updateMessage(assistantMessageId, {
+                  generatedFiles: [...generatedFiles],
+                });
+              });
+            }
             break;
           case 'code_execution':
             // Code execution result
             codeExecutions.push(chunk.data as CodeExecutionResult);
-            // Update message with the new execution immediately
-            updateMessage(assistantMessageId, {
-              codeExecutions: [...codeExecutions],
-            });
+            // Add message if not added yet (for code execution results)
+            if (!messageAdded) {
+              const assistantMessage: Message = {
+                id: assistantMessageId,
+                role: 'assistant',
+                content: '',
+                timestamp: new Date(),
+                codeExecutions: [...codeExecutions],
+              };
+              flushSync(() => {
+                addMessage(assistantMessage);
+                startStreaming(assistantMessageId);
+                setStatus(null);
+              });
+              messageAdded = true;
+            } else {
+              flushSync(() => {
+                updateMessage(assistantMessageId, {
+                  codeExecutions: [...codeExecutions],
+                });
+              });
+            }
             break;
           case 'done':
             const doneData = chunk.data as ChatStreamDoneData;
             if (doneData.conversation_id && doneData.conversation_id !== conversationId) {
               setConversationId(doneData.conversation_id);
+            }
+            // If no tokens were received, still create the message
+            if (!messageAdded) {
+              const assistantMessage: Message = {
+                id: assistantMessageId,
+                role: 'assistant',
+                content: doneData.response || '',
+                timestamp: new Date(),
+              };
+              addMessage(assistantMessage);
+              messageAdded = true;
             }
             finishStreaming(assistantMessageId, {
               metadata: doneData.metadata,
@@ -131,10 +202,16 @@ export function useChat() {
     } catch (error) {
       if ((error as Error).name === 'AbortError') {
         // Request was cancelled, don't treat as error
-        finishStreaming(assistantMessageId);
+        if (messageAdded) {
+          finishStreaming(assistantMessageId);
+        }
+        setStatus(null); // Clear any status
         return;
       }
-      finishStreaming(assistantMessageId);
+      if (messageAdded) {
+        finishStreaming(assistantMessageId);
+      }
+      setStatus(null); // Clear any status on error
       setError(error instanceof Error ? error.message : 'Streaming failed');
     } finally {
       setLoading(false);
@@ -157,6 +234,7 @@ export function useChat() {
     appendToMessage,
     finishStreaming,
     updateMessage,
+    setStatus,
   ]);
 
   // Legacy non-streaming mutation (kept for fallback if needed)
@@ -252,6 +330,7 @@ export function useChat() {
     selectedAgent,
     conversationId,
     isLoading,
+    currentStatus,
     sendMessage: sendMessageStreaming, // Use streaming by default
     sendMessageNonStreaming: sendMessageMutation.mutate, // Fallback if needed
     clearConversation: clearConversation.mutate,

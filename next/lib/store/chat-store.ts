@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import type { Message, Agent, UploadedFile } from '@/lib/api/types';
+import type { Message, Agent, UploadedFile, StatusUpdate } from '@/lib/api/types';
 
 interface ChatState {
   // State
@@ -13,6 +13,9 @@ interface ChatState {
 
   // Streaming state
   streamingMessageId: string | null;
+
+  // Activity status (for progress indicator)
+  currentStatus: StatusUpdate | null;
 
   // Tool toggles
   webSearchEnabled: boolean;
@@ -39,6 +42,9 @@ interface ChatState {
   appendToMessage: (messageId: string, content: string) => void;
   finishStreaming: (messageId: string, updates?: Partial<Message>) => void;
 
+  // Status actions
+  setStatus: (status: StatusUpdate | null) => void;
+
   setWebSearchEnabled: (enabled: boolean) => void;
   setKMSearchEnabled: (enabled: boolean) => void;
   setCodeInterpreterEnabled: (enabled: boolean) => void;
@@ -59,6 +65,7 @@ export const useChatStore = create<ChatState>((set) => ({
   isLoading: false,
   error: null,
   streamingMessageId: null,
+  currentStatus: null,
   webSearchEnabled: false,
   kmSearchEnabled: false,
   codeInterpreterEnabled: false,
@@ -106,12 +113,16 @@ export const useChatStore = create<ChatState>((set) => ({
   finishStreaming: (messageId, updates) =>
     set((state) => ({
       streamingMessageId: null,
+      currentStatus: null, // Clear status when streaming finishes
       messages: state.messages.map((msg) =>
         msg.id === messageId
           ? { ...msg, ...updates }
           : msg
       ),
     })),
+
+  // Status actions
+  setStatus: (status) => set({ currentStatus: status }),
 
   // Tool toggle actions
   setWebSearchEnabled: (enabled) => set({ webSearchEnabled: enabled }),
@@ -142,6 +153,7 @@ export const useChatStore = create<ChatState>((set) => ({
       conversationId: '',
       isLoading: false,
       error: null,
+      currentStatus: null,
       uploadedFiles: [],
     }),
 }));

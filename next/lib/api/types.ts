@@ -120,10 +120,18 @@ export interface ChatResponse {
   code_executions?: CodeExecutionResult[];
 }
 
+// Status Update Types (for activity indicator)
+export type StatusState = 'thinking' | 'executing' | 'processing' | 'generating';
+
+export interface StatusUpdate {
+  state: StatusState;
+  message: string;
+}
+
 // Streaming Types
 export interface ChatStreamChunk {
-  type: 'token' | 'tool' | 'done' | 'error' | 'file' | 'code_execution';
-  data: string | ToolUsage | ChatStreamDoneData | GeneratedFile | CodeExecutionResult;
+  type: 'token' | 'tool' | 'done' | 'error' | 'file' | 'code_execution' | 'status';
+  data: string | ToolUsage | ChatStreamDoneData | GeneratedFile | CodeExecutionResult | StatusUpdate;
 }
 
 export interface ChatStreamDoneData {

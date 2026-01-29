@@ -14,7 +14,8 @@ const nextConfig = {
 
   // Proxy API requests to FastAPI backend
   async rewrites() {
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8000';
+    // Use 127.0.0.1 instead of localhost to avoid DNS resolution issues
+    const backendUrl = process.env.BACKEND_URL || 'http://127.0.0.1:8000';
     return [
       {
         source: '/api/:path*',
@@ -25,9 +26,13 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    // Enable server actions
+    // Enable server actions - allowedOrigins are dynamically set based on environment
     serverActions: {
-      allowedOrigins: ['localhost:8000', 'localhost:3000'],
+      allowedOrigins: [
+        process.env.BACKEND_URL ? new URL(process.env.BACKEND_URL).host : '127.0.0.1:8000',
+        'localhost:3000',
+        '127.0.0.1:3000',
+      ].filter(Boolean),
     },
   },
 };

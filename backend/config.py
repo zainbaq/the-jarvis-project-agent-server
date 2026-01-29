@@ -11,17 +11,14 @@ class Settings(BaseSettings):
     
     # Server Configuration
     HOST: str = "0.0.0.0"
-    PORT: int = 3000
+    PORT: int = 8000  # Default backend port
+    FRONTEND_PORT: int = 3000  # Default frontend port
     DEBUG: bool = True
     ENVIRONMENT: str = "development"
-    
-    # CORS
-    CORS_ORIGINS: List[str] = [
-        "http://localhost:8000",  # Frontend (Vite dev server)
-        "http://localhost:3000",  # Backend (for same-origin requests)
-        "http://localhost:5173",  # Vite default port
-        "http://localhost:4173",  # Vite preview server
-    ]
+
+    # CORS - can be overridden via CORS_ORIGINS env var (comma-separated or JSON array)
+    # Default allows common development ports; set explicitly in production
+    CORS_ORIGINS: List[str] = []  # Will be populated dynamically in __init__
     
     # OpenAI Configuration
     OPENAI_API_KEY: str = ""
@@ -56,15 +53,31 @@ class Settings(BaseSettings):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        import json
+
         # Ensure CORS_ORIGINS is a list
-        if isinstance(self.CORS_ORIGINS, str):
+        if isinstance(self.CORS_ORIGINS, str) and self.CORS_ORIGINS:
             # Parse JSON string if it's a string
-            import json
             try:
                 self.CORS_ORIGINS = json.loads(self.CORS_ORIGINS)
             except json.JSONDecodeError:
                 # Fall back to comma-separated
                 self.CORS_ORIGINS = [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+
+        # If CORS_ORIGINS is empty, dynamically generate based on ports
+        if not self.CORS_ORIGINS:
+            # Allow localhost with various common ports
+            self.CORS_ORIGINS = [
+                f"http://localhost:{self.FRONTEND_PORT}",
+                f"http://127.0.0.1:{self.FRONTEND_PORT}",
+                f"http://localhost:{self.PORT}",
+                f"http://127.0.0.1:{self.PORT}",
+            ]
+            # Add common dev ports as fallback
+            for port in [3000, 3001, 5173, 4173, 8000, 8080]:
+                origin = f"http://localhost:{port}"
+                if origin not in self.CORS_ORIGINS:
+                    self.CORS_ORIGINS.append(origin)
 
 
 # Create global settings instance

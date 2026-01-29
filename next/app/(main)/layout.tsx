@@ -6,7 +6,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-grid-pattern relative">
+    <div className="flex flex-col h-screen overflow-hidden bg-grid-pattern relative max-w-full">
       {/* Animated background orbs */}
       <div className="bg-orbs" />
 

@@ -25,10 +25,13 @@ import type {
 
 class JarvisAPIClient {
   private baseURL: string;
+  private backendURL: string;  // Direct backend URL for streaming (bypasses Next.js proxy)
   private sessionId: string = '';
 
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    // Use backend URL directly for streaming to bypass Next.js proxy buffering
+    this.backendURL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
   }
 
   // Session management
@@ -132,11 +135,13 @@ class JarvisAPIClient {
     request: ChatRequest,
     signal?: AbortSignal
   ): AsyncGenerator<ChatStreamChunk> {
-    const response = await fetch(`${this.baseURL}/api/agents/${agentId}/chat/stream`, {
+    // Use backend URL directly to bypass Next.js proxy buffering for SSE streaming
+    const response = await fetch(`${this.backendURL}/api/agents/${agentId}/chat/stream`, {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify(request),
       signal,
+      credentials: 'include',  // Include cookies for session management
     });
 
     if (!response.ok) {
@@ -253,7 +258,9 @@ class JarvisAPIClient {
       headers,
       body: formData,
     });
-    return this.handleResponse<UploadedFile>(response);
+    // Backend returns {success, message, file: {...}}, extract just the file
+    const result = await this.handleResponse<{ success: boolean; message: string; file: UploadedFile }>(response);
+    return result.file;
   }
 
   async listFiles(conversationId: string): Promise<UploadedFile[]> {

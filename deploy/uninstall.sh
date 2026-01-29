@@ -9,8 +9,16 @@ echo "Stopping backend service..."
 sudo systemctl stop jarvis-backend 2>/dev/null || true
 sudo systemctl disable jarvis-backend 2>/dev/null || true
 sudo rm -f /etc/systemd/system/jarvis-backend.service
-sudo systemctl daemon-reload
 echo "Backend service removed"
+
+# Stop and disable frontend service
+echo "Stopping frontend service..."
+sudo systemctl stop jarvis-frontend 2>/dev/null || true
+sudo systemctl disable jarvis-frontend 2>/dev/null || true
+sudo rm -f /etc/systemd/system/jarvis-frontend.service
+echo "Frontend service removed"
+
+sudo systemctl daemon-reload
 
 # Remove nginx config (handle both Debian and RHEL style)
 echo "Removing nginx configuration..."
