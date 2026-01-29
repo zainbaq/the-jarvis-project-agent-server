@@ -8,6 +8,7 @@ User=ubuntu
 WorkingDirectory=/home/ubuntu/the-jarvis-project-agent-server/next
 Environment="PORT=8000"
 Environment="NODE_ENV=production"
+Environment="BACKEND_URL=http://127.0.0.1:3000"
 ExecStart=/usr/bin/npm start
 Restart=always
 RestartSec=5
