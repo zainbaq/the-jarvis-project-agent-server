@@ -3,6 +3,18 @@
 import { create } from 'zustand';
 import { apiClient } from '@/lib/api/client';
 
+// Generate a random ID that works in both secure and non-secure contexts
+function generateId(): string {
+  // crypto.randomUUID() only works in secure contexts (HTTPS or localhost)
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+  }
+  // Fallback for non-secure contexts (HTTP on public IP)
+  return Array.from({ length: 16 }, () =>
+    Math.floor(Math.random() * 16).toString(16)
+  ).join('');
+}
+
 interface SessionState {
   sessionId: string;
   isInitialized: boolean;
@@ -30,7 +42,7 @@ export const useSessionStore = create<SessionState>((set, get) => ({
       apiClient.setSessionId(existing);
       set({ sessionId: existing, isInitialized: true });
     } else {
-      const newId = `session_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`;
+      const newId = `session_${generateId()}`;
       sessionStorage.setItem('jarvis_session_id', newId);
       apiClient.setSessionId(newId);
       set({ sessionId: newId, isInitialized: true });
@@ -48,7 +60,7 @@ export const useSessionStore = create<SessionState>((set, get) => ({
   clearSession: () => {
     if (typeof window === 'undefined') return;
 
-    const newId = `session_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`;
+    const newId = `session_${generateId()}`;
     sessionStorage.setItem('jarvis_session_id', newId);
     apiClient.setSessionId(newId);
     set({ sessionId: newId });
