@@ -16,6 +16,9 @@ langchain-openai
 langchain-community
 langchain-anthropic
 
+# Authentication
+PyJWT>=2.8.0
+
 # Utilities
 python-dotenv
 aiofiles

@@ -6,13 +6,14 @@ Custom endpoints are stored per-session:
 - Not persisted to disk
 - Lost when session expires or server restarts
 """
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Depends
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
 import uuid
 import logging
 
+from backend.auth import get_current_user, CognitoUser
 from backend.services.session_manager import CustomEndpoint, SessionState
 
 router = APIRouter()
@@ -88,9 +89,12 @@ def _to_public(endpoint: CustomEndpoint) -> CustomEndpointPublic:
 
 
 @router.get("/endpoints", response_model=List[CustomEndpointPublic])
-async def list_custom_endpoints(request: Request):
+async def list_custom_endpoints(
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    List all custom endpoints for the current session
+    List all custom endpoints for the current session (requires authentication)
 
     Returns endpoints that are scoped to this browser session only.
     Other sessions/tabs will not see these endpoints.
@@ -105,10 +109,11 @@ async def list_custom_endpoints(request: Request):
 @router.post("/endpoints", response_model=CustomEndpointPublic, status_code=201)
 async def create_custom_endpoint(
     data: CustomEndpointCreate,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Create a custom endpoint for this session
+    Create a custom endpoint for this session (requires authentication)
 
     The endpoint will be available as an agent option in this session.
     API key is stored in memory only and will not persist across server restarts.
@@ -131,9 +136,13 @@ async def create_custom_endpoint(
 
 
 @router.get("/endpoints/{endpoint_id}", response_model=CustomEndpointPublic)
-async def get_custom_endpoint(endpoint_id: str, request: Request):
+async def get_custom_endpoint(
+    endpoint_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Get details of a specific custom endpoint in this session
+    Get details of a specific custom endpoint in this session (requires authentication)
     """
     session = get_session(request)
     session_manager = request.app.state.session_manager
@@ -149,10 +158,11 @@ async def get_custom_endpoint(endpoint_id: str, request: Request):
 async def update_custom_endpoint(
     endpoint_id: str,
     update_data: CustomEndpointUpdate,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Update a custom endpoint in this session
+    Update a custom endpoint in this session (requires authentication)
     """
     session = get_session(request)
     session_manager = request.app.state.session_manager
@@ -176,9 +186,13 @@ async def update_custom_endpoint(
 
 
 @router.delete("/endpoints/{endpoint_id}")
-async def delete_custom_endpoint(endpoint_id: str, request: Request):
+async def delete_custom_endpoint(
+    endpoint_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Delete a custom endpoint from this session
+    Delete a custom endpoint from this session (requires authentication)
     """
     session = get_session(request)
     session_manager = request.app.state.session_manager
@@ -192,9 +206,13 @@ async def delete_custom_endpoint(endpoint_id: str, request: Request):
 
 
 @router.post("/endpoints/{endpoint_id}/test")
-async def test_custom_endpoint(endpoint_id: str, request: Request):
+async def test_custom_endpoint(
+    endpoint_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Test if a custom endpoint is working
+    Test if a custom endpoint is working (requires authentication)
 
     Sends a simple request to verify the endpoint is accessible.
     """
@@ -246,9 +264,12 @@ async def test_custom_endpoint(endpoint_id: str, request: Request):
 
 
 @router.get("/info")
-async def get_session_info(request: Request):
+async def get_session_info(
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Get information about the current session
+    Get information about the current session (requires authentication)
 
     Returns session ID, conversation ID, and counts of session-scoped resources.
     """

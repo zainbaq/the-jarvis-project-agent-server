@@ -5,12 +5,13 @@ Supports both:
 - Global agents (from config/agents.json)
 - Session-scoped custom endpoints (stored in session memory)
 """
-from fastapi import APIRouter, Request, HTTPException, Query
+from fastapi import APIRouter, Request, HTTPException, Query, Depends
 from fastapi.responses import StreamingResponse
 from typing import List, Optional, Dict, Any
 import logging
 import json
 
+from backend.auth import get_current_user, get_optional_user, CognitoUser
 from backend.models.requests import ChatRequest, WorkflowExecuteRequest
 from backend.models.responses import (
     AgentInfo, ChatResponse, WorkflowExecuteResponse, ErrorResponse
@@ -127,7 +128,8 @@ async def list_agents(
     request: Request,
     agent_type: Optional[str] = Query(None, description="Filter by agent type"),
     capability: Optional[str] = Query(None, description="Filter by capability"),
-    include_custom: bool = Query(True, description="Include session custom endpoints")
+    include_custom: bool = Query(True, description="Include session custom endpoints"),
+    user: Optional[CognitoUser] = Depends(get_optional_user)
 ):
     """
     List all available agents
@@ -172,7 +174,11 @@ async def list_agents(
 
 
 @router.get("/{agent_id}", response_model=AgentInfo)
-async def get_agent(agent_id: str, request: Request):
+async def get_agent(
+    agent_id: str,
+    request: Request,
+    user: Optional[CognitoUser] = Depends(get_optional_user)
+):
     """
     Get information about a specific agent
 
@@ -197,9 +203,14 @@ async def get_agent(agent_id: str, request: Request):
 
 
 @router.post("/{agent_id}/chat", response_model=ChatResponse)
-async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Request):
+async def chat_with_agent(
+    agent_id: str,
+    chat_request: ChatRequest,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Send a chat message to an agent
+    Send a chat message to an agent (requires authentication)
 
     The agent manager will handle:
     - Web search if enabled
@@ -333,9 +344,14 @@ async def chat_with_agent(agent_id: str, chat_request: ChatRequest, request: Req
 
 
 @router.post("/{agent_id}/chat/stream")
-async def chat_stream(agent_id: str, chat_request: ChatRequest, request: Request):
+async def chat_stream(
+    agent_id: str,
+    chat_request: ChatRequest,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Stream chat response using Server-Sent Events
+    Stream chat response using Server-Sent Events (requires authentication)
 
     Returns a stream of events:
     - {"type": "tool", "data": {...}} for tool results
@@ -453,13 +469,14 @@ async def chat_stream(agent_id: str, chat_request: ChatRequest, request: Request
 
 @router.post("/{agent_id}/workflow", response_model=WorkflowExecuteResponse)
 async def execute_workflow(
-    agent_id: str, 
-    workflow_request: WorkflowExecuteRequest, 
-    request: Request
+    agent_id: str,
+    workflow_request: WorkflowExecuteRequest,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Execute a workflow on a workflow-capable agent
-    
+    Execute a workflow on a workflow-capable agent (requires authentication)
+
     This endpoint is specifically for agents that support workflow execution
     (e.g., LangGraph agents)
     """
@@ -528,13 +545,14 @@ async def execute_workflow(
 
 @router.delete("/{agent_id}/conversations/{conversation_id}")
 async def delete_conversation(
-    agent_id: str, 
-    conversation_id: str, 
-    request: Request
+    agent_id: str,
+    conversation_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Delete conversation history for a specific agent
-    
+    Delete conversation history for a specific agent (requires authentication)
+
     This clears the conversation context stored by the agent
     """
     registry = request.app.state.agent_registry
@@ -598,10 +616,14 @@ async def delete_conversation(
 
 
 @router.post("/{agent_id}/test")
-async def test_agent(agent_id: str, request: Request):
+async def test_agent(
+    agent_id: str,
+    request: Request,
+    user: Optional[CognitoUser] = Depends(get_optional_user)
+):
     """
     Test an agent's connection and functionality
-    
+
     This performs a simple test query to verify the agent is working
     """
     registry = request.app.state.agent_registry

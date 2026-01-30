@@ -41,6 +41,11 @@ class Settings(BaseSettings):
     # Optional: Anthropic
     ANTHROPIC_API_KEY: str = ""
 
+    # AWS Cognito Configuration
+    COGNITO_USER_POOL_ID: str = ""  # e.g., "us-east-2_CyRy6JBhm"
+    COGNITO_REGION: str = "us-east-2"
+    COGNITO_CLIENT_ID: str = "76dr18kllrvs9rc0bujjc5o7hh"
+
     # Knowledge Management Server Configuration
     KM_SERVER_URL: str = "http://localhost:11000"
     KM_CONNECTIONS_FILE: str = "backend/data/km_connections.json"

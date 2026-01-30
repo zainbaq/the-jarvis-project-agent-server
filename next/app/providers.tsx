@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import { useState, useEffect } from 'react';
 import { Toaster } from 'sonner';
 import { useSessionStore } from '@/lib/store/session-store';
+import { AuthProvider } from '@/components/auth/AuthProvider';
 
 function SessionInitializer({ children }: { children: React.ReactNode }) {
   const initialize = useSessionStore((state) => state.initialize);
@@ -45,17 +46,19 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <QueryClientProvider client={queryClient}>
-        <SessionInitializer>
-          {children}
-          <Toaster
-            position="bottom-right"
-            toastOptions={{
-              classNames: {
-                toast: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white',
-              },
-            }}
-          />
-        </SessionInitializer>
+        <AuthProvider>
+          <SessionInitializer>
+            {children}
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                classNames: {
+                  toast: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white',
+                },
+              }}
+            />
+          </SessionInitializer>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

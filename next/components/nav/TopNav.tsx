@@ -1,17 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, Settings, Zap, Sun, Moon } from 'lucide-react';
+import { Menu, Settings, Zap, Sun, Moon, LogOut, User } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { ConnectionStatus } from './ConnectionStatus';
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { SideMenu } from './SideMenu';
+import { useAuthStore } from '@/lib/auth';
 
 export function TopNav() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { user, logout, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     setMounted(true);
@@ -19,6 +21,10 @@ export function TopNav() {
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (
@@ -69,6 +75,18 @@ export function TopNav() {
           >
             <Settings className="w-4 h-4 md:w-5 md:h-5" />
           </button>
+
+          {/* User/Logout button */}
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className="p-2 md:p-2.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+              aria-label="Logout"
+              title={user?.username ? `Logged in as ${user.username}` : 'Logout'}
+            >
+              <LogOut className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+          )}
         </div>
       </header>
 

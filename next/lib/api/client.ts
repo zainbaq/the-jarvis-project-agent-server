@@ -27,6 +27,7 @@ class JarvisAPIClient {
   private baseURL: string;
   private backendURL: string;  // Direct backend URL for streaming (bypasses Next.js proxy)
   private sessionId: string = '';
+  private authToken: string | null = null;
 
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -43,12 +44,24 @@ class JarvisAPIClient {
     return this.sessionId;
   }
 
+  // Auth token management
+  setAuthToken(token: string | null) {
+    this.authToken = token;
+  }
+
+  getAuthToken(): string | null {
+    return this.authToken;
+  }
+
   private getHeaders(): HeadersInit {
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
     };
     if (this.sessionId) {
       headers['X-Session-ID'] = this.sessionId;
+    }
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
     }
     return headers;
   }
@@ -251,6 +264,9 @@ class JarvisAPIClient {
     const headers: HeadersInit = {};
     if (this.sessionId) {
       headers['X-Session-ID'] = this.sessionId;
+    }
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
     }
 
     const response = await fetch(`${this.baseURL}/api/files/${conversationId}/upload`, {

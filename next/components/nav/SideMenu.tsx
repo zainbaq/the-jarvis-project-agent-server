@@ -2,12 +2,13 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { MessageSquare, Workflow, X, Zap } from 'lucide-react';
+import { MessageSquare, Workflow, X, Zap, User } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 const navigation = [
   { name: 'Chat', href: '/chat', icon: MessageSquare },
   { name: 'Workflows', href: '/workflows', icon: Workflow },
+  { name: 'Account', href: '/account', icon: User },
 ];
 
 interface SideMenuProps {

@@ -73,6 +73,18 @@ async def lifespan(app: FastAPI):
     app.state.session_manager = session_manager
     logger.info("Session manager initialized (24h TTL, in-memory storage)")
 
+    # Initialize Cognito authentication (if configured)
+    if settings.COGNITO_USER_POOL_ID and settings.COGNITO_CLIENT_ID:
+        from backend.auth import initialize_token_validator
+        initialize_token_validator(
+            user_pool_id=settings.COGNITO_USER_POOL_ID,
+            region=settings.COGNITO_REGION,
+            client_id=settings.COGNITO_CLIENT_ID
+        )
+        logger.info(f"✅ Cognito authentication initialized (pool: {settings.COGNITO_USER_POOL_ID})")
+    else:
+        logger.warning("⚠️ Cognito authentication not configured - protected endpoints will return 503")
+
     logger.info("=" * 60)
     logger.info("Server ready to accept requests")
     logger.info("=" * 60)
