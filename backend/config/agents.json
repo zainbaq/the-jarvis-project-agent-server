@@ -4,7 +4,7 @@
         "agent_id": "gpt5_assistant",
         "name": "GPT-5.2",
         "type": "openai",
-        "description": "General purpose GPT-4o conversational assistant with web search, file search, and code interpreter",
+        "description": "General purpose GPT-5.2 conversational assistant with web search, file search, and code interpreter",
         "config": {
           "api_key": "${OPENAI_API_KEY}",
           "model": "gpt-5.2",
@@ -16,7 +16,7 @@
       },
       {
         "agent_id": "gpt4_assistant",
-        "name": "GPT-4 Assistant",
+        "name": "GPT-4",
         "type": "openai",
         "description": "General purpose GPT-4 conversational assistant with web search, file search, and code interpreter",
         "config": {

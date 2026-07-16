@@ -8,10 +8,12 @@ Endpoints:
 - GET    /api/files/{conversation_id}/files/{file_id}/download
 """
 import logging
-from typing import List
-from fastapi import APIRouter, UploadFile, File, HTTPException, Request
+from typing import List, Optional
+from fastapi import APIRouter, UploadFile, File, HTTPException, Request, Depends
 from fastapi.responses import StreamingResponse, JSONResponse
 import io
+
+from backend.auth import get_current_user, CognitoUser
 
 logger = logging.getLogger(__name__)
 
@@ -22,10 +24,11 @@ router = APIRouter()
 async def upload_file(
     conversation_id: str,
     request: Request,
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    user: CognitoUser = Depends(get_current_user)
 ) -> JSONResponse:
     """
-    Upload a file for a conversation
+    Upload a file for a conversation (requires authentication)
 
     Args:
         conversation_id: Conversation ID
@@ -74,10 +77,11 @@ async def upload_file(
 @router.get("/{conversation_id}/files")
 async def list_files(
     conversation_id: str,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ) -> JSONResponse:
     """
-    List all files for a conversation
+    List all files for a conversation (requires authentication)
 
     Args:
         conversation_id: Conversation ID
@@ -108,10 +112,11 @@ async def list_files(
 async def delete_file(
     conversation_id: str,
     file_id: str,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ) -> JSONResponse:
     """
-    Delete a specific file
+    Delete a specific file (requires authentication)
 
     Args:
         conversation_id: Conversation ID
@@ -152,10 +157,11 @@ async def delete_file(
 async def download_file(
     conversation_id: str,
     file_id: str,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ) -> StreamingResponse:
     """
-    Download a file
+    Download a file (requires authentication)
 
     Args:
         conversation_id: Conversation ID
@@ -200,9 +206,12 @@ async def download_file(
 
 
 @router.get("/stats")
-async def get_storage_stats(request: Request) -> JSONResponse:
+async def get_storage_stats(
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+) -> JSONResponse:
     """
-    Get storage statistics
+    Get storage statistics (requires authentication)
 
     Returns:
         Storage stats (total files, size, etc.)

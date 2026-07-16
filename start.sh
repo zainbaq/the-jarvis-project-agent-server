@@ -36,9 +36,9 @@ BACKEND_PID=$!
 # Wait a moment for backend to start
 sleep 2
 
-# Start frontend
+# Start frontend (Next.js)
 echo -e "${GREEN}Starting frontend on port 8000...${NC}"
-cd frontend && npm run dev &
+cd next && npm run dev -- -p 8000 &
 FRONTEND_PID=$!
 cd "$SCRIPT_DIR"
 

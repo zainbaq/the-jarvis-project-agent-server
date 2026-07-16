@@ -152,13 +152,16 @@ Environment variables can be referenced using `${VAR_NAME}` syntax.
 │   ├── config/              # Configuration files
 │   └── app.py               # FastAPI application
 │
-├── frontend/
-│   ├── src/
-│   │   ├── api/             # API client
-│   │   ├── components/      # React components
+├── next/                    # Next.js frontend
+│   ├── app/                 # App router pages
+│   ├── components/          # React components
+│   │   ├── chat/            # Chat interface components
+│   │   ├── km/              # Knowledge management UI
+│   │   └── ui/              # Shared UI components
+│   ├── lib/
+│   │   ├── api/             # API client & types
 │   │   ├── hooks/           # Custom hooks
-│   │   ├── types/           # TypeScript interfaces
-│   │   └── styles/          # Tailwind config
+│   │   └── store/           # Zustand state management
 │   └── package.json
 │
 └── docs/                    # Documentation

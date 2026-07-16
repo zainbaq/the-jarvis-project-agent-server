@@ -73,6 +73,18 @@ async def lifespan(app: FastAPI):
     app.state.session_manager = session_manager
     logger.info("Session manager initialized (24h TTL, in-memory storage)")
 
+    # Initialize Cognito authentication (if configured)
+    if settings.COGNITO_USER_POOL_ID and settings.COGNITO_CLIENT_ID:
+        from backend.auth import initialize_token_validator
+        initialize_token_validator(
+            user_pool_id=settings.COGNITO_USER_POOL_ID,
+            region=settings.COGNITO_REGION,
+            client_id=settings.COGNITO_CLIENT_ID
+        )
+        logger.info(f"✅ Cognito authentication initialized (pool: {settings.COGNITO_USER_POOL_ID})")
+    else:
+        logger.warning("⚠️ Cognito authentication not configured - protected endpoints will return 503")
+
     logger.info("=" * 60)
     logger.info("Server ready to accept requests")
     logger.info("=" * 60)
@@ -99,12 +111,29 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS middleware
+# CORS middleware - configured for SSE streaming with credentials
+# Note: allow_origins=["*"] doesn't work with allow_credentials=True
+# So we explicitly list allowed origins for streaming to work properly
+cors_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
+# Add any custom origins from environment (settings.CORS_ORIGINS is already a list)
+if settings.CORS_ORIGINS:
+    for origin in settings.CORS_ORIGINS:
+        if origin and origin not in cors_origins:
+            cors_origins.append(origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
+    allow_credentials=True,  # Required for session cookies with streaming
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],  # Expose headers for SSE
 )
 
 # Setup custom middleware and error handlers

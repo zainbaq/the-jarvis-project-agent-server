@@ -16,6 +16,9 @@ langchain-openai
 langchain-community
 langchain-anthropic
 
+# Authentication
+PyJWT>=2.8.0
+
 # Utilities
 python-dotenv
 aiofiles
@@ -41,3 +44,8 @@ mypy
 # Vector DB
 chromadb
 cryptography
+
+# Document parsing
+PyPDF2
+python-docx
+pandas

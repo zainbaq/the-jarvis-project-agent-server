@@ -29,11 +29,14 @@ fi
 
 # Create temp copies to modify
 cp "$SCRIPT_DIR/jarvis-backend.service" "$SCRIPT_DIR/jarvis-backend.service.tmp"
+cp "$SCRIPT_DIR/jarvis-frontend.service" "$SCRIPT_DIR/jarvis-frontend.service.tmp"
 cp "$SCRIPT_DIR/nginx-jarvis.conf" "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
 
 # Update paths in service files (replace template path with actual path)
 sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$PROJECT_DIR|g" "$SCRIPT_DIR/jarvis-backend.service.tmp"
 sed -i "s|User=ubuntu|User=$CURRENT_USER|g" "$SCRIPT_DIR/jarvis-backend.service.tmp"
+sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$PROJECT_DIR|g" "$SCRIPT_DIR/jarvis-frontend.service.tmp"
+sed -i "s|User=ubuntu|User=$CURRENT_USER|g" "$SCRIPT_DIR/jarvis-frontend.service.tmp"
 sed -i "s|/home/ubuntu/the-jarvis-project-agent-server|$PROJECT_DIR|g" "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
 
 echo "Service file paths updated to: $PROJECT_DIR"
@@ -51,24 +54,33 @@ else
     echo "Virtual environment already exists"
 fi
 
-# Build frontend
+# Build Next.js frontend
 echo ""
-echo "Building frontend..."
-cd "$PROJECT_DIR/frontend"
+echo "Building Next.js frontend..."
+cd "$PROJECT_DIR/next"
 if [ ! -d "node_modules" ]; then
     npm install
 fi
 npm run build
 echo "Frontend build complete"
 
-# Install systemd service
+# Install systemd services
 echo ""
-echo "Installing systemd service..."
+echo "Installing systemd services..."
+
+# Backend service
 sudo cp "$SCRIPT_DIR/jarvis-backend.service.tmp" /etc/systemd/system/jarvis-backend.service
 sudo systemctl daemon-reload
 sudo systemctl enable jarvis-backend
 sudo systemctl start jarvis-backend
 echo "Backend service installed and started"
+
+# Frontend service
+sudo cp "$SCRIPT_DIR/jarvis-frontend.service.tmp" /etc/systemd/system/jarvis-frontend.service
+sudo systemctl daemon-reload
+sudo systemctl enable jarvis-frontend
+sudo systemctl start jarvis-frontend
+echo "Frontend service installed and started"
 
 # Install nginx config
 echo ""
@@ -101,6 +113,7 @@ fi
 
 # Cleanup temp files
 rm -f "$SCRIPT_DIR/jarvis-backend.service.tmp"
+rm -f "$SCRIPT_DIR/jarvis-frontend.service.tmp"
 rm -f "$SCRIPT_DIR/nginx-jarvis.conf.tmp"
 
 echo ""
@@ -110,12 +123,13 @@ echo "========================================"
 echo ""
 echo "Services:"
 echo "  Backend:  http://localhost:3000 (systemd: jarvis-backend)"
-echo "  Frontend: http://localhost:8000 (nginx)"
+echo "  Frontend: http://localhost:8000 (systemd: jarvis-frontend)"
 echo "  API Docs: http://localhost:3000/docs"
 echo ""
 echo "Useful commands:"
-echo "  sudo systemctl status jarvis-backend"
-echo "  sudo systemctl restart jarvis-backend"
-echo "  sudo systemctl stop jarvis-backend"
+echo "  sudo systemctl status jarvis-backend jarvis-frontend"
+echo "  sudo systemctl restart jarvis-backend jarvis-frontend"
+echo "  sudo systemctl stop jarvis-backend jarvis-frontend"
 echo "  sudo journalctl -u jarvis-backend -f"
+echo "  sudo journalctl -u jarvis-frontend -f"
 echo ""

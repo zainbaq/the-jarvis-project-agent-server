@@ -3,10 +3,11 @@ KM Connection management endpoints
 
 Handles CRUD operations for Knowledge Management server connections.
 """
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Depends
 from typing import List
 import logging
 
+from backend.auth import get_current_user, CognitoUser
 from backend.models.km_models import (
     KMConnectionCreate,
     KMConnectionUpdate,
@@ -29,9 +30,13 @@ logger = logging.getLogger(__name__)
 
 
 @router.get("/connections", response_model=List[KMConnectionPublic])
-async def list_km_connections(request: Request):
+async def list_km_connections(
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
     List all KM connections (public view, no API keys exposed)
+    Requires authentication.
     """
     storage = request.app.state.km_connection_storage
     return storage.list_connections_public()
@@ -40,10 +45,11 @@ async def list_km_connections(request: Request):
 @router.post("/connections", response_model=KMConnectionPublic, status_code=201)
 async def create_km_connection(
     connection_data: KMConnectionCreate,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Create a new KM server connection
+    Create a new KM server connection (requires authentication)
 
     This will:
     1. Login to the KM server with provided credentials
@@ -130,9 +136,13 @@ async def create_km_connection(
 
 
 @router.get("/connections/{connection_id}", response_model=KMConnectionPublic)
-async def get_km_connection(connection_id: str, request: Request):
+async def get_km_connection(
+    connection_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Get details of a specific KM connection
+    Get details of a specific KM connection (requires authentication)
     """
     storage = request.app.state.km_connection_storage
     connection = storage.get_connection(connection_id)
@@ -147,10 +157,12 @@ async def get_km_connection(connection_id: str, request: Request):
 async def update_km_connection(
     connection_id: str,
     update_data: KMConnectionUpdate,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
     Update a KM connection (name, active status, selected collections/corpuses)
+    Requires authentication.
     """
     storage = request.app.state.km_connection_storage
     connection = storage.update_connection(connection_id, update_data)
@@ -163,9 +175,13 @@ async def update_km_connection(
 
 
 @router.delete("/connections/{connection_id}")
-async def delete_km_connection(connection_id: str, request: Request):
+async def delete_km_connection(
+    connection_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Delete a KM connection
+    Delete a KM connection (requires authentication)
     """
     storage = request.app.state.km_connection_storage
     deleted = storage.delete_connection(connection_id)
@@ -178,9 +194,13 @@ async def delete_km_connection(connection_id: str, request: Request):
 
 
 @router.post("/connections/{connection_id}/sync", response_model=KMConnectionPublic)
-async def sync_km_connection(connection_id: str, request: Request):
+async def sync_km_connection(
+    connection_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Sync collections and corpuses from the KM server
+    Sync collections and corpuses from the KM server (requires authentication)
 
     This refreshes the list of available collections and corpuses
     from the KM server for this connection.
@@ -244,9 +264,13 @@ async def sync_km_connection(connection_id: str, request: Request):
 
 
 @router.post("/connections/{connection_id}/test", response_model=KMTestResult)
-async def test_km_connection(connection_id: str, request: Request):
+async def test_km_connection(
+    connection_id: str,
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Test if a KM connection is working
+    Test if a KM connection is working (requires authentication)
 
     Returns success status and available collections/corpuses count.
     """
@@ -285,10 +309,11 @@ async def test_km_connection(connection_id: str, request: Request):
 async def update_km_selections(
     connection_id: str,
     selections: KMSelectionUpdate,
-    request: Request
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
 ):
     """
-    Update selected collections and corpuses for a connection
+    Update selected collections and corpuses for a connection (requires authentication)
 
     This controls which collections and corpuses are searched
     when this connection is used.
@@ -304,9 +329,12 @@ async def update_km_selections(
 
 
 @router.get("/status")
-async def get_km_status(request: Request):
+async def get_km_status(
+    request: Request,
+    user: CognitoUser = Depends(get_current_user)
+):
     """
-    Get overall KM connector status
+    Get overall KM connector status (requires authentication)
 
     Returns information about the KM server configuration and connections.
     """

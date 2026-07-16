@@ -7,7 +7,7 @@ This agent can connect to any OpenAI-compatible API endpoint, including:
 - Other OpenAI-compatible services
 """
 import logging
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, AsyncGenerator
 from openai import AsyncOpenAI
 import asyncio
 
@@ -275,7 +275,101 @@ class EndpointAgent(BaseAgent):
         except Exception as e:
             logger.error(f"❌ Error querying EndpointAgent '{self.agent_id}': {e}")
             raise RuntimeError(f"Query failed: {str(e)}")
-    
+
+    async def query_stream(
+        self,
+        message: str,
+        conversation_id: Optional[str] = None,
+        system_message: Optional[str] = None,
+        parameters: Optional[Dict[str, Any]] = None
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Stream response tokens from the endpoint
+
+        Args:
+            message: User message
+            conversation_id: Optional conversation ID for context
+            system_message: Optional system message override
+            parameters: Optional parameters to override defaults
+
+        Yields:
+            Dict with type and data:
+                - {"type": "token", "data": "text chunk"}
+                - {"type": "done", "data": {"conversation_id": ..., "response": ...}}
+        """
+        if not self._initialized or not self.client:
+            raise RuntimeError(f"Agent {self.agent_id} not initialized")
+
+        if not message or not message.strip():
+            raise ValueError("Message cannot be empty")
+
+        # Generate conversation ID if not provided
+        if not conversation_id:
+            import uuid
+            conversation_id = f"conv_{uuid.uuid4().hex[:12]}"
+
+        # Get or create conversation history
+        if conversation_id not in self.conversations:
+            self.conversations[conversation_id] = []
+        conversation_history = self.conversations[conversation_id]
+
+        # Override parameters if provided
+        temperature = parameters.get('temperature', self.temperature) if parameters else self.temperature
+        max_tokens = parameters.get('max_tokens', self.max_tokens) if parameters else self.max_tokens
+        top_p = parameters.get('top_p', self.top_p) if parameters else self.top_p
+        sys_message = system_message or (parameters.get('system_message') if parameters else None)
+
+        try:
+            # Prepare messages
+            messages = self._prepare_messages(
+                current_message=message,
+                conversation_history=conversation_history,
+                system_message=sys_message
+            )
+
+            # Create streaming completion
+            stream = await self.client.chat.completions.create(
+                model=self.model_name,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                top_p=top_p,
+                stream=True
+            )
+
+            full_response = ""
+            async for chunk in stream:
+                if chunk.choices and chunk.choices[0].delta.content:
+                    token = chunk.choices[0].delta.content
+                    full_response += token
+                    yield {"type": "token", "data": token}
+
+            # Update conversation history
+            conversation_history.append({"role": "user", "content": message})
+            conversation_history.append({"role": "assistant", "content": full_response})
+
+            # Trim history if too long
+            if len(conversation_history) > self.max_history_messages * 2:
+                self.conversations[conversation_id] = conversation_history[-(self.max_history_messages * 2):]
+
+            logger.info(f"✅ EndpointAgent '{self.agent_id}' completed streaming query")
+
+            # Yield completion
+            yield {
+                "type": "done",
+                "data": {
+                    "conversation_id": conversation_id,
+                    "response": full_response.strip()
+                }
+            }
+
+        except asyncio.TimeoutError:
+            logger.error(f"❌ Timeout streaming from EndpointAgent '{self.agent_id}'")
+            yield {"type": "error", "data": "Request timed out"}
+        except Exception as e:
+            logger.error(f"❌ Error streaming from EndpointAgent '{self.agent_id}': {e}")
+            yield {"type": "error", "data": str(e)}
+
     async def cleanup(self):
         """Cleanup resources"""
         if self.client:
